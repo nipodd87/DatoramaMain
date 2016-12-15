@@ -6,6 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by karthik.inuganti on 12/13/2016.
@@ -46,6 +47,9 @@ public class DelTest extends BaseClass {
         //commonUtil.containsText(size,"Get event File size for Company Store","File size for company store");
         String metadata = s3Functions.getMetaDataOfFile("thirdpartyreporting", s3, filepath);
         commonUtil.verifyHeader(metadata, "Get metadata for Company Store", "meta data validation");
+filepath = "C:\\Users\\karthik.inuganti\\Desktop\\CompanySToreMetaData_20161213_135144_.csv";
+        String metadatacheck = s3Functions.crunchifyCSVtoArrayList(filepath);
+        commonUtil.compareTextContainsWithCSV(metadatacheck, "Get metadata for Company Store", "meta data validation");
 
 
         extentReportUtil.endTest();

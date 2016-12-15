@@ -819,6 +819,29 @@ public class CommonUtil {
     }
 
 
+
+    /**
+     * TODO: Enter Javadoc
+     *
+     * @param strText1 in value
+     * @param stepName in value
+     * @param details  in value
+     */
+    public void compareTextContainsWithCSV(String strText1, String stepName, String details) {
+
+        String str1 = "BU_ID";
+
+        boolean isStringExists = strText1.contains(str1);// returns true if the array list contains string value as specified by user
+
+         if (strText1.contains(str1)) {
+            reportUtil.logPass(stepName,
+                    "Passed - " + details + "<BR>  Expected :" + str1 + "<BR>  Found :" + strText1);
+        } else {
+            String message = "Failed - " + details + "<BR>  Expected :" + str1 + "<BR>  Found :" + strText1;
+            reportUtil.logFail(stepName, message);
+            MultiTest.addFailure(new TestFailureException(message));
+        }
+    }
     /**
      * TODO: Enter Javadoc
      *
@@ -867,6 +890,9 @@ public class CommonUtil {
                             + strText2);
         }
     }
+
+
+
 
 
     public static void checkIfListIsSorted(List<Double> listOfDoubles, String stepName) {

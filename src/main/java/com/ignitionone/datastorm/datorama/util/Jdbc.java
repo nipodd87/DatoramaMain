@@ -50,6 +50,7 @@ public class Jdbc {
                     coloumn.append(",");
                 }
             }
+
             dbValues.add(coloumn.toString());
 
             // Loop through the result set

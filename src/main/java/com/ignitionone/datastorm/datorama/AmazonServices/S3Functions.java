@@ -8,10 +8,11 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class S3Functions {
 //~ Methods --------------------------------------------------------------------------------------------------------
@@ -85,6 +86,51 @@ public class S3Functions {
     }
 
 
+    public List<String> crunchifyCSVtoArrayList(String path) throws IOException {
+        List<String> values = new ArrayList<String>();
+
+        BufferedReader crunchifyBuffer = null;
+
+
+        try {
+            String crunchifyLine;
+            crunchifyBuffer = new BufferedReader(new FileReader(path));
+
+            // How to read file in java line by line?
+            while ((crunchifyLine = crunchifyBuffer.readLine()) != null) {
+                System.out.println("Raw CSV data: " + crunchifyLine);
+                System.out.println("Converted ArrayList data: " + CSVtoArrayList(crunchifyLine) + "\n");
+            }
+
+
+            return crunchifyCSVtoArrayList(crunchifyLine);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (crunchifyBuffer != null) crunchifyBuffer.close();
+            } catch (IOException crunchifyException) {
+                crunchifyException.printStackTrace();
+            }
+        }
+        return "";
+    }
+
+    public static ArrayList<String> CSVtoArrayList(String crunchifyCSV) {
+        ArrayList<String> crunchifyResult = new ArrayList<String>();
+
+        if (crunchifyCSV != null) {
+            String[] splitData = crunchifyCSV.split("\\s*,\\s*");
+            for (int i = 0; i < splitData.length; i++) {
+                if (!(splitData[i] == null) || !(splitData[i].length() == 0)) {
+                    crunchifyResult.add(splitData[i].trim());
+                }
+            }
+        }
+
+        return crunchifyResult;
+    }
 
     private static void displayTextInputStream(InputStream input) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
