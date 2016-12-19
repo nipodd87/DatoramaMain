@@ -18,7 +18,6 @@ public class DelTest extends BaseClass {
     S3Functions s3Functions = new S3Functions();
     String envt;
 
-
     @BeforeClass(alwaysRun = true)
     @Parameters(value = {"environment"})
     public void setUp(String environment) throws Exception {
@@ -37,19 +36,18 @@ public class DelTest extends BaseClass {
     public void s3Test() throws Exception {
         setUpTest("s3Test", "s3Test results");
 
-        String filepath = s3Functions.getFilePathFromBucket("thirdpartyreporting", s3, "CompanySToreMetaData_");
+        String filepath = s3Functions.getFilePathFromBucket("thirdpartyreporting", s3, "CompanyStoreMetaData_","Datorama/Final/EventData/Summarized/Company/");
         commonUtil.containsText(filepath, "Get event File path for Company Store", "File path for company store");
-        Long filesize = s3Functions.getFileSize("thirdpartyreporting", s3, filepath);
+        Long filesize = s3Functions.getFileSize("thirdpartyreporting", s3,filepath);
         // String size= "filesize:-"+filesize;
 
         Long sz1 = filesize;
         commonUtil.containsValue(sz1, "Get event File size for Company Store", "File size for company store");
         //commonUtil.containsText(size,"Get event File size for Company Store","File size for company store");
-        String metadata = s3Functions.getMetaDataOfFile("thirdpartyreporting", s3, filepath);
-        commonUtil.verifyHeader(metadata, "Get metadata for Company Store", "meta data validation");
-filepath = "C:\\Users\\karthik.inuganti\\Desktop\\CompanySToreMetaData_20161213_135144_.csv";
-        String metadatacheck = s3Functions.crunchifyCSVtoArrayList(filepath);
-        commonUtil.compareTextContainsWithCSV(metadatacheck, "Get metadata for Company Store", "meta data validation");
+       // String metadata = s3Functions.getMetaDataOfFile("thirdpartyreporting", s3, filepath);
+       // commonUtil.verifyHeader(metadata, "Get metadata for Company Store", "meta data validation");
+//filepath = "C:\\Users\\karthik.inuganti\\Desktop\\CompanySToreMetaData_20161213_135144_.csv";
+    //    String data= s3Functions.csvReaderMethod();
 
 
         extentReportUtil.endTest();
