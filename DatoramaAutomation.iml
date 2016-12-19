@@ -57,7 +57,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.unitils:unitils-core:3.4.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
-    <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.1" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: ognl:ognl:2.6.9" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.javacsv:javacsv:2.0" level="project" />
@@ -72,6 +71,7 @@
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.2" level="project" />
+    <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.api-ads:ads-lib:2.22.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.inject:guice:4.0" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
