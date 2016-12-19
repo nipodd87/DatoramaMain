@@ -114,7 +114,7 @@ public class S3Functions {
                 crunchifyException.printStackTrace();
             }
         }
-        return "";
+        return new ArrayList<String>();
     }
 
     public static ArrayList<String> CSVtoArrayList(String crunchifyCSV) {
