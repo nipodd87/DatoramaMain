@@ -1,6 +1,7 @@
 package com.ignitionone.datastorm.datorama;
 
 import com.ignitionone.datastorm.datorama.AmazonServices.S3Functions;
+import com.ignitionone.datastorm.datorama.SqlNaan.SQLReadDataValidation;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -16,6 +17,7 @@ public class DelTest extends BaseClass {
     private static final String REPORT_HEADER = "ConversionsTestDev";
     private static final String REPORT_TITLE = "This test is to verify that the urls's redirect";
     S3Functions s3Functions = new S3Functions();
+
     String envt;
 
     @BeforeClass(alwaysRun = true)
@@ -29,6 +31,43 @@ public class DelTest extends BaseClass {
     public void setUpTest(String testName, String testDetails) {
         extentReportUtil.startTest(testName, REPORT_TITLE);
         extentReportUtil.logInfo(testDetails);
+    }
+
+    @Test
+    public void BusinessUnitDataValidation() throws Exception{
+        setUpTest("BusinessUnitDataCountValidation", "SQLReadBusinessUnityDataValidation results");
+        SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
+        _sqlRead.CompareBusinessUnitTableCount();
+        extentReportUtil.endTest();
+
+    }
+
+    @Test
+    public void BusinessUnitTableValidation() throws Exception{
+        setUpTest("BusinessUnitTableColumnValidation", "SQLBusinessUnitTableValidation results");
+        SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
+        _sqlRead.CompareCompanyStoreTableColumns();
+        extentReportUtil.endTest();
+
+    }
+
+    @Test
+    public void IntegrationTableValidation() throws Exception{
+        setUpTest("IntegrationTableColumnValidation", "SQLIntegrationTableValidation results");
+        SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
+        _sqlRead.CompareIntegrationTableColumns();
+        extentReportUtil.endTest();
+
+    }
+
+    @Test
+    public void BUHierarchyTestValidation() throws Exception{
+        setUpTest("BUHierarchyValidation", "SQLBUHierarchyTestValidation results");
+        SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
+         _sqlRead.BUHierarchyTest();
+
+         extentReportUtil.endTest();
+
     }
 
 

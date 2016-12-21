@@ -444,6 +444,15 @@ public class CommonUtil {
         verifyTextExitsNotExist(driver, "Exist", string1, string2);
     }
 
+    public static void SQLDataReadSuccessFull(String message)
+    {
+        reportUtil.logPass(message);
+    }
+    public static void SQLDataReadFail(String message,String stackTrace,String steps)
+    {
+        reportUtil.logFail(steps,message,stackTrace);
+    }
+
     /**
      * TODO: Enter Javadoc
      *
