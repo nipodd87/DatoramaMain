@@ -71,7 +71,7 @@ public class DelTest extends BaseClass {
     }
 
 
-    @Test
+   /* @Test
     public void s3Test() throws Exception {
         setUpTest("s3Test", "s3Test results");
 
@@ -91,7 +91,7 @@ public class DelTest extends BaseClass {
 
         extentReportUtil.endTest();
     }
-
+*/
 /*
     @Test
     public void s3TestSecond() throws Exception {

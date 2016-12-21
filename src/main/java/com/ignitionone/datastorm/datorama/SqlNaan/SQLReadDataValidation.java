@@ -156,7 +156,14 @@ public class SQLReadDataValidation {
         else
             CommonUtil.SQLDataReadFail("Columns are not matching","Failed","CompareCompanyStoreTableColumns");
 
-
+        try
+        {
+            destconn.close();
+        }
+        catch (SQLException ex)
+        {
+            CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
+        }
     }
 
     ///Confirm that the intermediary database table [DMS].[dbo].[CoreService_Integration_Staging] in (ATL_SQLPROC_Dev) contains the following Integration specific required columns:
@@ -202,7 +209,14 @@ public class SQLReadDataValidation {
             CommonUtil.SQLDataReadSuccessFull("CompareIntegrationTableColumns passed successfully");
         else
             CommonUtil.SQLDataReadFail("Columns are not matching","Failed","CompareIntegrationTableColumns");
-
+        try
+        {
+            destconn.close();
+        }
+        catch (SQLException ex)
+        {
+            CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
+        }
     }
 
   /// Confirm that the record count available in the Source database [DMS_Core].[dbo].[BusinessUnit](ATL_SQLPROC_Dev) matches with the record count
@@ -244,7 +258,15 @@ public class SQLReadDataValidation {
           if (sourcecon != null) try { sourcecon.close(); } catch(Exception e) {}
       }
 
-
+        try
+        {
+            sourcecon.close();
+            destconn.close();
+        }
+        catch (SQLException ex)
+        {
+            CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
+        }
      }
 
 }
