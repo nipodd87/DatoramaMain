@@ -2,6 +2,8 @@ package com.ignitionone.datastorm.datorama.SqlNaan;
 import com.ignitionone.datastorm.datorama.util.CommonUtil;
 
 import java.sql.*;
+import java.util.Map;
+import java.util.HashMap;
 import java.sql.SQLException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -69,8 +71,12 @@ public class SQLReadDataValidation {
                 DivisionID= rs.getString("Division_ID");
                 CompanyID=rs.getString("Company_ID");
                 if (dataVal!=null) {
-                    if (!(dataVal.contains(RegionID)) && !(dataVal.contains(AgencyID)) && !(dataVal.contains(DivisionID)) && !(dataVal.contains(CompanyID)))
-                        CommonUtil.SQLDataReadSuccessFull("BUHierarchyTest passed successfully");
+                    String [] splitVal= dataVal.split(",");
+                    CommonUtil.compareNumberEquals(Double.parseDouble(splitVal[0]),Double.parseDouble(RegionID),"Compare RegionID","RegionID");
+                    CommonUtil.compareNumberEquals(Double.parseDouble(splitVal[1]),Double.parseDouble(AgencyID),"Compare AgencyID","AgencyID");
+                    CommonUtil.compareNumberEquals(Double.parseDouble(splitVal[2]),Double.parseDouble(DivisionID),"Compare DivisionID","DivisionID");
+                    CommonUtil.compareNumberEquals(Double.parseDouble(splitVal[3]),Double.parseDouble(CompanyID),"Compare CompanyID","CompanyID");
+
                 }
             }
 
@@ -79,7 +85,7 @@ public class SQLReadDataValidation {
         }
          catch(NullPointerException ex)
          {
-             CommonUtil.SQLDataReadFail("NullPointerException",ex.getStackTrace().toString(),"BUHierarchyTest");
+             CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
          }
         // Handle any errors that may have occurred.
         catch (Exception e) {
@@ -101,7 +107,7 @@ public class SQLReadDataValidation {
              CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
          }
 
-        CommonUtil.SQLDataReadSuccessFull("BUHierarchyTest passed successfully");
+
 
     }
    /// Confirm that the intermediary database table [DMS].[dbo].[CoreService_CompanyStoreBUHierarchy_Staging] in (ATL_SQLPROC_Dev) contains the following Company Store specific required columns:
@@ -126,18 +132,18 @@ public class SQLReadDataValidation {
             while (rsColumns.next()) {
                 columnName=rsColumns.getString("COLUMN_NAME");
                 if (columnName.toLowerCase().contains(prop.getProperty(columnName).toLowerCase()))
-                    result=true;
+                    CommonUtil.SQLDataReadSuccess("Source Column"+columnName+ "Matched Destination Column"+ prop.getProperty(columnName));
                 else
-                    result=false;
+                    CommonUtil.SQLDataReadFail("Source Column"+columnName+ "Does not Matched Destination Column"+ prop.getProperty(columnName),"Failed","Column Mismatch");
             }
             rsColumns = meta.getColumns(null, null, "CoreService_CompanyStoreBUHierarchy_Staging", null);
 
             while (rsColumns.next()) {
                 columnName=rsColumns.getString("COLUMN_NAME");
                 if (columnName.toLowerCase().contains(prop.getProperty(columnName).toLowerCase()))
-                    result=true;
+                    CommonUtil.SQLDataReadSuccess("Source Column"+columnName+ "Matched Destination Column"+ prop.getProperty(columnName));
                 else
-                   result=false;
+                    CommonUtil.SQLDataReadFail("Source Column"+columnName+ "Does not Matched Destination Column"+ prop.getProperty(columnName),"Failed","Column Mismatch");
             }
 
         }
@@ -151,10 +157,6 @@ public class SQLReadDataValidation {
             if (stmt != null) try { stmt.close(); } catch(Exception e) {}
             if (sourcecon != null) try { destconn.close(); } catch(Exception e) {}
         }
-        if (result)
-            CommonUtil.SQLDataReadSuccessFull("CompareCompanyStoreTableColumns passed successfully");
-        else
-            CommonUtil.SQLDataReadFail("Columns are not matching","Failed","CompareCompanyStoreTableColumns");
 
         try
         {
@@ -165,7 +167,51 @@ public class SQLReadDataValidation {
             CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
         }
     }
+   public void BusinessUnitStagingTableCleaned()
+   {
+       try
+       {
+           String SQL =  prop.getProperty("CompanyStoreTableCleanup");
+           stmt =  destconn.createStatement();
+           rs = stmt.executeQuery(SQL);
+           int sourcecount=0,destinationCount=0;
+           while (rs.next()) {
+               sourcecount = rs.getInt("companytotal");
+           }
+           SQL =  prop.getProperty("IntegrationTableCleanup");
+           stmt =  destconn.createStatement();
+           rs = stmt.executeQuery(SQL);
+           while (rs.next()) {
+               destinationCount = rs.getInt("integrationtotal");
+           }
+           CommonUtil.compareNumberEquals(sourcecount,0,"Company Store Staging table count","Company Store Staging table count");
+           CommonUtil.compareNumberEquals(destinationCount,0,"Integration Table Staging table count","Company Store Staging table count");
 
+
+       }
+
+       // Handle any errors that may have occurred.
+       catch (Exception e) {
+           e.printStackTrace();
+           CommonUtil.SQLDataReadFail("Source and Destination count test failed"+e.getMessage(),"Failed","CompareBusinessUnitTableCount");
+       }
+
+       finally {
+           if (rs != null) try { rs.close(); } catch(Exception e) {}
+           if (stmt != null) try { stmt.close(); } catch(Exception e) {}
+           if (sourcecon != null) try { sourcecon.close(); } catch(Exception e) {}
+       }
+
+       try
+       {
+
+           destconn.close();
+       }
+       catch (SQLException ex)
+       {
+           CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
+       }
+   }
     ///Confirm that the intermediary database table [DMS].[dbo].[CoreService_Integration_Staging] in (ATL_SQLPROC_Dev) contains the following Integration specific required columns:
    ///- Integration_ID
    ///- Integration_Name
@@ -179,19 +225,22 @@ public class SQLReadDataValidation {
             String columnName="";
             while (rsColumns.next()) {
                 columnName=rsColumns.getString("COLUMN_NAME");
+
                 if (columnName.toLowerCase().contains(prop.getProperty(columnName).toLowerCase()))
-                    result=true;
+                    CommonUtil.SQLDataReadSuccess("Source Column"+columnName+ "Matched Destination Column"+ prop.getProperty(columnName));
                 else
-                    result=false;
+                    CommonUtil.SQLDataReadFail("Source Column"+columnName+ "Does not Matched Destination Column"+ prop.getProperty(columnName),"Failed","Column Mismatch for "+columnName);
+
             }
             rsColumns = meta.getColumns(null, null, "CoreService_Integration_Staging", null);
 
             while (rsColumns.next()) {
                 columnName=rsColumns.getString("COLUMN_NAME");
                 if (columnName.toLowerCase().contains(prop.getProperty(columnName).toLowerCase()))
-                    result=true;
+                    CommonUtil.SQLDataReadSuccess("Source Column"+columnName+ "Matched Destination Column"+ prop.getProperty(columnName));
                 else
-                   result=false;
+                    CommonUtil.SQLDataReadFail("Source Column"+columnName+ "Does not Matched Destination Column"+ prop.getProperty(columnName),"Failed","Column Mismatch for "+columnName);
+
             }
 
         }
@@ -205,10 +254,7 @@ public class SQLReadDataValidation {
             if (stmt != null) try { stmt.close(); } catch(Exception e) {}
             if (sourcecon != null) try { destconn.close(); } catch(Exception e) {}
         }
-        if (result)
-            CommonUtil.SQLDataReadSuccessFull("CompareIntegrationTableColumns passed successfully");
-        else
-            CommonUtil.SQLDataReadFail("Columns are not matching","Failed","CompareIntegrationTableColumns");
+
         try
         {
             destconn.close();
@@ -218,45 +264,167 @@ public class SQLReadDataValidation {
             CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
         }
     }
+   public void CompareIntegrationData()
+   {
+       try
+       {
+           sourcecon = DriverManager.getConnection(sourceconnectionUrl);
+           String SQL = prop.getProperty("SourceIntegrationStore");
 
-  /// Confirm that the record count available in the Source database [DMS_Core].[dbo].[BusinessUnit](ATL_SQLPROC_Dev) matches with the record count
-  // available in the [DMS].[dbo].[CoreService_CompanyStoreBUHierarchy] destination table.
-    public void CompareBusinessUnitTableCount()
-    {
+           stmt = sourcecon.createStatement();
+           rs = stmt.executeQuery(SQL);
+           Map<Integer,String>  mSourceMap=new HashMap<Integer,String>();
+           Map<Integer,String>  mDestMap=new HashMap<Integer,String>();
+           int sourcecount=0;
+           String value="",buIDValue="";
+           while (rs.next()) {
+               sourcecount = rs.getInt(prop.getProperty("Integration_ID"));
+               buIDValue=buIDValue+rs.getString(prop.getProperty("Integration_ID"))+",";
+               value=value+rs.getString(prop.getProperty("Integration_Name"))+"%^";
+               value=value+rs.getString(prop.getProperty("Currency_Code"))+"%^";
 
-      try
-      {
-          sourcecon = DriverManager.getConnection(sourceconnectionUrl);
-          String SQL = prop.getProperty("SourceBusinessUnit");
-          stmt = sourcecon.createStatement();
-          rs = stmt.executeQuery(SQL);
-          int sourcecount=0,destinationCount=0;
-          while (rs.next()) {
-              sourcecount = rs.getInt("sourcetotal");
-          }
-          sourcecon.close();
-          SQL =  prop.getProperty("DestinationBusinessUnit");
-          stmt =  destconn.createStatement();
-          rs = stmt.executeQuery(SQL);
-          while (rs.next()) {
-              destinationCount = rs.getInt("destinationtotal");
-          }
-          if (sourcecount==destinationCount)
-              CommonUtil.SQLDataReadSuccessFull("CompareBusinessUnitTableCount passed successfully");
+               mSourceMap.put(sourcecount,value);
+
+           }
+           sourcecon.close();
+           buIDValue = buIDValue.substring(0, buIDValue.length()-1);
+           SQL =  prop.getProperty("DestinationIntegrationStore");
+           SQL = SQL + " WHERE Integration_ID IN ("+buIDValue +") ORDER BY Integration_ID ASC";
+           stmt =  destconn.createStatement();
+           rs = stmt.executeQuery(SQL);
+           while (rs.next()) {
+               sourcecount = rs.getInt(prop.getProperty("Integration_ID"));
+               buIDValue=buIDValue+rs.getString(prop.getProperty("Integration_ID"))+",";
+               value=value+rs.getString(prop.getProperty("Integration_Name"))+"%^";
+               value=value+rs.getString(prop.getProperty("Currency_Code"))+"%^";
+
+               mDestMap.put(sourcecount,value);
+           }
+           for (Object key : mSourceMap.keySet()) {
+               Object value2 = mDestMap.get(key);
+               if (value2 != null) {
+                   Object value1 = mSourceMap.get(key);
+                   String[] firstObjectvalue=value2.toString().split("%^");
+                   String[] secondObjectvalue= value1.toString().split("%^");
+                   for (int i=0;i<firstObjectvalue.length;i++)
+                   {
+                       if (!firstObjectvalue[i].contains(secondObjectvalue[i]))
+                           CommonUtil.SQLDataReadFail("Source Table and Destination Table data don't match for "+value1,"Source Table and Destination Table count don't match","CompareCompanyStoreData");
+
+                   }
+
+
+               }
+           }
+
 
        }
 
-      // Handle any errors that may have occurred.
-      catch (Exception e) {
-          e.printStackTrace();
-          CommonUtil.SQLDataReadFail("Source and Destination count test failed"+e.getMessage(),"Failed","CompareBusinessUnitTableCount");
-      }
+       // Handle any errors that may have occurred.
+       catch (Exception e) {
+           e.printStackTrace();
+           CommonUtil.SQLDataReadFail("Source and Destination count test failed"+e.getMessage(),"Failed","CompareBusinessUnitTableCount");
+       }
 
-      finally {
-          if (rs != null) try { rs.close(); } catch(Exception e) {}
-          if (stmt != null) try { stmt.close(); } catch(Exception e) {}
-          if (sourcecon != null) try { sourcecon.close(); } catch(Exception e) {}
-      }
+       finally {
+           if (rs != null) try { rs.close(); } catch(Exception e) {}
+           if (stmt != null) try { stmt.close(); } catch(Exception e) {}
+           if (sourcecon != null) try { sourcecon.close(); } catch(Exception e) {}
+       }
+
+       try
+       {
+           sourcecon.close();
+           destconn.close();
+       }
+       catch (SQLException ex)
+       {
+           CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
+       }
+   }
+    public void CompareCompanyStoreData()
+    {
+        try
+        {
+            sourcecon = DriverManager.getConnection(sourceconnectionUrl);
+            String SQL = prop.getProperty("SourceCompanyStore");
+            SQL=SQL+prop.getProperty("SourceCompanyStoreCont");
+            SQL=SQL+prop.getProperty("SourceCompanyStoreCont1");
+            SQL=SQL+prop.getProperty("SourceCompanyStoreCont2");
+            stmt = sourcecon.createStatement();
+            rs = stmt.executeQuery(SQL);
+            Map<Integer,String>  mSourceMap=new HashMap<Integer,String>();
+            Map<Integer,String>  mDestMap=new HashMap<Integer,String>();
+            int sourcecount=0;
+            String value="",buIDValue="";
+            while (rs.next()) {
+                sourcecount = rs.getInt(prop.getProperty("BU_ID"));
+                buIDValue=buIDValue+rs.getString(prop.getProperty("BU_ID"))+",";
+                value=value+rs.getString(prop.getProperty("BU_Name"))+"%^";
+                value=value+rs.getString(prop.getProperty("Company_ID"))+"%^";
+                value=value+rs.getString(prop.getProperty("Company_Name"))+"%^";
+                value=value+rs.getString(prop.getProperty("Agency_ID"))+"%^";
+                value=value+rs.getString(prop.getProperty("Agency_Name"))+"%^";
+                value=value+rs.getString(prop.getProperty("Division_ID"))+"%^";
+                value=value+rs.getString(prop.getProperty("Division_Name"))+"%^";
+                value=value+rs.getString(prop.getProperty("Region_ID"))+"%^";
+                value=value+rs.getString(prop.getProperty("Region_Name"))+"%^";
+                value=value+rs.getString(prop.getProperty("TimeZone_Name"));
+                mSourceMap.put(sourcecount,value);
+
+            }
+            sourcecon.close();
+            buIDValue = buIDValue.substring(0, buIDValue.length()-1);
+            SQL =  prop.getProperty("DestinationCompanyStore");
+            SQL = SQL + " WHERE BU_ID IN ("+buIDValue +") ORDER BY BU_ID ASC";
+            stmt =  destconn.createStatement();
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                sourcecount = rs.getInt(prop.getProperty("BU_ID"));
+                buIDValue=buIDValue+rs.getString(prop.getProperty("BU_ID"))+",";
+                value=value+rs.getString(prop.getProperty("BU_Name"))+"%^";
+                value=value+rs.getString(prop.getProperty("Company_ID"))+"%^";
+                value=value+rs.getString(prop.getProperty("Company_Name"))+"%^";
+                value=value+rs.getString(prop.getProperty("Agency_ID"))+"%^";
+                value=value+rs.getString(prop.getProperty("Agency_Name"))+"%^";
+                value=value+rs.getString(prop.getProperty("Division_ID"))+"%^";
+                value=value+rs.getString(prop.getProperty("Division_Name"))+"%^";
+                value=value+rs.getString(prop.getProperty("Region_ID"))+"%^";
+                value=value+rs.getString(prop.getProperty("Region_Name"))+"%^";
+                value=value+rs.getString(prop.getProperty("TimeZone_Name"));
+                mDestMap.put(sourcecount,value);
+            }
+            for (Object key : mSourceMap.keySet()) {
+                Object value2 = mDestMap.get(key);
+                if (value2 != null) {
+                    Object value1 = mSourceMap.get(key);
+                    String[] firstObjectvalue=value2.toString().split("%^");
+                    String[] secondObjectvalue= value1.toString().split("%^");
+                    for (int i=0;i<firstObjectvalue.length;i++)
+                    {
+                        if (!firstObjectvalue[i].contains(secondObjectvalue[i]))
+                            CommonUtil.SQLDataReadFail("Source Table and Destination Table data don't match for "+value1,"Source Table and Destination Table count don't match","CompareCompanyStoreData");
+
+                    }
+
+
+                }
+            }
+
+
+        }
+
+        // Handle any errors that may have occurred.
+        catch (Exception e) {
+            e.printStackTrace();
+            CommonUtil.SQLDataReadFail("Source and Destination count test failed"+e.getMessage(),"Failed","CompareBusinessUnitTableCount");
+        }
+
+        finally {
+            if (rs != null) try { rs.close(); } catch(Exception e) {}
+            if (stmt != null) try { stmt.close(); } catch(Exception e) {}
+            if (sourcecon != null) try { sourcecon.close(); } catch(Exception e) {}
+        }
 
         try
         {
@@ -267,6 +435,102 @@ public class SQLReadDataValidation {
         {
             CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
         }
-     }
+    }
+    public void CompareIntegrationTableCount()
+    {
+
+        try
+        {
+            sourcecon = DriverManager.getConnection(sourceconnectionUrl);
+            String SQL = prop.getProperty("SourceIntegration");
+            stmt = sourcecon.createStatement();
+            rs = stmt.executeQuery(SQL);
+            int sourcecount=0,destinationCount=0;
+            while (rs.next()) {
+                sourcecount = rs.getInt("sourcetotal");
+            }
+            sourcecon.close();
+            SQL =  prop.getProperty("DestinationIntegration");
+            stmt =  destconn.createStatement();
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                destinationCount = rs.getInt("destinationtotal");
+            }
+            CommonUtil.compareNumberEquals(sourcecount,destinationCount,"Compare source table and destination table","Compare Table Count");
+
+
+        }
+
+        // Handle any errors that may have occurred.
+        catch (Exception e) {
+            e.printStackTrace();
+            CommonUtil.SQLDataReadFail("Source and Destination count test failed"+e.getMessage(),"Failed","CompareBusinessUnitTableCount");
+        }
+
+        finally {
+            if (rs != null) try { rs.close(); } catch(Exception e) {}
+            if (stmt != null) try { stmt.close(); } catch(Exception e) {}
+            if (sourcecon != null) try { sourcecon.close(); } catch(Exception e) {}
+        }
+
+        try
+        {
+            sourcecon.close();
+            destconn.close();
+        }
+        catch (SQLException ex)
+        {
+            CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
+        }
+    }
+  /// Confirm that the record count available in the Source database [DMS_Core].[dbo].[BusinessUnit](ATL_SQLPROC_Dev) matches with the record count
+  // available in the [DMS].[dbo].[CoreService_CompanyStoreBUHierarchy] destination table.
+    public void CompareBusinessUnitTableCount()
+    {
+
+      try
+    {
+        sourcecon = DriverManager.getConnection(sourceconnectionUrl);
+        String SQL = prop.getProperty("SourceBusinessUnit");
+        stmt = sourcecon.createStatement();
+        rs = stmt.executeQuery(SQL);
+        int sourcecount=0,destinationCount=0;
+        while (rs.next()) {
+            sourcecount = rs.getInt("sourcetotal");
+        }
+        sourcecon.close();
+        SQL =  prop.getProperty("DestinationBusinessUnit");
+        stmt =  destconn.createStatement();
+        rs = stmt.executeQuery(SQL);
+        while (rs.next()) {
+            destinationCount = rs.getInt("destinationtotal");
+        }
+        CommonUtil.compareNumberEquals(sourcecount,destinationCount,"Compare source table and destination table","Compare Table Count");
+
+
+    }
+
+    // Handle any errors that may have occurred.
+      catch (Exception e) {
+        e.printStackTrace();
+        CommonUtil.SQLDataReadFail("Source and Destination count test failed"+e.getMessage(),"Failed","CompareBusinessUnitTableCount");
+    }
+
+      finally {
+        if (rs != null) try { rs.close(); } catch(Exception e) {}
+        if (stmt != null) try { stmt.close(); } catch(Exception e) {}
+        if (sourcecon != null) try { sourcecon.close(); } catch(Exception e) {}
+    }
+
+        try
+    {
+        sourcecon.close();
+        destconn.close();
+    }
+        catch (SQLException ex)
+    {
+        CommonUtil.SQLDataReadFail(ex.getMessage(),ex.getStackTrace().toString(),"BUHierarchyTest");
+    }
+}
 
 }

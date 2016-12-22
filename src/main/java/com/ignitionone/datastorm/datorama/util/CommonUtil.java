@@ -12,6 +12,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
+import org.testng.Assert;
+
+
+
 /**
  * TODO: Enter Javadoc
  */
@@ -205,7 +209,15 @@ public class CommonUtil {
     public static void killTaskProcess(String processName) throws IOException {
         Runtime.getRuntime().exec("taskkill /IM " + processName + " /F");
     }
+    public static void SQLDataReadFail(String message,String stackTrace,String steps)
+    {
+        reportUtil.logFail(steps,message,stackTrace);
+    }
 
+    public static void SQLDataReadSuccess(String message)
+    {
+        reportUtil.logPass(message);
+    }
     /**
      * TODO: Enter Javadoc
      *
@@ -444,7 +456,8 @@ public class CommonUtil {
         verifyTextExitsNotExist(driver, "Exist", string1, string2);
     }
 
-    public static void SQLDataReadSuccessFull(String message)
+
+   /* public static void SQLDataReadSuccessFull(String message)
     {
         reportUtil.logPass(message);
     }
@@ -452,7 +465,7 @@ public class CommonUtil {
     {
         reportUtil.logFail(steps,message,stackTrace);
     }
-
+*/
     /**
      * TODO: Enter Javadoc
      *
@@ -646,7 +659,7 @@ public class CommonUtil {
      * @param stepName    in value
      * @param details     in value
      */
-    public void compareNumberEquals(double intExpected, double intActual, String stepName, String details) {
+    public static void compareNumberEquals(double intExpected, double intActual, String stepName, String details) {
         if (intExpected == intActual) {
             reportUtil.logPass(stepName,
                     "Passed comparison to see if the numbers are equal " + details + "<BR>  Expected :" + intActual

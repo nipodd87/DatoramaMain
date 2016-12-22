@@ -34,8 +34,8 @@ public class DelTest extends BaseClass {
     }
 
     @Test
-    public void BusinessUnitDataValidation() throws Exception{
-        setUpTest("BusinessUnitDataCountValidation", "SQLReadBusinessUnityDataValidation results");
+    public void CompanyStoreDataCountValidation() throws Exception{
+        setUpTest("CompanyStoreDataCountValidation", "SQLReadBusinessUnityDataValidation results");
         SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
         _sqlRead.CompareBusinessUnitTableCount();
         extentReportUtil.endTest();
@@ -43,8 +43,17 @@ public class DelTest extends BaseClass {
     }
 
     @Test
-    public void BusinessUnitTableValidation() throws Exception{
-        setUpTest("BusinessUnitTableColumnValidation", "SQLBusinessUnitTableValidation results");
+    public void CompanyStoreIntegrationStagingTableCleanedValidation() throws Exception{
+        setUpTest("CompanyStoreIntegrationStagingTableCleanedValidation", "SQLBusinessUnitStagingTableCleaned results");
+        SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
+        _sqlRead.BusinessUnitStagingTableCleaned();
+        extentReportUtil.endTest();
+
+    }
+
+    @Test
+    public void CompanyStoreTableColumnsValidation() throws Exception{
+        setUpTest("CompanyStoreTableColumnValidation", "SQLBusinessUnitTableValidation results");
         SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
         _sqlRead.CompareCompanyStoreTableColumns();
         extentReportUtil.endTest();
@@ -52,10 +61,36 @@ public class DelTest extends BaseClass {
     }
 
     @Test
-    public void IntegrationTableValidation() throws Exception{
+    public void IntegrationTableColumnsValidation() throws Exception{
         setUpTest("IntegrationTableColumnValidation", "SQLIntegrationTableValidation results");
         SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
         _sqlRead.CompareIntegrationTableColumns();
+        extentReportUtil.endTest();
+
+    }
+    @Test
+    public void CompareCompanyStoreDataValidation() throws Exception{
+        setUpTest("CompareCompanyStoreDataValidation", "CompareCompanyStoreData results");
+        SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
+        _sqlRead.CompareCompanyStoreData();
+        extentReportUtil.endTest();
+
+    }
+    @Test
+    public void CompareIntegrationTableCount() throws Exception{
+        setUpTest("CompareIntegrationTableCountValidation", "CompareIntegrationTableCount results");
+        SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
+        _sqlRead.CompareIntegrationTableCount();
+        extentReportUtil.endTest();
+
+    }
+
+
+    @Test
+    public void CompareIntegrationDataValidation() throws Exception{
+        setUpTest("CompareIntegrationDataValidation", "CompareIntegrationStoreData results");
+        SQLReadDataValidation _sqlRead=new SQLReadDataValidation();
+        _sqlRead.CompareIntegrationData();
         extentReportUtil.endTest();
 
     }
