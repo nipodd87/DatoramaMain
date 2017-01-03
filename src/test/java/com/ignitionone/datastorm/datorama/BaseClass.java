@@ -25,10 +25,10 @@ public class BaseClass {
 
     protected Properties sqlQueries;
     protected String testingMode;
-protected  AmazonS3 s3;
+    protected AmazonS3 s3;
 
     public void init(String environment, String reportHeader, String reportTitle) {
-        setupUtil = new SetupUtil(new PropertyLoader(),environment);
+        setupUtil = new SetupUtil(new PropertyLoader(), environment);
         driver = setupUtil.getDriver();
         baseUrl = setupUtil.getBaseUrl();
         s3 = new AmazonS3Client();
@@ -37,7 +37,7 @@ protected  AmazonS3 s3;
         extentReportUtil = new ExtentReportUtil(setupUtil.getFile().getAbsolutePath());
         commonUtil = new CommonUtil(extentReportUtil);
         elementUtil = new ElementUtil(extentReportUtil);
-       // extentReportUtil.startTest(reportHeader, reportTitle);
+        extentReportUtil.startTest(reportHeader, reportTitle);
     }
 
 

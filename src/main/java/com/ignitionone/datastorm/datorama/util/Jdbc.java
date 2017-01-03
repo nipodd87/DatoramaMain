@@ -39,6 +39,7 @@ public class Jdbc {
 
         try {
             Class.forName(DRIVER).newInstance();
+            //conn = DriverManager.getConnection(connectionUrl,"siasp", "siasp1871");
             conn = DriverManager.getConnection(connectionUrl);
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);

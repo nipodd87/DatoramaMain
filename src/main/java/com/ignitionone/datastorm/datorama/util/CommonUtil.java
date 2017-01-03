@@ -15,7 +15,6 @@ import java.util.List;
 import org.testng.Assert;
 
 
-
 /**
  * TODO: Enter Javadoc
  */
@@ -209,15 +208,20 @@ public class CommonUtil {
     public static void killTaskProcess(String processName) throws IOException {
         Runtime.getRuntime().exec("taskkill /IM " + processName + " /F");
     }
-    public static void SQLDataReadFail(String message,String stackTrace,String steps)
-    {
-        reportUtil.logFail(steps,message,stackTrace);
+
+    public static void SQLDataReadFail(String message, String stackTrace, String steps) {
+        reportUtil.logFail(steps, message, stackTrace);
     }
 
-    public static void SQLDataReadSuccess(String message)
-    {
+    public static void SQLDataReadSuccess(String message) {
         reportUtil.logPass(message);
     }
+
+    public static void logError(String stepName, String description) {
+        reportUtil.logFail(stepName, description);
+        MultiTest.addFailure(new TestFailureException(description));
+    }
+
     /**
      * TODO: Enter Javadoc
      *
@@ -466,6 +470,7 @@ public class CommonUtil {
         reportUtil.logFail(steps,message,stackTrace);
     }
 */
+
     /**
      * TODO: Enter Javadoc
      *
@@ -659,6 +664,28 @@ public class CommonUtil {
      * @param stepName    in value
      * @param details     in value
      */
+    public static void compareNumberEquals(int intExpected, int intActual, String stepName, String details) {
+        if (intExpected == intActual) {
+            reportUtil.logPass(stepName,
+                    "Passed comparison to see if the numbers are equal " + details + "<BR>  Expected :" + intActual
+                            + "<BR>  Found :" + intExpected);
+        } else {
+            String message =
+                    "Failed comparison to see if the numbers are equal  " + details + "<BR>  Expected :" + intActual
+                            + "<BR>  Found :" + intExpected;
+            reportUtil.logFail(stepName, message);
+            MultiTest.addFailure(new TestFailureException(message));
+        }
+    }
+
+    /**
+     * TODO: Enter Javadoc
+     *
+     * @param intExpected in value
+     * @param intActual   in value
+     * @param stepName    in value
+     * @param details     in value
+     */
     public static void compareNumberEquals(double intExpected, double intActual, String stepName, String details) {
         if (intExpected == intActual) {
             reportUtil.logPass(stepName,
@@ -759,6 +786,24 @@ public class CommonUtil {
         }
     }
 
+    /**
+     * TODO: Enter Javadoc
+     *
+     * @param strNumber1 in value
+     * @param strNumber2 in value
+     * @param stepName   in value
+     * @param details    in value
+     */
+    public static void compareNumbers(double strNumber1, double strNumber2, String stepName, String details) {
+        if (strNumber1 == strNumber2) {
+            reportUtil.logPass(stepName,
+                    "Passed - " + details + "<BR>  Expected :" + strNumber1 + "<BR>  Found :" + strNumber2);
+        } else {
+            String message = "Failed - " + details + "<BR>  Expected :" + strNumber1 + "<BR>  Found :" + strNumber2;
+            reportUtil.logFail(stepName, message);
+            MultiTest.addFailure(new TestFailureException(message));
+        }
+    }
 
     /**
      * TODO: Enter Javadoc
@@ -768,8 +813,28 @@ public class CommonUtil {
      * @param stepName in value
      * @param details  in value
      */
-    public void compareText(String strText1, String strText2, String stepName, String details) {
+    public static void compareText(String strText1, String strText2, String stepName, String details) {
         if (strText1.contentEquals(strText2)) {
+            reportUtil.logPass(stepName,
+                    "Passed - " + details + "<BR>  Expected :" + strText1 + "<BR>  Found :" + strText2);
+        } else {
+            String message = "Failed - " + details + "<BR>  Expected :" + strText1 + "<BR>  Found :" + strText2;
+            reportUtil.logFail(stepName, message);
+            MultiTest.addFailure(new TestFailureException(message));
+        }
+    }
+
+
+    /**
+     * TODO: Enter Javadoc
+     *
+     * @param strText1 in value
+     * @param strText2 in value
+     * @param stepName in value
+     * @param details  in value
+     */
+    public static void verifyTextContains(String strText1, String strText2, String stepName, String details) {
+        if ((strText1.contains(strText2)) || (strText2.contains(strText1))) {
             reportUtil.logPass(stepName,
                     "Passed - " + details + "<BR>  Expected :" + strText1 + "<BR>  Found :" + strText2);
         } else {
@@ -841,7 +906,6 @@ public class CommonUtil {
     }
 
 
-
     /**
      * TODO: Enter Javadoc
      *
@@ -855,7 +919,7 @@ public class CommonUtil {
 
         boolean isStringExists = strText1.contains(str1);// returns true if the array list contains string value as specified by user
 
-         if (strText1.contains(str1)) {
+        if (strText1.contains(str1)) {
             reportUtil.logPass(stepName,
                     "Passed - " + details + "<BR>  Expected :" + str1 + "<BR>  Found :" + strText1);
         } else {
@@ -864,6 +928,7 @@ public class CommonUtil {
             MultiTest.addFailure(new TestFailureException(message));
         }
     }
+
     /**
      * TODO: Enter Javadoc
      *
@@ -912,9 +977,6 @@ public class CommonUtil {
                             + strText2);
         }
     }
-
-
-
 
 
     public static void checkIfListIsSorted(List<Double> listOfDoubles, String stepName) {
