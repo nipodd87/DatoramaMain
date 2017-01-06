@@ -2,7 +2,7 @@
     <test name = "tracking">
         <parameter name="environment" value="qa" />
         <classes>
-            <class name="com.ignitionone.datastorm.datorama.CampaignTargetBudgetCapETLTest"/>
+            <class name="com.ignitionone.datastorm.datorama.TraitETLTest"/>
 
         </classes>
     </test>
