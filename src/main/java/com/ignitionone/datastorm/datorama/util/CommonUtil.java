@@ -568,7 +568,7 @@ public class CommonUtil {
      * @param details  in value
      * @throws ParseException on error
      */
-    public void compareDateEquals(String strTxt1, String strTxt2, String stepName, String details)
+    public static void compareDateEquals(String strTxt1, String strTxt2, String stepName, String details)
             throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         compareDateEquals(strTxt1, "yyyy-MM-dd HH:mm", strTxt2, "yyyy-MM-dd HH:mm", stepName, details);
@@ -585,7 +585,7 @@ public class CommonUtil {
      * @param details     in value
      * @throws ParseException on error
      */
-    public void compareDateEquals(String strTxt1, String dateFormat1, String strTxt2, String dateFormat2,
+    public static void compareDateEquals(String strTxt1, String dateFormat1, String strTxt2, String dateFormat2,
                                   String stepName, String details) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat1);
         Date date1 = simpleDateFormat.parse(strTxt1);
@@ -608,7 +608,7 @@ public class CommonUtil {
      * @param date2 in value
      * @return out value
      */
-    public boolean compareDates(Date date1, Date date2) {
+    public static boolean compareDates(Date date1, Date date2) {
         return compareDates(date1, date2, 60);
     }
 
@@ -620,7 +620,7 @@ public class CommonUtil {
      * @param allowTimeinSec in value
      * @return out value
      */
-    public boolean compareDates(Date date1, Date date2, int allowTimeinSec) {
+    public static boolean compareDates(Date date1, Date date2, int allowTimeinSec) {
         long allowTime = (allowTimeinSec + 1) * 1000;
         long minTime = date1.getTime() - allowTime;
         long maxTime = date1.getTime() + allowTime;

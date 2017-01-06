@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.ignitionone.datastorm.datorama.etl.DataType.DATE;
 import static com.ignitionone.datastorm.datorama.etl.DataType.INT;
 import static com.ignitionone.datastorm.datorama.etl.DataType.VARCHAR;
 import static com.ignitionone.datastorm.datorama.etl.ValidationStyle.MATCH;
@@ -57,12 +58,12 @@ public class CampaignETLTest extends BaseClass {
         DestinationTable campaignID = new DestinationTable("Campaign_ID", true, INT, MATCH);
         DestinationTable advertiserID = new DestinationTable("Advertiser_ID", false, INT, MATCH);
         DestinationTable campaignStatus = new DestinationTable("Campaign_Status", false, VARCHAR, MATCH);
-        DestinationTable accountManagerID = new DestinationTable("Account_Manager_ID", false, INT, MATCH);
+        DestinationTable accountManagerID = new DestinationTable("Account_Manager_ID", false, VARCHAR, MATCH);
         DestinationTable isCostPaced = new DestinationTable("Is_Cost_Paced", false, VARCHAR, MATCH);
         DestinationTable isImpressionPaced = new DestinationTable("Is_Impression_Paced", false, VARCHAR, MATCH);
         DestinationTable campaignName = new DestinationTable("Campaign_Name", false, VARCHAR, MATCH);
-        DestinationTable campaignFlightdateStart = new DestinationTable("Campaign_Flightdate_Start", false, VARCHAR, MATCH);
-        DestinationTable campaignFlightdateEnd = new DestinationTable("Campaign_Flightdate_End", false, VARCHAR, MATCH);
+        DestinationTable campaignFlightdateStart = new DestinationTable("Campaign_Flightdate_Start", false, DATE, MATCH);
+        DestinationTable campaignFlightdateEnd = new DestinationTable("Campaign_Flightdate_End", false, DATE, MATCH);
 
 
         // Postgress
@@ -76,7 +77,7 @@ public class CampaignETLTest extends BaseClass {
         validate.put("flightdate_start", campaignFlightdateStart);
         validate.put("flightdate_end", campaignFlightdateEnd);
         String srcColumnNames="campaign_id,advertiser_id,campaign_status,account_manager_id,is_cost_paced,is_impression_paced,name,flightdate_start,flightdate_end";
-        String destColumnNames="Campaign_ID,Advertiser_ID,Campaign_Status,Account_Manager_ID,Is_Cost_Paced,Is_Impression_Paced,Campaign_Name,Campaign_Flightdate_Start,Campaign_Flightdate_End";
+        String destColumnNames="Campaign_ID,Advertiser_ID,Campaign_Status,Account_Manager_ID,REPLACE(REPLACE(Is_Cost_Paced, '1', 't'), '0', 'f') AS Is_Cost_Paced,REPLACE(REPLACE(Is_Impression_Paced, '1', 't'), '0', 'f') AS Is_Impression_Paced,Campaign_Name,Campaign_Flightdate_Start,Campaign_Flightdate_End";
 
 
         tableLevel.verifyTableCount(environment, srcSqlFile, SOURCE_TABLE, destSqlFile, DESTINATION_TABLE);

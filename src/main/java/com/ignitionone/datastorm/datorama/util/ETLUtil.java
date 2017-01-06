@@ -4,6 +4,7 @@ import com.ignitionone.datastorm.datorama.etl.DataType;
 import com.ignitionone.datastorm.datorama.etl.DestinationTable;
 import com.ignitionone.datastorm.datorama.etl.ValidationStyle;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,12 +39,16 @@ public class ETLUtil {
 
     public void VerifySrcDestinationValues(String[] srcTableColumnNames, String[] srcTableColumnsValues, String[] destTableColumnsNames, String[] destTableColumnsValues) {
         for (int i = 1; i < srcTableColumnsValues.length; i++) {
-            CommonUtil.compareText(srcTableColumnsValues[i], destTableColumnsValues[i], "Verify " + srcTableColumnNames[i] + " for " + srcTableColumnsValues[0], "Verify " + srcTableColumnNames[i] + " for " + srcTableColumnsValues[0]);
+            if (srcTableColumnNames[i].toUpperCase().equals("DATA_TYPE")) {
+                CommonUtil.verifyTextContains(srcTableColumnsValues[i], destTableColumnsValues[i], "Verify " + srcTableColumnNames[i] + " for " + srcTableColumnsValues[0], "Verify " + srcTableColumnNames[i] + " for " + srcTableColumnsValues[0]);
+            } else {
+                CommonUtil.compareText(srcTableColumnsValues[i], destTableColumnsValues[i], "Verify " + srcTableColumnNames[i] + " for " + srcTableColumnsValues[0], "Verify " + srcTableColumnNames[i] + " for " + srcTableColumnsValues[0]);
+            }
         }
     }
 
 
-    public void verifySrcDestinationData(Map<String, DestinationTable> mapSet, List<String> srcList, List<String> destList) {
+    public void verifySrcDestinationData(Map<String, DestinationTable> mapSet, List<String> srcList, List<String> destList) throws ParseException {
         Boolean foundFlag;
         String[] srcTableColumnsNames = srcList.get(0).split(",");
         String[] distTableColumnsNames = destList.get(0).split(",");
@@ -55,8 +60,8 @@ public class ETLUtil {
         List<String> modifiedDestList = appendSrcListWithUniqueKeyColumn(destKeyColumns, destList);
         // List<String> modifiedDestList = appendDestListWithUniqueKeyColumn(destKeyColumns, srcList, destList);
 
-        String[] modifiedSrcTableColumnsNames = srcList.get(0).split(",");
-        String[] modifiedDistTableColumnsNames = destList.get(0).split(",");
+        String[] modifiedSrcTableColumnsNames = modifiedSrcList.get(0).split(",");
+        String[] modifiedDistTableColumnsNames = modifiedDestList.get(0).split(",");
 
         for (int srcCounter = 1; srcCounter < modifiedSrcList.size(); srcCounter++) {
             String[] srcValues = modifiedSrcList.get(srcCounter).split(",");
@@ -64,7 +69,7 @@ public class ETLUtil {
             for (int destCounter = 1; destCounter < modifiedDestList.size(); destCounter++) {
                 String[] destValues = modifiedDestList.get(destCounter).split(",");
                 if (srcValues[0].equals(destValues[0])) {
-                    verifySrcDestinationDataBasedOnMapping(mapSet, srcTableColumnsNames, distTableColumnsNames, srcValues, destValues);
+                    verifySrcDestinationDataBasedOnMapping(mapSet, modifiedSrcTableColumnsNames, modifiedDistTableColumnsNames, srcValues, destValues);
                     foundFlag = true;
 
                 }
@@ -76,7 +81,7 @@ public class ETLUtil {
         }
     }
 
-    private void verifySrcDestinationDataBasedOnMapping(Map<String, DestinationTable> mapSet, String[] srcTableColumnsNames, String[] distTableColumnsNames, String[] srcValues, String[] destValues) {
+    private void verifySrcDestinationDataBasedOnMapping(Map<String, DestinationTable> mapSet, String[] srcTableColumnsNames, String[] distTableColumnsNames, String[] srcValues, String[] destValues) throws ParseException {
 
         for (int counter = 0; counter < srcTableColumnsNames.length; counter++) {
             Object srcVal = new Object();
@@ -93,17 +98,20 @@ public class ETLUtil {
                 srcVal = new Double(srcValues[counter]);
                 destVal = new Double(destValues[counter]);
                 CommonUtil.compareNumberEquals((Double) srcVal, (Double) destVal, "Verify data " + info, info);
-            } else {
+            } else if (mapSet.get(columnUnderTest).getDataType().equals(DataType.DATE)) {
                 srcVal = srcValues[counter];
                 destVal = destValues[counter];
-            }
-            if (mapSet.get(columnUnderTest).getValidationStyle().equals(ValidationStyle.MATCH)) {
-                CommonUtil.compareText(srcVal.toString(), destVal.toString(), "Verify data " + info, info);
-            } else if (mapSet.get(columnUnderTest).getValidationStyle().equals(ValidationStyle.SUBSTRING)) {
-                CommonUtil.verifyTextContains(srcVal.toString(), destVal.toString(), "Verify data " + info, info);
+                CommonUtil.compareDateEquals(srcVal.toString(), destVal.toString(), "Verify date " + info, info);
+            } else if (mapSet.get(columnUnderTest).getDataType().equals(DataType.VARCHAR)) {
+                srcVal = srcValues[counter];
+                destVal = destValues[counter];
+                if (mapSet.get(columnUnderTest).getValidationStyle().equals(ValidationStyle.MATCH)) {
+                    CommonUtil.compareText(srcVal.toString(), destVal.toString(), "Verify data " + info, info);
+                } else if (mapSet.get(columnUnderTest).getValidationStyle().equals(ValidationStyle.SUBSTRING)) {
+                    CommonUtil.verifyTextContains(srcVal.toString(), destVal.toString(), "Verify data " + info, info);
+                }
             }
             // }
-            counter++;
         }
     }
 
