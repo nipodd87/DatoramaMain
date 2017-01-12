@@ -1,14 +1,12 @@
-package com.ignitionone.datastorm.datorama.SqlNaan;
+package com.ignitionone.datastorm.datorama.sqlNaan;
 import com.ignitionone.datastorm.datorama.util.CommonUtil;
 
 import java.sql.*;
 import java.util.Map;
 import java.util.HashMap;
 import java.sql.SQLException;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Scanner;
 import java.io.InputStream;
 import java.util.Properties;
 
