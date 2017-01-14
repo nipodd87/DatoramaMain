@@ -53,8 +53,8 @@ public class ETLUtil {
         String[] srcTableColumnsNames = srcList.get(0).split(",");
         String[] distTableColumnsNames = destList.get(0).split(",");
 
-        List<Integer> srcKeyColumns = getKeyColumns(mapSet, srcTableColumnsNames);
-        List<Integer> destKeyColumns = getKeyColumns(mapSet, distTableColumnsNames);
+        List<Integer> srcKeyColumns = getKeySrcColumns(mapSet, srcTableColumnsNames);
+        List<Integer> destKeyColumns = getKeyDestColumns(mapSet, distTableColumnsNames);
 
         List<String> modifiedSrcList = appendSrcListWithUniqueKeyColumn(srcKeyColumns, srcList);
         List<String> modifiedDestList = appendSrcListWithUniqueKeyColumn(destKeyColumns, destList);
@@ -76,7 +76,7 @@ public class ETLUtil {
 
             }
             if (foundFlag == false) {
-                CommonUtil.logError("Verify destination data for :" + modifiedDistTableColumnsNames, "Cannot find destination Column Names :" + modifiedDistTableColumnsNames + " having source data as : " + srcValues[0]);
+                CommonUtil.logError("Verify destination data for :" + modifiedDistTableColumnsNames[0], "Cannot find destination Column Names :" + modifiedDistTableColumnsNames[0] + " having source data as : " + srcValues[0]);
             }
         }
     }
@@ -88,7 +88,7 @@ public class ETLUtil {
             Object destVal = new Object();
             // if (!mapSet.get(key).getUniqueColumn()) {
             String columnUnderTest = srcTableColumnsNames[counter];
-            String info = "between source Table :" + columnUnderTest + " and Destination Table :" + distTableColumnsNames[counter];
+            String info = "between source  :" + columnUnderTest + " and Destination  :" + distTableColumnsNames[counter];
 
             if (mapSet.get(columnUnderTest).getDataType().equals(DataType.INT)) {
                 srcVal = new Integer(srcValues[counter]);
@@ -161,7 +161,23 @@ public class ETLUtil {
         return modifiedDestList;
     }
 
-    private List<Integer> getKeyColumns(Map<String, DestinationTable> mapSet, String[] tableColumnsNames) {
+    private List<Integer> getKeySrcColumns(Map<String, DestinationTable> mapSet, String[] tableColumnsNames) {
+        List<Integer> destColumnIds = new ArrayList<>();
+        for (String tableColumnName : tableColumnsNames) {
+            Integer columnCounter = new Integer(0);
+            for (String key : mapSet.keySet()) {
+                if (tableColumnName.toLowerCase().equals(key.toLowerCase()) && mapSet.get(key).getUniqueColumn()) {
+                    // if (tableColumnName.toLowerCase().equals(mapSet.get(key).getColumnName().toLowerCase()) && mapSet.get(key).getUniqueColumn()) {
+                    destColumnIds.add(columnCounter);
+                }
+            }
+            columnCounter++;
+        }
+        return destColumnIds;
+    }
+
+
+    private List<Integer> getKeyDestColumns(Map<String, DestinationTable> mapSet, String[] tableColumnsNames) {
         List<Integer> destColumnIds = new ArrayList<>();
         for (String tableColumnName : tableColumnsNames) {
             Integer columnCounter = new Integer(0);
@@ -174,6 +190,7 @@ public class ETLUtil {
         }
         return destColumnIds;
     }
+
 
     private List<String> appendSrcListWithUniqueKeyColumn(List<Integer> keyColymns, List<String> srcList) {
 
