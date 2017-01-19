@@ -19,10 +19,10 @@ public class ColumnLevel {
 
 
     public void verifyDataBetweenTwoTables(String environment, String inputTestDataExcelFileName, String inputTestDataExcelSheetName, Map<String, DestinationTable> mapSet, String srcSqlFile, String expectedDataExcelSheetName, String srcTable, String destSqlFile, String destTable) throws Exception {
-        List<String> testData = (List<String>) excelReader.getExcel(inputTestDataExcelFileName, inputTestDataExcelSheetName);
-        execSqlUtil.insertRecords(srcSqlFile, environment, srcTable, testData);
+        List<String> testData = excelReader.getExcelasList(inputTestDataExcelFileName, inputTestDataExcelSheetName);
+  //      execSqlUtil.insertRecords(srcSqlFile, environment, srcTable, testData);
         //call store proc
-        List<String> expectedData = (List<String>) excelReader.getExcel(inputTestDataExcelFileName, expectedDataExcelSheetName);
+        List<String> expectedData = excelReader.getExcelasList(inputTestDataExcelFileName, expectedDataExcelSheetName);
         List<String> getColumnsDist = execSqlUtil.getRows(destSqlFile, environment, SQL_QUERY_NAME, "<<tableName>>", destTable, "<<columnName>>", expectedData.get(0));
         Map<String, DestinationTable> modifiedMap = new HashMap<>();
         for ( String key : mapSet.keySet() ) {
