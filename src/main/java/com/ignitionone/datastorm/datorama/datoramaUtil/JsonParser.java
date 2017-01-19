@@ -27,7 +27,7 @@ public class JsonParser {
         JSONArray rows = (JSONArray) queryResponseData.get("rows");
         jsonString.add(header.toString().replace("\"","").replace("[","").replace("]",""));
         for (int i=0;i<rows.size();i++){
-            jsonString.add(rows.get(i).toString().replace("\"","").replace("[","").replace("]","").replace("null",""));
+            jsonString.add(rows.get(i).toString().replace("\"","").replace("[","").replace("]","").replace("null","").replace(" 00:00:00.0", ""));
         }
         return jsonString;
     }

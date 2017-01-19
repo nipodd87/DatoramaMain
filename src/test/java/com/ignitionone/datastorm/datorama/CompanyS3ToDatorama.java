@@ -1,5 +1,8 @@
 package com.ignitionone.datastorm.datorama;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.ignitionone.datastorm.datorama.AmazonServices.S3Functions;
 import com.ignitionone.datastorm.datorama.datoramaUtil.JsonParser;
 import com.ignitionone.datastorm.datorama.apiUtil.APIRequestBodyGenerator;
 import com.ignitionone.datastorm.datorama.apiUtil.APIUtil;
@@ -12,6 +15,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,11 +36,21 @@ public class CompanyS3ToDatorama extends ApiBaseClass{
     String envt;
     String SOURCE_TABLE = "Company Store CSV S3 File";
     String DESTINATION_TABLE = "Datorama API Response";
+    S3Functions s3Functions = new S3Functions();
+    AmazonS3 s3 = new AmazonS3Client();
+    File testFile;
+    String CompanyStoreFilePath;
+    String Bucket_Name = "thirdpartyreporting";
+    String Company_File_Name = "CompanyStoreMetaData_";
+    String Company_Directory = "Datorama/Final/MetaData/CompanyStoreMetaData/";
+
     @BeforeClass
     @Parameters(value = {"environment"})
     public void setUp(String environment) throws Exception {
         envt = environment;
         setUp(envt,REPORT_HEADER, REPORT_TITLE);
+        CompanyStoreFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, Company_File_Name, Company_Directory);
+        testFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3,CompanyStoreFilePath,"CompanyStoreMetaData");
     }
 
     @Test
@@ -77,9 +92,8 @@ public class CompanyS3ToDatorama extends ApiBaseClass{
         validate.put("TimeZone_Name", timeZone);
 
         CSVandTextReader csvReader = new CSVandTextReader();
-
-        List <String> companyStoreData = csvReader.getCSVData(System.getProperty("user.dir")+"/"+"CompanyStoreMetaData.csv");
-
+        System.out.println(testFile.getAbsolutePath());
+        List <String> companyStoreData = csvReader.getCSVData(testFile.getAbsolutePath());
 
         extentReportUtil.startTest("File level tests <BR> Verify Data Types <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
         FileLevel fileLevel= new FileLevel();
