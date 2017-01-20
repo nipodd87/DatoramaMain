@@ -71,7 +71,6 @@ public class ETLUtil {
                 if (srcValues[0].equals(destValues[0])) {
                     verifySrcDestinationDataBasedOnMapping(mapSet, modifiedSrcTableColumnsNames, modifiedDistTableColumnsNames, srcValues, destValues);
                     foundFlag = true;
-
                 }
 
             }
@@ -163,8 +162,8 @@ public class ETLUtil {
 
     private List<Integer> getKeySrcColumns(Map<String, DestinationTable> mapSet, String[] tableColumnsNames) {
         List<Integer> destColumnIds = new ArrayList<>();
+        Integer columnCounter = new Integer(0);
         for (String tableColumnName : tableColumnsNames) {
-            Integer columnCounter = new Integer(0);
             for (String key : mapSet.keySet()) {
                 if (tableColumnName.toLowerCase().equals(key.toLowerCase()) && mapSet.get(key).getUniqueColumn()) {
                     // if (tableColumnName.toLowerCase().equals(mapSet.get(key).getColumnName().toLowerCase()) && mapSet.get(key).getUniqueColumn()) {
@@ -179,8 +178,8 @@ public class ETLUtil {
 
     private List<Integer> getKeyDestColumns(Map<String, DestinationTable> mapSet, String[] tableColumnsNames) {
         List<Integer> destColumnIds = new ArrayList<>();
+        Integer columnCounter = new Integer(0);
         for (String tableColumnName : tableColumnsNames) {
-            Integer columnCounter = new Integer(0);
             for (String key : mapSet.keySet()) {
                 if (tableColumnName.toLowerCase().equals(mapSet.get(key).getColumnName().toLowerCase()) && mapSet.get(key).getUniqueColumn()) {
                     destColumnIds.add(columnCounter);

@@ -1,10 +1,7 @@
 package com.ignitionone.datastorm.datorama;
 
 import com.ignitionone.datastorm.datorama.BaseClass;
-import com.ignitionone.datastorm.datorama.etl.DestinationTable;
-import com.ignitionone.datastorm.datorama.etl.RecordLevel;
-import com.ignitionone.datastorm.datorama.etl.TableLevel;
-import com.ignitionone.datastorm.datorama.etl.ValidationStyle;
+import com.ignitionone.datastorm.datorama.etl.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -27,6 +24,8 @@ public class CampaignETLTest extends BaseClass {
     private String SOURCE_TABLE = "campaigns";
     //sql nan
     private String DESTINATION_TABLE = "Display2_Campaigns";
+
+    private String TEST_DATA_FILE = "C:\\Automation\\Datorama\\src\\test\\java\\com\\ignitionone\\datastorm\\testdata\\creatives.xlsx";
 
     private final String REPORT_HEADER = "File level tests <BR>  Verify Row Count <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE;
     private final String REPORT_TITLE = "Verify Total Row count between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE;
@@ -76,6 +75,8 @@ public class CampaignETLTest extends BaseClass {
         validate.put("name", campaignName);
         validate.put("flightdate_start", campaignFlightdateStart);
         validate.put("flightdate_end", campaignFlightdateEnd);
+
+
         String srcColumnNames="campaign_id,advertiser_id,campaign_status,account_manager_id,is_cost_paced,is_impression_paced,name,flightdate_start,flightdate_end";
         String destColumnNames="Campaign_ID,Advertiser_ID,Campaign_Status,Account_Manager_ID,REPLACE(REPLACE(Is_Cost_Paced, '1', 't'), '0', 'f') AS Is_Cost_Paced,REPLACE(REPLACE(Is_Impression_Paced, '1', 't'), '0', 'f') AS Is_Impression_Paced,Campaign_Name,Campaign_Flightdate_Start,Campaign_Flightdate_End";
 
@@ -91,6 +92,9 @@ public class CampaignETLTest extends BaseClass {
         extentReportUtil.startTest("Record level tests <BR> Verify Data <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
         recordLevel.verifyTableData(environment, validate, srcSqlFile, SOURCE_TABLE, srcColumnNames, destSqlFile, DESTINATION_TABLE,destColumnNames);
 
+        ColumnLevel columnLevel= new ColumnLevel();
+        columnLevel.verifyDataBetweenTwoTables(environment,TEST_DATA_FILE,"creatives_Neg_Testing", validate,srcSqlFile,"creatives_Neg_Testing_Expected",SOURCE_TABLE,destSqlFile,DESTINATION_TABLE);
+        extentReportUtil.endTest();
     }
 
     @AfterClass(alwaysRun = true)

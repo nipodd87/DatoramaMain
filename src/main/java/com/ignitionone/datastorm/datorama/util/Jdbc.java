@@ -102,32 +102,26 @@ public class Jdbc {
     /**
      * TODO: Enter Javadoc
      *
-     * @param dbEnvt in value
-     * @param sql    in value
+     * @param query in value
+     * @param connectionUrl    in value
      * @throws SQLException on error
      */
-    public static void UpdateQuery(String dbEnvt, String sql) throws SQLException {
-        List<String> dbValues = new ArrayList<String>();
+    public static void updateQuery(String query, String connectionUrl) throws SQLException {
+
         ResultSet rs = null;
         Connection conn = null;
         Statement stmt = null;
         try {
             Class.forName(DRIVER);
-            String env = CommonUtil.getPlatformPropertyValue("envt").replaceAll("[0-9]", "");
-
-            String hostURL = CommonUtil.getDBPropertyValue(env + "."
-                    + dbEnvt + "." + DB_HOST_URL);
-            String dbusername = CommonUtil.getDBPropertyValue(env + "."
-                    + dbEnvt + "." + DB_USERNAME);
-            String dbpassword = CommonUtil.getDBPropertyValue(env + "."
-                    + dbEnvt + "." + DB_PASSWORD);
+            //Class.forName(DRIVER).newInstance();
 
             // System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(hostURL, dbusername, dbpassword);
+            conn = DriverManager.getConnection(connectionUrl);
 
             // System.out.println("Creating statement...");
             stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(query);
+
         } catch (SQLException se) {
             se.printStackTrace();
         } catch (Exception e) {
