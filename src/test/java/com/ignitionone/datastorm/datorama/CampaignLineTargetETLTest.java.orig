@@ -1,31 +1,28 @@
 package com.ignitionone.datastorm.datorama;
 
-import com.ignitionone.datastorm.datorama.BaseClass;
-import com.ignitionone.datastorm.datorama.etl.*;
+/**
+ * Created by nitin.poddar on 1/5/2017.
+ */
+
+import com.ignitionone.datastorm.datorama.etl.DestinationTable;
+import com.ignitionone.datastorm.datorama.etl.RecordLevel;
+import com.ignitionone.datastorm.datorama.etl.TableLevel;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.ignitionone.datastorm.datorama.etl.DataType.DATE;
 import static com.ignitionone.datastorm.datorama.etl.DataType.INT;
 import static com.ignitionone.datastorm.datorama.etl.DataType.VARCHAR;
 import static com.ignitionone.datastorm.datorama.etl.ValidationStyle.MATCH;
-import static com.ignitionone.datastorm.datorama.etl.ValidationStyle.SUBSTRING;
 
-/**
- * Created by ravi.peddi on 1/3/2017.
- */
-public class CampaignETLTest extends BaseClass {
+public class CampaignLineTargetETLTest extends BaseClass {
     //sql postgres
-    private String SOURCE_TABLE = "campaigns";
+    private String SOURCE_TABLE = "campaign_targets";
     //sql nan
-    private String DESTINATION_TABLE = "Display2_Campaigns";
-
-    private String TEST_DATA_FILE = "C:\\Automation\\Datorama\\src\\test\\java\\com\\ignitionone\\datastorm\\testdata\\creatives.xlsx";
+    private String DESTINATION_TABLE = "Display2_Campaign_Targets";
 
     private final String REPORT_HEADER = "File level tests <BR>  Verify Row Count <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE;
     private final String REPORT_TITLE = "Verify Total Row count between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE;
@@ -54,31 +51,27 @@ public class CampaignETLTest extends BaseClass {
         Map<String, DestinationTable> validate = new HashMap<>();
 
         //sql nan                            Column_name, Unique Key, Type of field, validation
-        DestinationTable campaignID = new DestinationTable("Campaign_ID", true, INT, MATCH);
-        DestinationTable advertiserID = new DestinationTable("Advertiser_ID", false, INT, MATCH);
-        DestinationTable campaignStatus = new DestinationTable("Campaign_Status", false, VARCHAR, MATCH);
-        DestinationTable accountManagerID = new DestinationTable("Account_Manager_ID", false, VARCHAR, MATCH);
-        DestinationTable isCostPaced = new DestinationTable("Is_Cost_Paced", false, VARCHAR, MATCH);
-        DestinationTable isImpressionPaced = new DestinationTable("Is_Impression_Paced", false, VARCHAR, MATCH);
-        DestinationTable campaignName = new DestinationTable("Campaign_Name", false, VARCHAR, MATCH);
-        DestinationTable campaignFlightdateStart = new DestinationTable("Campaign_Flightdate_Start", false, DATE, MATCH);
-        DestinationTable campaignFlightdateEnd = new DestinationTable("Campaign_Flightdate_End", false, DATE, MATCH);
+        DestinationTable campaignTargetID = new DestinationTable("Campaign_Target_ID", true, INT, MATCH);
+        DestinationTable campaignID = new DestinationTable("Campaign_ID", false, INT, MATCH);
+        DestinationTable campaignTargetStatus = new DestinationTable("Campaign_Target_Status", false, VARCHAR, MATCH);
+        DestinationTable campaignTargetIsCostPaced = new DestinationTable("Campaign_Target_Is_Cost_Paced", false, VARCHAR, MATCH);
+        DestinationTable campaignTargetIsImpressionPaced = new DestinationTable("Campaign_Target_Is_Impression_Paced", false, VARCHAR, MATCH);
+        DestinationTable campaignTargetFlightdateEnd = new DestinationTable("Campaign_Target_Flightdate_End", false, VARCHAR, MATCH);
+        DestinationTable campaignFlightdateStart = new DestinationTable("Campaign_Target_Flightdate_Start", false, VARCHAR, MATCH);
+
 
 
         // Postgress
+        validate.put("campaign_target_id", campaignTargetID);
         validate.put("campaign_id", campaignID);
-        validate.put("advertiser_id", advertiserID);
-        validate.put("campaign_status", campaignStatus);
-        validate.put("account_manager_id", accountManagerID);
-        validate.put("is_cost_paced", isCostPaced);
-        validate.put("is_impression_paced", isImpressionPaced);
-        validate.put("name", campaignName);
+        validate.put("target_status", campaignTargetStatus);
+        validate.put("is_cost_paced", campaignTargetIsCostPaced);
+        validate.put("is_impression_paced", campaignTargetIsImpressionPaced);
+        validate.put("flightdate_end", campaignTargetFlightdateEnd);
         validate.put("flightdate_start", campaignFlightdateStart);
-        validate.put("flightdate_end", campaignFlightdateEnd);
 
-
-        String srcColumnNames="campaign_id,advertiser_id,campaign_status,account_manager_id,is_cost_paced,is_impression_paced,name,flightdate_start,flightdate_end";
-        String destColumnNames="Campaign_ID,Advertiser_ID,Campaign_Status,Account_Manager_ID,REPLACE(REPLACE(Is_Cost_Paced, '1', 't'), '0', 'f') AS Is_Cost_Paced,REPLACE(REPLACE(Is_Impression_Paced, '1', 't'), '0', 'f') AS Is_Impression_Paced,Campaign_Name,Campaign_Flightdate_Start,Campaign_Flightdate_End";
+        String srcColumnNames="campaign_target_id,campaign_id,target_status,is_cost_paced,is_impression_paced,flightdate_end,flightdate_start";
+        String destColumnNames="Campaign_Target_ID,Campaign_ID,Campaign_Target_Status,Campaign_Target_Is_Cost_Paced,Campaign_Target_Is_Impression_Paced,Campaign_Target_Flightdate_End,Campaign_Target_Flightdate_Start";
 
 
         tableLevel.verifyTableCount(environment, srcSqlFile, SOURCE_TABLE, destSqlFile, DESTINATION_TABLE);
@@ -92,9 +85,6 @@ public class CampaignETLTest extends BaseClass {
         extentReportUtil.startTest("Record level tests <BR> Verify Data <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
         recordLevel.verifyTableData(environment, validate, srcSqlFile, SOURCE_TABLE, srcColumnNames, destSqlFile, DESTINATION_TABLE,destColumnNames);
 
-        ColumnLevel columnLevel= new ColumnLevel();
-        columnLevel.verifyDataBetweenTwoTables(environment,TEST_DATA_FILE,"creatives_Neg_Testing", validate,srcSqlFile,"creatives_Neg_Testing_Expected",SOURCE_TABLE,destSqlFile,DESTINATION_TABLE);
-        extentReportUtil.endTest();
     }
 
     @AfterClass(alwaysRun = true)
@@ -103,3 +93,4 @@ public class CampaignETLTest extends BaseClass {
         extentReportUtil.writeReport();
     }
 }
+

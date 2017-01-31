@@ -31,5 +31,9 @@ public class RecordLevel {
         etlUtil.verifySrcDestinationData(mapSet, getColumnsSrc, getColumnsDist);
     }
 
+    public void verifySrcWithDestData(Map<String, DestinationTable> mapSet, List<String> srcData, List<String> destData) throws Exception {
+        etlUtil.verifySrcDestinationData(mapSet, srcData, destData);
+    }
+
 }
 

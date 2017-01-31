@@ -98,4 +98,3 @@ public class CreativeETLTest extends BaseClass {
     }
 }
 
-

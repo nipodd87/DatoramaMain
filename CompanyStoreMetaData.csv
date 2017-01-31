@@ -1,0 +1,240 @@
+BU_ID,BU_Name,Company_ID,Company_Name,Agency_ID,Agency_Name,Division_ID,Division_Name,Region_ID,Region_Name,TimeZone_Name
+100105,IgnitionOne Corporate,100102,IgnitionOne Corp,,,,,18,United States,Eastern Standard Time
+100107,Netmining LLC,100103,Netmining LLC,,,,,18,United States,Eastern Standard Time
+100109,Admin Use Only,100104,Exact Recipes,100101,Test Agency,,,18,United States,Eastern Standard Time
+100111,Product Demo Client,100104,Exact Recipes,100101,Test Agency,,,18,United States,Eastern Standard Time
+100113,Exact Recipes,100104,Exact Recipes,100101,Test Agency,,,18,United States,Eastern Standard Time
+106002,Test Company,106000,Test Company,,,,,18,United States,Eastern Standard Time
+106007,Motel 6,106005,Motel 6,,,,,30,Netmining,Eastern Standard Time
+106010,Dropbox,106008,Dropbox,,,,,30,Netmining,Eastern Standard Time
+106013,QA Test,106011,QA Test,,,,,18,United States,Eastern Standard Time
+106014,YOLO!,106011,QA Test,100101,Test Agency,,,18,United States,US Mountain Standard Time
+106017,Cirro Energy,106015,Cirro Energy,,,,,30,Netmining,Eastern Standard Time
+106021,NRG,106019,NRG,,,,,30,Netmining,Eastern Standard Time
+106024,Hughes Net,106022,Hughes Net,,,,,30,Netmining,Eastern Standard Time
+106027,Georgia Natural Gas,106025,Georgia Natural Gas,106018,Apex,,,18,United States,Eastern Standard Time
+106030,Aria,106028,Aria,,,,,30,Netmining,Pacific Standard Time
+106033,Bellagio,106031,Bellagio,,,,,30,Netmining,Pacific Standard Time
+106036,Caesars,106034,Caesars,,,,,30,Netmining,Eastern Standard Time
+106039,Circus Circus,106037,Circus Circus,,,,,30,Netmining,Eastern Standard Time
+106042,Luxor,106040,Luxor,,,,,30,Netmining,Pacific Standard Time
+106045,MGM International,106043,MGM International,,,,,30,Netmining,Pacific Standard Time
+106048,Vdara,106046,Vdara,,,,,30,Netmining,Eastern Standard Time
+106051,DPC Pet Specialties,106049,DPC Pet Specialties,106018,Apex,,,18,United States,Eastern Standard Time
+106054,Qantas,106052,Qantas,106018,Apex,,,18,United States,Eastern Standard Time
+106057,Vitamix,106055,Vitamix,,,,,30,Netmining,Eastern Standard Time
+106060,The Room Place,106058,The Room Place,,,,,30,Netmining,Eastern Standard Time
+106063,Dice,106061,Dice,,,,,30,Netmining,Eastern Standard Time
+106066,Wingstop,106064,Wingstop,,,,,30,Netmining,Eastern Standard Time
+106069,Harry and David,106067,Harry and David,,,,,30,Netmining,Eastern Standard Time
+106072,Loan Depot,106070,Loan Depot,,,,,30,Netmining,Eastern Standard Time
+106075,Hello Chime,106073,Hello Chime,,,,,30,Netmining,Eastern Standard Time
+106078,East Coast Power Gas,106076,East Coast Power Gas,,,,,30,Netmining,Eastern Standard Time
+106081,The Container Store,106079,The Container Store,,,,,30,Netmining,Eastern Standard Time
+106084,Green Mt Energy,106082,Green Mt Energy,,,,,30,Netmining,Eastern Standard Time
+106087,Golden Nugget,106085,Golden Nugget,,,,,30,Netmining,Eastern Standard Time
+106090,Philadelphia 76ers,106088,Philadelphia 76ers,,,,,30,Netmining,Eastern Standard Time
+106091,Innovation Interactive,100102,IgnitionOne Corp,,,,,18,United States,Eastern Standard Time
+106092,IgnitionOne Benelux,100102,IgnitionOne Corp,,,,,18,United States,Romance Standard Time
+106093,IgnitionOne France,100102,IgnitionOne Corp,,,,,18,United States,Romance Standard Time
+106094,IgnitionOne Germany,100102,IgnitionOne Corp,,,,,18,United States,W. Europe Standard Time
+106095,IgnitionOne Poland,100102,IgnitionOne Corp,,,,,18,United States,Central European Standard Time
+106096,IgnitionOne UK,100102,IgnitionOne Corp,,,,,18,United States,GMT Standard Time
+106099,Academy,106097,Academy,,,,,30,Netmining,Eastern Standard Time
+106102,Biltmore,106100,Biltmore,,,,,30,Netmining,Eastern Standard Time
+106105,Brawny,106103,Georgia Pacific,106018,Apex,,,18,United States,Eastern Standard Time
+106108,Vanity Fair,106106,Vanity Fair,106018,Apex,,,18,United States,Eastern Standard Time
+106111,Birchbox,106109,Birchbox,,,,,30,Netmining,Eastern Standard Time
+106114,Jaguar AT,106112,Jaguar,,,,,8,Belgium,W. Europe Standard Time
+106117,Chase Ink,106115,Chase Ink,106018,Apex,,,18,United States,Eastern Standard Time
+106120,Consumer Cellular,106118,Consumer Cellular,,,,,30,Netmining,Eastern Standard Time
+106122,5408.001,106011,QA Test,100101,Test Agency,,,18,United States,US Mountain Standard Time
+106123,5408.001,106011,QA Test,100101,Test Agency,,,18,United States,US Mountain Standard Time
+106124,5408.002,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,US Mountain Standard Time
+106125,5408.002,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,US Mountain Standard Time
+106126,5408.003,106011,QA Test,100101,Test Agency,,,18,United States,Eastern Standard Time
+106127,5408.004,100104,Exact Recipes,100101,Test Agency,,,18,United States,Eastern Standard Time
+106129,Jaguar LATAM,106112,Jaguar,,,,,8,Belgium,E. South America Standard Time
+106130,Jaguar CZ,106112,Jaguar,,,,,8,Belgium,Central Europe Standard Time
+106131,Jaguar IT,106112,Jaguar,,,,,8,Belgium,W. Europe Standard Time
+106132,Jaguar DE,106112,Jaguar,,,,,8,Belgium,W. Europe Standard Time
+106133,Jaguar ES,106112,Jaguar,,,,,8,Belgium,GMT Standard Time
+106134,Jaguar PT,106112,Jaguar,,,,,8,Belgium,GMT Standard Time
+106135,Jaguar BR,106112,Jaguar,,,,,8,Belgium,E. South America Standard Time
+106138,Mazda BE,106136,Mazda,,,,,8,Belgium,Romance Standard Time
+106141,Florida Citrus,106139,Florida Citrus,,,,,18,United States,Eastern Standard Time
+106144,Pods,106142,Pods,,,,,30,Netmining,Eastern Standard Time
+106147,Salvation Army,106145,Salvation Army,,,,,30,Netmining,Eastern Standard Time
+106150,Simon Malls,106148,Simon Malls,106018,Apex,,,18,United States,Eastern Standard Time
+106152,Golden Nugget NJ,106085,Golden Nugget,,,,,30,Netmining,Eastern Standard Time
+106153,Golden Nugget AC,106085,Golden Nugget,,,,,30,Netmining,Eastern Standard Time
+106156,Hard Rock Hotel,106154,Hard Rock Hotel,,,,,30,Netmining,Eastern Standard Time
+106159,Chase Employment,106157,Chase Employment,106018,Apex,,,18,United States,Eastern Standard Time
+106162,Sitter City,106160,Sitter City,,,,,30,Netmining,Eastern Standard Time
+106165,Chicago Fire,106163,Chicago Fire,,,,,30,Netmining,Eastern Standard Time
+106168,Human Unlimited,106166,Human Unlimited,,,,,18,United States,Eastern Standard Time
+106185,New York Yankees,106183,New York Yankees,,,,,30,Netmining,Eastern Standard Time
+106205,Flor,106203,Flor,,,,,30,Netmining,Eastern Standard Time
+106208,Thrillist,106206,Thrillist,,,,,30,Netmining,Eastern Standard Time
+106211,Iceland Air,106209,Iceland Air,,,,,30,Netmining,Eastern Standard Time
+106214,Agoda,106212,Agoda,,,,,30,Netmining,Eastern Standard Time
+106217,Prince Resort,106215,Prince Resort,,,,,30,Netmining,Eastern Standard Time
+106218,Prince Hotel Waikiki-old,106215,Prince Resort,,,,,30,Netmining,Eastern Standard Time
+106219,Mauna Kea-old,106215,Prince Resort,,,,,30,Netmining,Eastern Standard Time
+106220,Hapuna Beach-old,106215,Prince Resort,,,,,30,Netmining,Eastern Standard Time
+106222,Hotel Waikiki,106215,Prince Resort,,,,,30,Netmining,Eastern Standard Time
+106225,Live Person,106223,Live Person,,,,,18,United States,Eastern Standard Time
+106228,Versace,106226,Versace,,,,,30,Netmining,Eastern Standard Time
+106231,Avis,106229,Avis,,,,,30,Netmining,Eastern Standard Time
+106234,Audi,106232,Audi,,,,,18,United States,Eastern Standard Time
+106237,Zyzzyva JP [TEST],106235,Zyzzyva JP [TEST],100101,Test Agency,106121,QA Test,18,United States,Tokyo Standard Time
+106240,Zymogen RU [TEST],106238,Zymogen RU [TEST],100101,Test Agency,106121,QA Test,18,United States,North Asia Standard Time
+106243,Zanyish FIN [TEST],106241,Zanyish FIN [TEST],100101,Test Agency,106121,QA Test,18,United States,FLE Standard Time
+106246,Zoarium GL [TEST],106244,Zoarium GL [TEST],100101,Test Agency,106121,QA Test,18,United States,Greenland Standard Time
+106249,Zonules HI [TEST],106247,Zonules HI [TEST],100101,Test Agency,106121,QA Test,18,United States,Hawaiian Standard Time
+106252,Blue Jeans,106250,Blue Jeans,,,,,30,Netmining,Eastern Standard Time
+106479,Lenovo,106477,Lenovo,,,,,18,United States,Eastern Standard Time
+106480,QA Test Entity Lenovo,106477,Lenovo,,,,,18,United States,Eastern Standard Time
+106485,LeythG,106483,LeythG,,,,,18,United States,Pacific Standard Time
+106488,LeythG2,106486,LeythG2,,,,,18,United States,Pacific Standard Time
+106491,Kendra Billings,106489,Kendra Billings,,,,,18,United States,US Mountain Standard Time
+106494,Jeep DE,106492,FCA,,,,,18,United States,W. Europe Standard Time
+106495,QA Test Entity Jeep,106492,FCA,,,,,18,United States,W. Europe Standard Time
+106496,Test Bu,106011,QA Test,,,,,18,United States,Eastern Standard Time
+106499,Invalance,106497,Invalance,,,,,6,Japan,Tokyo Standard Time
+106502,Pureinfluencer,106500,Pureinfluencer,,,,,18,United States,Eastern Standard Time
+106503,QA Test - Pureinfluencer,106500,Pureinfluencer,,,,,18,United States,Eastern Standard Time
+106505,QA Test.001,106000,Test Company,,,,,18,United States,Eastern Standard Time
+106508,Catherine's,106506,Catherine's,,,,,30,Netmining,Eastern Standard Time
+106511,Bank of Montreal,106509,Bank of Montreal,,,,,30,Netmining,Eastern Standard Time
+106514,Citibank,106512,Citibank,,,,,30,Netmining,Eastern Standard Time
+106517,Daniels COB,106515,Daniels COB,,,,,30,Netmining,Eastern Standard Time
+106521,Farmers Insurance,106519,Farmers Insurance,106018,Apex,,,30,Netmining,Eastern Standard Time
+106524,Home Away,106522,Home Away,106018,Apex,,,18,United States,Eastern Standard Time
+106530,Center Point Energy,106528,Center Point Energy,,,,,30,Netmining,Eastern Standard Time
+106533,PwC,106531,PwC,,,,,30,Netmining,Eastern Standard Time
+106536,AZ Office of Tourism,106534,AZ Office of Tourism,,,,,30,Netmining,Eastern Standard Time
+106539,Think Food Group,106537,Think Food Group,,,,,30,Netmining,Eastern Standard Time
+106542,PrimeLending,106540,PrimeLending,,,,,30,Netmining,Eastern Standard Time
+106545,BBK,106543,BBK,,,,,30,Netmining,Eastern Standard Time
+106548,WOS,106546,WOS,,,,,30,Netmining,Eastern Standard Time
+106551,Minwax,106549,Minwax,,,,,30,Netmining,Eastern Standard Time
+106554,C.H. Robinson,106552,C.H. Robinson,,,,,30,Netmining,Eastern Standard Time
+106557,Jewelers Mutual,106555,Jewelers Mutual,,,,,30,Netmining,Eastern Standard Time
+106560,MFA,106558,MFA,,,,,30,Netmining,Eastern Standard Time
+106563,310 Loans,106561,310 Loans,,,,,30,Netmining,Eastern Standard Time
+106566,Krylon,106564,Krylon,,,,,30,Netmining,Eastern Standard Time
+106569,Purdy,106567,Purdy,,,,,30,Netmining,Eastern Standard Time
+106572,Smile Train,106570,Smile Train,,,,,30,Netmining,Eastern Standard Time
+106575,Scheels,106573,Scheels,,,,,30,Netmining,Eastern Standard Time
+106578,Narcan,106576,Narcan,,,,,30,Netmining,Eastern Standard Time
+106581,Hologic,106579,Hologic,,,,,30,Netmining,Eastern Standard Time
+106584,Rack Room Shoes,106582,Rack Room Shoes,,,,,30,Netmining,Eastern Standard Time
+106587,Ebay,106585,Ebay,,,,,18,United States,Eastern Standard Time
+106590,BNP Tennis Open,106588,BNP Tennis Open,,,,,30,Netmining,Eastern Standard Time
+106593,PicturesOnGold.com,106591,PicturesOnGold.com,,,,,30,Netmining,Eastern Standard Time
+106596,Home Carpet One,106594,Home Carpet One,,,,,30,Netmining,Eastern Standard Time
+106599,Yokohama Tires,106597,Yokohama Tires,,,,,30,Netmining,Eastern Standard Time
+106603,Twenty Three 9,106601,Twenty Three 9,,,,,18,United States,Eastern Standard Time
+106606,Burlington C.F.,106604,Burlington C.F.,,,,,30,Netmining,Eastern Standard Time
+106626,Baby Depot - Delete,106604,Burlington C.F.,,,,,30,Netmining,Eastern Standard Time
+106627,Baby Depot,106604,Burlington C.F.,,,,,30,Netmining,Eastern Standard Time
+106629,Burlington C.F. - ES - Delete,106604,Burlington C.F.,,,,,30,Netmining,Eastern Standard Time
+106630,BCF - ES,106604,Burlington C.F.,,,,,30,Netmining,Eastern Standard Time
+106633,Noodles and Company,106631,Noodles and Company,,,,,30,Netmining,Eastern Standard Time
+106636,Navy Federal CU,106634,Navy Federal CU,,,,,30,Netmining,Eastern Standard Time
+106639,New York Road Runner,106637,New York Road Runner,,,,,30,Netmining,Eastern Standard Time
+106642,Overnight Prints,106640,Overnight Prints,,,,,30,Netmining,Eastern Standard Time
+106645,Boys and Girls Club,106643,Boys and Girls Club,,,,,30,Netmining,Eastern Standard Time
+106648,IONEREL-824.001,106646,IONEREL-824.001,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106650,IONEREL-824.002,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106651,IONEREL-824.003,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106654,Princess Cruises,106652,Princess Cruises,,,,,18,United States,Eastern Standard Time
+106657,Pulte Group,106655,Pulte Group,,,,,30,Netmining,Eastern Standard Time
+106660,Leukemia & Lymphoma,106658,Leukemia & Lymphoma,,,,,30,Netmining,Eastern Standard Time
+106663,Landrover US,106661,Landrover US,,,,,30,Netmining,Eastern Standard Time
+106666,Honda Acura,106664,Honda Acura,,,,,30,Netmining,Eastern Standard Time
+106669,Jaguar US,106667,Jaguar US,,,,,30,Netmining,Eastern Standard Time
+106672,South East Toyota,106670,Toyota US,,,,,30,Netmining,Eastern Standard Time
+106675,Verizon Wireless,106673,Verizon Wireless,106018,Apex,,,18,United States,Eastern Standard Time
+106678,Verizon Fios,106676,Verizon Fios,106018,Apex,,,18,United States,Eastern Standard Time
+106681,New Jersey Devils,106679,New Jersey Devils,,,,,30,Netmining,Eastern Standard Time
+106682,QA Test 729,106000,Test Company,,,,,18,United States,Eastern Standard Time
+106683,Create BU.001,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106684,Create BU.002,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106685,Create BU.003,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106686,Mazda UK,106136,Mazda,,,,,8,Belgium,Romance Standard Time
+106687,CREATEBU.003,106000,Test Company,,,,,18,United States,Eastern Standard Time
+106688,CREATEBU.004,106000,Test Company,,,,,18,United States,Eastern Standard Time
+106689,BU.001,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106690,BU.002,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106694,Exact Recipes- TMS,106692,Exact Recipes- TMS,,,,,18,United States,Eastern Standard Time
+106697,7380.98,106695,QACO.001,100101,Test Agency,,,18,United States,Eastern Standard Time
+106700,7380.97,106698,7380.97,,,,,18,United States,Eastern Standard Time
+106703,Kendra Billings 2,106701,Kendra Billings 2,100101,Test Agency,,,18,United States,Dateline Standard Time
+106706,Kendra BIllings 3,106704,Kendra BIllings 3,100101,Test Agency,,,18,United States,Dateline Standard Time
+106707,Mazda PL,106136,Mazda,,,,,8,Belgium,Central European Standard Time
+106708,Mazda LU,106136,Mazda,,,,,8,Belgium,Romance Standard Time
+106709,Mazda NL,106136,Mazda,,,,,8,Belgium,W. Europe Standard Time
+106710,Mazda FR,106136,Mazda,,,,,8,Belgium,Romance Standard Time
+106714,BU managed,106712,BU managed,,,,,18,United States,Eastern Standard Time
+106715,QABU.001,106712,BU managed,100101,Test Agency,106121,QA Test,18,United States,US Mountain Standard Time
+106716,QABU.001,106712,BU managed,100101,Test Agency,106121,QA Test,18,United States,US Mountain Standard Time
+106717,QABU.002,106712,BU managed,100101,Test Agency,106121,QA Test,18,United States,US Mountain Standard Time
+106718,QABU.002,106712,BU managed,100101,Test Agency,106121,QA Test,18,United States,US Mountain Standard Time
+106721,Test 16.001 (C),106719,Test 16.001 (C),100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106724,Test 16.001 (B),106722,Test 16.001 (B),,,,,18,United States,Eastern Standard Time
+106725,Test 16.002,106000,Test Company,,,,,18,United States,Eastern Standard Time
+106727,Test 16.003,106011,QA Test,106711,QA Agency.003,,,18,United States,Eastern Standard Time
+106730,Eileen Fisher,106728,Eileen Fisher,,,,,30,Netmining,Eastern Standard Time
+106733,AST_SmokeTest_08232016,106731,AST_SmokeTest_08232016,,,,,18,United States,Eastern Standard Time
+106734,AST_SmokeTestBU_08232016,106731,AST_SmokeTest_08232016,,,,,18,United States,Eastern Standard Time
+106736,AST_SmokeTestSG_08232016,106731,AST_SmokeTest_08232016,,,,,18,United States,Eastern Standard Time
+106737,Deadpool,106000,Test Company,,,,,18,United States,Eastern Standard Time
+106740,Flying Pig,106738,Flying Pig,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106741,Pigasus,106738,Flying Pig,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106743,Voodoo,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106749,nico-test,106747,nico-test,100101,Test Agency,106121,QA Test,18,United States,Dateline Standard Time
+106751,QASGbu.001,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Dateline Standard Time
+106753,QASGbu.006,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Dateline Standard Time
+106756,House of Blues,106754,House of Blues,,,,,30,Netmining,Eastern Standard Time
+106759,P and G,106757,P and G,,,,,30,Netmining,Eastern Standard Time
+106762,Universal Studios Hollywood,106760,Universal Studios Hollywood,,,,,30,Netmining,Eastern Standard Time
+106765,Audi on Demand,106763,Audi on Demand,,,,,30,Netmining,Eastern Standard Time
+106768,Wahoo Fitness,106766,Wahoo Fitness,,,,,30,Netmining,Eastern Standard Time
+106771,Off Broadway Shoes,106769,Off Broadway Shoes,,,,,30,Netmining,Eastern Standard Time
+106774,The Federal Savings Bank,106772,The Federal Savings Bank,,,,,30,Netmining,Eastern Standard Time
+106777,Visit McMinnville,106775,Visit McMinnville,,,,,30,Netmining,Eastern Standard Time
+106778,888.001,100104,Exact Recipes,100101,Test Agency,,,18,United States,Eastern Standard Time
+106779,888.002,106011,QA Test,,,,,18,United States,Eastern Standard Time
+106780,888.003,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106785,Rachel Zoe,106783,Rachel Zoe,,,,,18,United States,Eastern Standard Time
+106788,Box of Style,106786,Box of Style,,,,,18,United States,Eastern Standard Time
+106791,The Zoe Report,106789,The Zoe Report,,,,,18,United States,Eastern Standard Time
+106794,BMO - Bank of Montreal (FR),106792,BMO - Bank of Montreal (FR),,,,,30,Netmining,Eastern Standard Time
+106797,Children's Health,106795,Children's Health,,,,,30,Netmining,Eastern Standard Time
+106800,Dignity Health,106798,Dignity Health,,,,,30,Netmining,Eastern Standard Time
+106804,Shell,106802,Shell,,,,,30,Netmining,Eastern Standard Time
+106807,Cocktail Courier,106805,Cocktail Courier,,,,,30,Netmining,Eastern Standard Time
+106810,Funjet Vacations,106808,Funjet Vacations,,,,,30,Netmining,Central Standard Time
+106813,Eldorado Reno,106811,Eldorado Reno,,,,,30,Netmining,Eastern Standard Time
+106816,Silver Legacy Reno,106814,Silver Legacy Reno,,,,,30,Netmining,Eastern Standard Time
+106819,Mountaineer,106817,Mountaineer,,,,,30,Netmining,Eastern Standard Time
+106822,Chick-fil-A,106820,Chick-fil-A,,,,,30,Netmining,Eastern Standard Time
+106825,Cityworth,106823,Cityworth,,,,,30,Netmining,Eastern Standard Time
+106828,Eldorado Shreveport,106826,Eldorado Shreveport,,,,,30,Netmining,Eastern Standard Time
+106831,LVCVA,106829,LVCVA,,,,,30,Netmining,Eastern Standard Time
+106834,LA Clippers,106832,LA Clippers,,,,,30,Netmining,Eastern Standard Time
+106835,dww-2-7,100102,IgnitionOne Corp,,,,,18,United States,Eastern Standard Time
+106836,dww-2-7,106011,QA Test,100101,Test Agency,106121,QA Test,18,United States,Eastern Standard Time
+106839,Nav,106837,Nav,,,,,18,United States,Pacific Standard Time
+106845,AST_Rel_11082016,106843,AST_Rel_11082016,,,,,18,United States,Eastern Standard Time
+106846,AST_RelBU_11082016,106843,AST_Rel_11082016,,,,,18,United States,Eastern Standard Time
+106848,AST_RelSG_11082016,106843,AST_Rel_11082016,,,,,18,United States,Eastern Standard Time
+106849,ES,106232,Audi,,,,,18,United States,Romance Standard Time
+106852,Holy Spirit Preparatory School,106850,Holy Spirit Preparatory School,,,,,18,United States,Eastern Standard Time
+106855,Disney Rewards Chase,106853,Disney Rewards Chase,,,,,30,Netmining,Eastern Standard Time
+106858,Hilton Hotels,106856,Hilton Hotels,,,,,30,Netmining,Eastern Standard Time
+106861,Kohls,106859,Kohls,,,,,30,Netmining,Eastern Standard Time
+106864,Liftmaster,106862,Liftmaster,,,,,30,Netmining,Eastern Standard Time
+106867,Med Express,106865,Med Express,,,,,30,Netmining,Eastern Standard Time

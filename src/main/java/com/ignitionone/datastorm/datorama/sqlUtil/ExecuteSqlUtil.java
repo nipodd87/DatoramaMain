@@ -43,4 +43,16 @@ public class ExecuteSqlUtil extends SqlSetupClass{
         sqlSetup(sqlFile, sqlQueryName, environment);
         return jdbc.executeSQL(strSQL.replace(oldString, newString), connectionURL);
     }
+
+    public void insertRecords(String sqlFile, String environment, String tableName, String columnName, String columnValues) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        sqlSetup(sqlFile, "insertRecords", environment);
+        jdbc.updateQuery(strSQL.replace("<<tableName>>", tableName).replace("<<columnName>>", columnName).replace("<<columnValues>>",columnValues), connectionURL);
+    }
+
+    public void insertRecords(String sqlFile, String environment, String tableName, List <String> dbDataWithHeader) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        sqlSetup(sqlFile, "insertRecords", environment);
+        for (int counter =1; counter < dbDataWithHeader.size(); counter++){
+            jdbc.updateQuery(strSQL.replace("<<tableName>>", tableName).replace("<<columnName>>", dbDataWithHeader.get(0)).replace("<<columnValues>>", dbDataWithHeader.get(counter)), connectionURL);
+        }
+    }
 }

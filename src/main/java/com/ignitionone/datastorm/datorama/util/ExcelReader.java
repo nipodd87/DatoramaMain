@@ -22,6 +22,9 @@ import java.util.List;
 
 public class ExcelReader {
 
+    public static String DELIMITER = ",";
+    public static String DELETE_STRING = "[DEL]";
+
     /**
      * Method
      *
@@ -260,5 +263,81 @@ public class ExcelReader {
 
     }
 
+    /**
+     * Method
+     *
+     * @param filePath
+     * @param sheetname
+     * @return
+     * @throws Exception
+     */
+    public List<String> getExcelasList(String filePath, String sheetname) throws Exception {
+        List<String> sheetData = new ArrayList<String>();
+        DataFormatter formatter = new DataFormatter();
+
+
+        FileInputStream fis = null;
+        try {
+            if (filePath.endsWith(".xls")) {
+                fis = new FileInputStream(filePath);
+                HSSFWorkbook workbook = new HSSFWorkbook(fis);
+                HSSFSheet sheet = workbook.getSheet(sheetname);
+                Iterator rows = sheet.rowIterator();
+                List<String> keyrow = new ArrayList<>();
+                HSSFRow row = (HSSFRow) rows.next();
+                Iterator cells = row.cellIterator();
+                String rowData = DELETE_STRING;
+                while (cells.hasNext()) {
+                    rowData = rowData + DELIMITER + formatter.formatCellValue((Cell) cells.next());
+                }
+                while (rows.hasNext()) {
+                    row = (HSSFRow) rows.next();
+                    cells = row.cellIterator();
+                    rowData = DELETE_STRING;
+                    while (cells.hasNext()) {
+                        rowData = rowData + DELIMITER + formatter.formatCellValue((Cell) cells.next());
+                    }
+                    sheetData.add(rowData.replace(DELETE_STRING + DELIMITER, ""));
+                }
+
+                workbook.close();
+            } else {
+                if (filePath.endsWith(".xlsx")) {
+                    fis = new FileInputStream(filePath);
+                    XSSFWorkbook workbook = new XSSFWorkbook(fis);
+                    XSSFSheet sheet = workbook.getSheet(sheetname);
+                    Iterator rows = sheet.rowIterator();
+                    List<String> keyrow = new ArrayList<>();
+                    XSSFRow row = (XSSFRow) rows.next();
+                    Iterator cells = row.cellIterator();
+                    String rowData = DELETE_STRING;
+                    while (cells.hasNext()) {
+                        rowData = rowData + DELIMITER + formatter.formatCellValue((Cell) cells.next());
+                    }
+                    sheetData.add(rowData.replace(DELETE_STRING + DELIMITER, ""));
+                    while (rows.hasNext()) {
+                        row = (XSSFRow) rows.next();
+                        cells = row.cellIterator();
+                        rowData = DELETE_STRING;
+                        while (cells.hasNext()) {
+                            rowData = rowData + DELIMITER + formatter.formatCellValue((Cell) cells.next());
+                        }
+                        sheetData.add(rowData.replace(DELETE_STRING + DELIMITER, ""));
+                    }
+                    workbook.close();
+                } else {
+                    throw new IOException("Incorrect file type for Excel Reader");
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                fis.close();
+            }
+        }
+        return sheetData;
+    }
 
 }
