@@ -28,33 +28,33 @@ import static io.restassured.path.json.JsonPath.from;
 /**
  * Created by nitin.poddar on 1/13/2017.
  */
-public class CreativeConversionS3ToDatorama extends ApiBaseClass{
+public class CreativeDeliveryS3ToDatorama extends ApiBaseClass{
 
-    private static final String REPORT_HEADER = "Compare Creative Conversion File between Amazon S3 and Datorama Stream Using API";
-    private static final String REPORT_TITLE = "This test is to verify Creative Conversion file is picked and processed properly by Datorama.";
+    private static final String REPORT_HEADER = "Compare Creative Delivery File between Amazon S3 and Datorama Stream Using API";
+    private static final String REPORT_TITLE = "This test is to verify Creative Delivery file is picked and processed properly by Datorama.";
     public JsonParser parser = new JsonParser();
     String envt;
     String SOURCE_TABLE = "Datorama API Response";
-    String DESTINATION_TABLE = "Creative Conversion CSV S3 File";
+    String DESTINATION_TABLE = "Creative Delivery CSV S3 File";
     S3Functions s3Functions = new S3Functions();
     AmazonS3 s3 = new AmazonS3Client();
-    File creativeConversionFile;
-    String CreativeConversionFilePath;
+    File creativeDeliveryFile;
+    String creativeDeliveryFilePath;
     String Bucket_Name = "thirdpartyreporting";
-    String CreativeConversionFileName = "SummarizedCreativeConversionEventData_";
-    String CreativeConversionDirectory = "Datorama/Final/EventData/Summarized/Creative/Conversion";
+    String creativeDeliveryFileName = "SummarizedCreativeDeliveryEventData_";
+    String creativeDeliveryDirectory = "Datorama/Final/EventData/Summarized/Creative/Delivery";
 
     @BeforeClass
     @Parameters(value = {"environment"})
     public void setUp(String environment) throws Exception {
         envt = environment;
         setUp(envt,REPORT_HEADER, REPORT_TITLE);
-       // creativeConversionFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, creativeConversionFileName, creativeConversionDirectory);
-        //creativeConversionFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3, creativeConversionFilePath,"CreativeConversionSummarizedData");
+         //creativeDeliveryFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, creativeDeliveryFileName, creativeDeliveryDirectory);
+         //creativeDeliveryFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3, creativeDeliveryFilePath,"CreativeDeliverySummarizedData");
     }
 
     @Test
-    public void creativeConversionToDatorama() throws Exception {
+    public void creativeDeliveryToDatorama() throws Exception {
 
         RecordLevel recordLevel = new RecordLevel();
         extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
@@ -63,9 +63,9 @@ public class CreativeConversionS3ToDatorama extends ApiBaseClass{
         String AuthResponse = APIUtil.getResponseAsString("/auth/authenticate", APIRequestBodyGenerator.getAuthRequestBody());
         String token=from(AuthResponse).get("token");
 
-        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getCreativeConversion("2017-01-01", "2017-01-31"), token);
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getCreativeDelivery("2017-01-01", "2017-01-31"), token);
         JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
-        List<String> creativeConversionSrcList = parser.convertJsonToList(jsonObject);
+        List<String> creativeDeliverySrcList = parser.convertJsonToList(jsonObject);
 
         DestinationTable day  = new DestinationTable("Date", true, VARCHAR, MATCH);
         DestinationTable advertiserId = new DestinationTable("BU_ID", false, VARCHAR, MATCH);
@@ -91,8 +91,9 @@ public class CreativeConversionS3ToDatorama extends ApiBaseClass{
         DestinationTable integrationId = new DestinationTable("Integration_ID", true, VARCHAR, MATCH);
         DestinationTable integrationName = new DestinationTable("Integration_Name", false, VARCHAR, MATCH);
         DestinationTable currencyCode = new DestinationTable("Currency_Code", false, VARCHAR, SUBSTRING);
-        DestinationTable clickBasedConversions = new DestinationTable("Click_Based_Conversions", false, VARCHAR, SUBSTRING);
-        DestinationTable impressionBasedConversions = new DestinationTable("Impression_Based_Conversions", false, VARCHAR, SUBSTRING);
+        DestinationTable impressions = new DestinationTable("Impressions", false, VARCHAR, SUBSTRING);
+        DestinationTable clicks = new DestinationTable("Clicks", false, VARCHAR, SUBSTRING);
+        DestinationTable cost = new DestinationTable("Cost", false, VARCHAR, SUBSTRING);
 
         validate.put("Day", day);
         validate.put("Advertiser ID", advertiserId);
@@ -118,20 +119,20 @@ public class CreativeConversionS3ToDatorama extends ApiBaseClass{
         validate.put("Publisher ID", integrationId);
         validate.put("Publisher", integrationName);
         validate.put("Currency (Original)", currencyCode);
-        validate.put("Click Based Conversions", clickBasedConversions);
-        validate.put("View Based Conversions", impressionBasedConversions);
-
+        validate.put("Impressions", impressions);
+        validate.put("Clicks", clicks);
+        validate.put("Media Cost", cost);
 
         CSVandTextReader csvReader = new CSVandTextReader();
 
-        List <String> creativeConversionDestList = csvReader.getCSVData(System.getProperty("user.dir")+"/"+"CreativeConversionSummarizedData.csv");
+        List <String> creativeDeliveryDestList = csvReader.getCSVData(System.getProperty("user.dir")+"/"+"CreativeDeliverySummarizedData.csv");
 
 
         extentReportUtil.startTest("File level tests <BR> Verify Data Types <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
         FileLevel fileLevel= new FileLevel();
-        fileLevel.verifyTableCount(creativeConversionSrcList,"Creative Conversion API Response", creativeConversionDestList, "Creative Conversion CSV Data");
+        fileLevel.verifyTableCount(creativeDeliverySrcList,"Creative Delivery API Response", creativeDeliveryDestList, "Creative Delivery CSV Data");
 
-        recordLevel.verifySrcWithDestData(validate,creativeConversionSrcList,creativeConversionDestList);
+        recordLevel.verifySrcWithDestData(validate,creativeDeliverySrcList,creativeDeliveryDestList);
     }
     @AfterClass(alwaysRun = true)
     public void generateReport() {

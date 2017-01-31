@@ -50,26 +50,27 @@ public class ETLUtil {
 
     public void verifySrcDestinationData(Map<String, DestinationTable> mapSet, List<String> srcList, List<String> destList) throws ParseException {
         Boolean foundFlag;
-        String[] srcTableColumnsNames = srcList.get(0).split(",");
+        String[] srcTableColumnsNames = srcList.get(0).split("\\|");
         String[] distTableColumnsNames = destList.get(0).split(",");
 
         List<Integer> srcKeyColumns = getKeySrcColumns(mapSet, srcTableColumnsNames);
         List<Integer> destKeyColumns = getKeyDestColumns(mapSet, distTableColumnsNames);
 
-        List<String> modifiedSrcList = appendSrcListWithUniqueKeyColumn(srcKeyColumns, srcList);
-        List<String> modifiedDestList = appendSrcListWithUniqueKeyColumn(destKeyColumns, destList);
+        List<String> modifiedSrcList = appendSrcListWithUniqueKeyColumn(srcKeyColumns, srcList,"\\|");
+        List<String> modifiedDestList = appendSrcListWithUniqueKeyColumn(destKeyColumns, destList, ",");
         // List<String> modifiedDestList = appendDestListWithUniqueKeyColumn(destKeyColumns, srcList, destList);
 
-        String[] modifiedSrcTableColumnsNames = modifiedSrcList.get(0).split(",");
+        String[] modifiedSrcTableColumnsNames = modifiedSrcList.get(0).split("\\|");
         String[] modifiedDistTableColumnsNames = modifiedDestList.get(0).split(",");
 
         for (int srcCounter = 1; srcCounter < modifiedSrcList.size(); srcCounter++) {
-            String[] srcValues = modifiedSrcList.get(srcCounter).split(",");
+            String[] srcValues = modifiedSrcList.get(srcCounter).split("\\|");
             foundFlag = false;
             for (int destCounter = 1; destCounter < modifiedDestList.size(); destCounter++) {
-                String[] destValues = modifiedDestList.get(destCounter).split(",");
+//                String[] destValues = modifiedDestList.get(destCounter).split(",");
+                  String[] destValues = modifiedDestList.get(destCounter).split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (srcValues[0].equals(destValues[0])) {
-                    verifySrcDestinationDataBasedOnMapping(mapSet, modifiedSrcTableColumnsNames, modifiedDistTableColumnsNames, srcValues, destValues);
+                    verifySrcDestinationDataBasedOnMapping1(mapSet, modifiedSrcTableColumnsNames, modifiedDistTableColumnsNames, srcValues, destValues);
                     foundFlag = true;
                 }
 
@@ -114,31 +115,37 @@ public class ETLUtil {
         }
     }
 
-    private void verifySrcDestinationDataBasedOnMapping1(Map<String, DestinationTable> mapSet, String[] srcTableColumnsNames, String[] distTableColumnsNames, String[] srcValues, String[] destValues) {
+    private void verifySrcDestinationDataBasedOnMapping1(Map<String, DestinationTable> mapSet, String[] srcTableColumnsNames, String[] distTableColumnsNames, String[] srcValues, String[] destValues) throws ParseException {
         int counter = 1;
         for (String key : mapSet.keySet()) {
             Object srcVal = new Object();
             Object destVal = new Object();
             // if (!mapSet.get(key).getUniqueColumn()) {
-            counter = 1;
+           // counter = 1;
             String info = "between source Table :" + srcTableColumnsNames[counter] + " and Destination Table :" + distTableColumnsNames[counter];
 
-            if (mapSet.get(key).getDataType().equals(DataType.INT)) {
+            if (mapSet.get(srcTableColumnsNames[counter]).getDataType().equals(DataType.INT)) {
                 srcVal = new Integer(srcValues[counter]);
                 destVal = new Integer(destValues[counter]);
                 CommonUtil.compareNumberEquals((int) srcVal, (int) destVal, "Verify data " + info, info);
-            } else if (mapSet.get(key).getDataType().equals(DataType.DOUBLE)) {
+            } else if (mapSet.get(srcTableColumnsNames[counter]).getDataType().equals(DataType.DOUBLE)) {
                 srcVal = new Double(srcValues[counter]);
                 destVal = new Double(destValues[counter]);
                 CommonUtil.compareNumberEquals((Double) srcVal, (Double) destVal, "Verify data " + info, info);
-            } else {
+            } else if (mapSet.get(srcTableColumnsNames[counter]).getDataType().equals(DataType.DATE)) {
                 srcVal = srcValues[counter];
                 destVal = destValues[counter];
+                CommonUtil.compareDateEquals(srcVal.toString(), destVal.toString(), "Verify date " + info, info);
+            } else {
+                srcVal = srcValues[counter].trim();
+                destVal = destValues[counter].trim();
             }
-            if (mapSet.get(key).getValidationStyle().equals(ValidationStyle.MATCH)) {
+            if (mapSet.get(srcTableColumnsNames[counter]).getValidationStyle().equals(ValidationStyle.MATCH)) {
                 CommonUtil.compareText(srcVal.toString(), destVal.toString(), "Verify data " + info, info);
-            } else if (mapSet.get(key).getValidationStyle().equals(ValidationStyle.SUBSTRING)) {
+            } else if (mapSet.get(srcTableColumnsNames[counter]).getValidationStyle().equals(ValidationStyle.SUBSTRING)) {
                 CommonUtil.verifyTextContains(srcVal.toString(), destVal.toString(), "Verify data " + info, info);
+            } else if (mapSet.get(srcTableColumnsNames[counter]).getValidationStyle().equals(ValidationStyle.IGNORE)){
+                //do Nothing
             }
             // }
             counter++;
@@ -191,17 +198,28 @@ public class ETLUtil {
     }
 
 
-    private List<String> appendSrcListWithUniqueKeyColumn(List<Integer> keyColymns, List<String> srcList) {
+    private List<String> appendSrcListWithUniqueKeyColumn(List<Integer> keyColymns, List<String> srcList, String delimiter) {
 
         List<String> modifiedSrcList = new ArrayList<>();
 
         for (int i = 0; i < srcList.size(); i++) {
-            String[] srcTableColumns = srcList.get(i).split(",");
+            String[] srcTableColumns;
+            if (delimiter.equals(",")){
+                srcTableColumns = srcList.get(i).split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+            } else {
+                srcTableColumns = srcList.get(i).split(delimiter);
+            }
+
             StringBuffer sb = new StringBuffer();
             for (Integer srcColumnId : keyColymns) {
                 sb.append(srcTableColumns[srcColumnId]);
             }
-            modifiedSrcList.add(sb.toString() + "," + srcList.get(i));
+            if (delimiter.equals(",")){
+                modifiedSrcList.add(sb.toString() + delimiter + srcList.get(i));
+            } else {
+                modifiedSrcList.add(sb.toString() + "|" + srcList.get(i));
+            }
+
         }
         return modifiedSrcList;
     }
