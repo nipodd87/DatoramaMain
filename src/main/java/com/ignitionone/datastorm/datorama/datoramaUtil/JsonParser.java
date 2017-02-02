@@ -33,7 +33,9 @@ public class JsonParser {
                 if (rowItem.get(j) instanceof String){
                     String column = rowItem.get(j).replace("\"","").replace("[","").replace("]","").replace("null","").replace(" 00:00:00.0", "");
                     columnItem.append(column);
-                } else{
+                } else if (rowItem.get(j) == null){
+                    //do Nothing
+                }else{
                     Object obj = rowItem.get(j);
                     columnItem.append(obj.toString());
                 }

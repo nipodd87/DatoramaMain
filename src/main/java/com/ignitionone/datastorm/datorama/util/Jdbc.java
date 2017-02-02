@@ -79,6 +79,7 @@ public class Jdbc {
     }
 
 
+
     /**
      * Getter for property db key values
      *
@@ -131,5 +132,86 @@ public class Jdbc {
             stmt.close();
             conn.close();
         }
+    }
+
+    public ResultSet executeQuery(String query, String connectionUrl) throws SQLException {
+
+        ResultSet rs = null;
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            Class.forName(DRIVER);
+            //Class.forName(DRIVER).newInstance();
+
+            // System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(connectionUrl);
+
+            // System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            stmt.close();
+            conn.close();
+        }
+        return rs;
+    }
+
+    public void executeProcedureWithNoResultSet(String query, String connectionUrl) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+
+        List<String> dbValues = new ArrayList<String>();
+        ResultSet rs = null;
+        Connection conn = null;
+        CallableStatement stmt = null;
+
+        try {
+            Class.forName(DRIVER).newInstance();
+            conn = DriverManager.getConnection(connectionUrl);
+            // String SQL = String.format("call [dbo].[SI_SP_Entity_HardDeleteForAutomationTesting](107661,5,0)");
+            stmt = conn.prepareCall(query);
+            stmt.execute();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            stmt.close();
+            conn.close();
+        }
+    }
+
+    public int getStoreProcedureRecordCount(String query, String connectionUrl) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+
+        List<String> dbValues = new ArrayList<String>();
+        ResultSet rs = null;
+        Connection conn = null;
+        CallableStatement stmt = null;
+        int counter=0;
+        try {
+
+            Class.forName(DRIVER).newInstance();
+            conn = DriverManager.getConnection(connectionUrl);
+            // String SQL = String.format("call [dbo].[SI_SP_Entity_HardDeleteForAutomationTesting](107661,5,0)");
+            stmt = conn.prepareCall(query);
+            stmt.execute();
+            rs = stmt.getResultSet();
+            while(rs.next()){
+                ++counter;
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            stmt.close();
+            conn.close();
+        }
+        return counter;
     }
 }
