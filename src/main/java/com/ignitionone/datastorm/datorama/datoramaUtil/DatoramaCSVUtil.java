@@ -4,8 +4,8 @@ package com.ignitionone.datastorm.datorama.datoramaUtil;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
-import model.CreativeDeliveryBean;
-import model.DeliveryMetrics;
+import com.ignitionone.datastorm.datorama.model.CreativeDeliveryBean;
+import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

@@ -5,9 +5,8 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.ignitionone.datastorm.datorama.AmazonServices.S3Functions;
 import com.ignitionone.datastorm.datorama.datoramaUtil.DatoramaCSVUtil;
 import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
-import com.ignitionone.datastorm.datorama.util.CSVandTextReader;
 import com.ignitionone.datastorm.datorama.util.CommonUtil;
-import model.DeliveryMetrics;
+import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -15,7 +14,6 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.sql.ResultSet;
-import java.util.List;
 
 /**
  * Created by nitin.poddar on 1/31/2017.
