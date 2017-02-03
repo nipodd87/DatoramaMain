@@ -1,9 +1,9 @@
-package com.ignitionone.datastorm.datorama.datoramaUtil;
+package model;
 
 /**
  * Created by karthik.inuganti on 2/2/2017.
  */
-public class CreativeDeliveryPojo {
+public class CreativeDeliveryBean {
 
     private String date;
     private String buId;

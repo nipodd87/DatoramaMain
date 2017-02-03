@@ -677,6 +677,27 @@ public class CommonUtil {
             MultiTest.addFailure(new TestFailureException(message));
         }
     }
+    /**
+     * TODO: Enter Javadoc
+     *
+     * @param longExpected in value
+     * @param longActual   in value
+     * @param stepName    in value
+     * @param details     in value
+     */
+    public static void compareNumberEquals(long longExpected, long longActual, String stepName, String details) {
+        if (longExpected == longActual) {
+            reportUtil.logPass(stepName,
+                    "Passed comparison to see if the numbers are equal " + details + "<BR>  Expected :" + longActual
+                            + "<BR>  Found :" + longExpected);
+        } else {
+            String message =
+                    "Failed comparison to see if the numbers are equal  " + details + "<BR>  Expected :" + longActual
+                            + "<BR>  Found :" + longExpected;
+            reportUtil.logFail(stepName, message);
+            MultiTest.addFailure(new TestFailureException(message));
+        }
+    }
 
     /**
      * TODO: Enter Javadoc

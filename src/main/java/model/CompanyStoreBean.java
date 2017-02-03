@@ -1,9 +1,9 @@
-package com.ignitionone.datastorm.datorama.datoramaUtil;
+package model;
 
 /**
  * Created by karthik.inuganti on 2/2/2017.
  */
-public class CompanyPojo {
+public class CompanyStoreBean {
 
     private String buId;
     private String buName;

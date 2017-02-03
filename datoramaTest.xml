@@ -2,8 +2,7 @@
     <test name = "tracking">
         <parameter name="environment" value="qa" />
         <classes>
-            <class name="com.ignitionone.datastorm.datorama.CreativeConversionS3ToDatorama"/>
-
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliverySqlToS3"/>
         </classes>
     </test>
 </suite>
