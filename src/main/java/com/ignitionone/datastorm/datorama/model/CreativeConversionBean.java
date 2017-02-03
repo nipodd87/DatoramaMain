@@ -1,4 +1,4 @@
-package model;
+package com.ignitionone.datastorm.datorama.model;
 
 /**
  * Created by karthik.inuganti on 2/2/2017.
