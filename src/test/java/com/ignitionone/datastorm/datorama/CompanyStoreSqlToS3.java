@@ -5,8 +5,6 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.ignitionone.datastorm.datorama.AmazonServices.S3Functions;
 import com.ignitionone.datastorm.datorama.datoramaUtil.DatoramaCSVUtil;
 import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
-import com.ignitionone.datastorm.datorama.model.CompanyMetrics;
-import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
 import com.ignitionone.datastorm.datorama.util.CommonUtil;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -44,7 +42,7 @@ public class CompanyStoreSqlToS3 extends BaseClass {
     String companyStoreFileName;
     ResultSet thirdPartyFileInfoResultSet;
     int spRecordCount;
-    CompanyMetrics metrics;
+    int recordCountsFromCSV;
 
 
     @BeforeClass
@@ -84,11 +82,11 @@ public class CompanyStoreSqlToS3 extends BaseClass {
             extentReportUtil.logFail("Check File Existence", "File was not uploaded properly");
         }
         extentReportUtil.endTest();
-        
+
         //Check the record count between Store Proc and Amazon Csv
-        metrics = DatoramaCSVUtil.getCompanyStoreMeasurementTotal("CompanyStoreData.csv", ',');
+        recordCountsFromCSV = DatoramaCSVUtil.getCompanyStoreMeasurementTotal("CompanyStoreData.csv", ',');
         extentReportUtil.startTest("Company Store File SQL Nan to Amazon S3 Test Case 4<BR> Check the Record Count between Store Procedure and Amazon S3 CSV file", "between Store Procedure and Amazon S3 file");
-        CommonUtil.compareNumberEquals(spRecordCount, metrics.getRecordCount(), "Record Count Between Stored Procedure and Amazon S3", "between Store Procedure and Amazon S3 csv file");
+        CommonUtil.compareNumberEquals(spRecordCount, recordCountsFromCSV, "Record Count Between Stored Procedure and Amazon S3", "between Store Procedure and Amazon S3 csv file");
     }
 
     @AfterClass(alwaysRun = true)

@@ -4,7 +4,11 @@ package com.ignitionone.datastorm.datorama.datoramaUtil;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
-import com.ignitionone.datastorm.datorama.model.*;
+import com.ignitionone.datastorm.datorama.model.CompanyStoreBean;
+import com.ignitionone.datastorm.datorama.model.ConversionMetrics;
+import com.ignitionone.datastorm.datorama.model.CreativeDeliveryBean;
+import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
+import com.ignitionone.datastorm.datorama.model.CreativeConversionBean;
 
 
 import java.io.FileNotFoundException;
@@ -27,7 +31,7 @@ public class DatoramaCSVUtil {
         mapper.setColumnMapping(columns);
 
         CsvToBean<CreativeDeliveryBean> csv = new CsvToBean<CreativeDeliveryBean>();
-        List<CreativeDeliveryBean> creativeDeliveryList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), ','));
+        List<CreativeDeliveryBean> creativeDeliveryList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
 
         List<String> creativeDeliveryModifiedList = new ArrayList<String>();
         for (int i = 0; i < creativeDeliveryList.size(); i++) {
@@ -229,7 +233,7 @@ public class DatoramaCSVUtil {
         mapper.setColumnMapping(columns);
 
         CsvToBean<CompanyStoreBean> csv = new CsvToBean<CompanyStoreBean>();
-        List<CompanyStoreBean> companyStoreList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), ','));
+        List<CompanyStoreBean> companyStoreList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
 
         List<String> companyStoreModifiedList = new ArrayList<String>();
         for (int i = 0; i < companyStoreList.size(); i++) {
@@ -263,8 +267,7 @@ public class DatoramaCSVUtil {
         return companyStoreModifiedList;
     }
 
-    public static CompanyMetrics getCompanyStoreMeasurementTotal(String fileName, char separator) throws FileNotFoundException {
-        CompanyMetrics metrics = new CompanyMetrics();
+    public static int getCompanyStoreMeasurementTotal(String fileName, char separator) throws FileNotFoundException {
         int recordCount = 0;
         ColumnPositionMappingStrategy<CompanyStoreBean> mapper = new ColumnPositionMappingStrategy<CompanyStoreBean>();
         mapper.setType(CompanyStoreBean.class);
@@ -277,7 +280,6 @@ public class DatoramaCSVUtil {
         for (int i = 1; i < companyStoreList.size(); i++) {
             recordCount++;
         }
-        metrics.setRecordCount(recordCount);
-        return metrics;
+        return recordCount;
     }
 }
