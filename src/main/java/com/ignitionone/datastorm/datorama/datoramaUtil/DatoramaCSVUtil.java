@@ -4,10 +4,8 @@ package com.ignitionone.datastorm.datorama.datoramaUtil;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
-import com.ignitionone.datastorm.datorama.model.ConversionMetrics;
-import com.ignitionone.datastorm.datorama.model.CreativeConversionBean;
-import com.ignitionone.datastorm.datorama.model.CreativeDeliveryBean;
-import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
+import com.ignitionone.datastorm.datorama.model.*;
+
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -220,5 +218,66 @@ public class DatoramaCSVUtil {
             creativeConversionModifiedList.add(lineItem.toString());
         }
         return creativeConversionModifiedList;
+    }
+
+
+    public static List<String> getCompanyStoreCSVData(String fileName, char separator,String delimiter) throws FileNotFoundException {
+        ColumnPositionMappingStrategy<CompanyStoreBean> mapper = new ColumnPositionMappingStrategy<CompanyStoreBean>();
+        mapper.setType(CompanyStoreBean.class);
+        String[] columns = new String[]{"BUID", "CampaignID", "BUName", "CompanyID", "CompanyName", "AgencyID", "AgencyName",
+                "DivisionID", "DivisionName", "RegionID", "RegionName", "TimeZoneName"};
+        mapper.setColumnMapping(columns);
+
+        CsvToBean<CompanyStoreBean> csv = new CsvToBean<CompanyStoreBean>();
+        List<CompanyStoreBean> companyStoreList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), ','));
+
+        List<String> companyStoreModifiedList = new ArrayList<String>();
+        for (int i = 0; i < companyStoreList.size(); i++) {
+            //Get csv data
+            StringBuffer lineItem = new StringBuffer();
+            lineItem.append(companyStoreList.get(i).getBuId());
+            lineItem.append(delimiter);
+            lineItem.append(companyStoreList.get(i).getBuName());
+            lineItem.append(delimiter);
+            lineItem.append(companyStoreList.get(i).getCompanyId());
+            lineItem.append(delimiter);
+            lineItem.append(companyStoreList.get(i).getCompanyName());
+            lineItem.append(delimiter);
+            lineItem.append(companyStoreList.get(i).getAgencyId());
+            lineItem.append(delimiter);
+            lineItem.append(companyStoreList.get(i).getAgencyName());
+            lineItem.append(delimiter);
+            lineItem.append(companyStoreList.get(i).getDivisionId());
+            lineItem.append(delimiter);
+            lineItem.append(companyStoreList.get(i).getDivisionName());
+            lineItem.append(delimiter);
+            lineItem.append(companyStoreList.get(i).getRegionId());
+            lineItem.append(delimiter);
+            lineItem.append(companyStoreList.get(i).getRegionName());
+            lineItem.append(delimiter);
+            lineItem.append(companyStoreList.get(i).getTimeZoneName());
+            lineItem.append(delimiter);
+
+            companyStoreModifiedList.add(lineItem.toString());
+    }
+        return companyStoreModifiedList;
+    }
+
+    public static CompanyMetrics getCompanyStoreMeasurementTotal(String fileName, char separator) throws FileNotFoundException {
+        CompanyMetrics metrics = new CompanyMetrics();
+        int recordCount = 0;
+        ColumnPositionMappingStrategy<CompanyStoreBean> mapper = new ColumnPositionMappingStrategy<CompanyStoreBean>();
+        mapper.setType(CompanyStoreBean.class);
+        String[] columns = new String[]{"BUID", "CampaignID", "BUName", "CompanyID", "CompanyName", "AgencyID", "AgencyName",
+                "DivisionID", "DivisionName", "RegionID", "RegionName", "TimeZoneName"};
+        mapper.setColumnMapping(columns);
+
+        CsvToBean<CompanyStoreBean> csv = new CsvToBean<CompanyStoreBean>();
+        List<CompanyStoreBean> companyStoreList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
+        for (int i = 1; i < companyStoreList.size(); i++) {
+            recordCount++;
+        }
+        metrics.setRecordCount(recordCount);
+        return metrics;
     }
 }

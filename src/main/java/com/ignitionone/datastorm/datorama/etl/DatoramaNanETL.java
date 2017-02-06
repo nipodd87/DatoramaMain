@@ -30,6 +30,11 @@ public class DatoramaNanETL extends SqlBaseClass {
         return jdbc.getStoreProcedureRecordCount(strSQL.replace(oldString1, newString1).replace(oldString2, newString2), connectionURL);
     }
 
+    public int getStoreProcedureCountWithoutParameters(String sqlFile, String environment, String sqlQueryName ) throws Exception {
+        sqlSetup(sqlFile, sqlQueryName, environment);
+        return jdbc.getStoreProcedureRecordCount(strSQL, connectionURL);
+    }
+
     public void executeThirdPartyFileInfo(String sqlFile, String environment, String sqlQueryName, String oldString, String newString) throws Exception {
         sqlSetup(sqlFile, sqlQueryName, environment);
         getThirdPartyInfo(strSQL.replace(oldString, newString), connectionURL);
