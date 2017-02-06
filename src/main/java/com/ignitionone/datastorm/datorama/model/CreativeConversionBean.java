@@ -3,6 +3,8 @@ package com.ignitionone.datastorm.datorama.model;
 /**
  * Created by karthik.inuganti on 2/2/2017.
  */
+
+
 public class CreativeConversionBean {
     private String date;
     private String buId;
@@ -24,6 +26,12 @@ public class CreativeConversionBean {
     private String creativeMessageId;
     private String creativeMessageName;
     private String adserverPlacementId;
+    private String adserverPlacementName;
+    private String integrationId;
+    private String integrationName;
+    private String currencyCode;
+    private String clickBasedConversions;
+    private String impressionBasedConversions;
 
     public String getDate() {
         return date;
@@ -232,14 +240,4 @@ public class CreativeConversionBean {
     public void setImpressionBasedConversions(String impressionBasedConversions) {
         this.impressionBasedConversions = impressionBasedConversions;
     }
-
-    private String adserverPlacementName;
-    private String integrationId;
-    private String integrationName;
-    private String currencyCode;
-    private String clickBasedConversions;
-    private String impressionBasedConversions;
-
-
-
 }
