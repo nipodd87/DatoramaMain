@@ -100,7 +100,7 @@ public class CreativeConversionSqlToS3  extends BaseClass  {
         extentReportUtil.endTest();
         //Check the record count between Store Proc and Amazon Csv
         extentReportUtil.startTest("Creative Conversion SQL Nan to Amazon S3 Test Case 5<BR> Check the Record Count between Store Procedure and Amazon S3 CSV file", "between Store Procedure and Amazon S3 file");
-        CommonUtil.compareNumberEquals(spRecordCount, metrics.getRecordCount(), "Record Count Between Stored Procedure and Amazon S3", "between Store Procedure and Amazon S3 csv file");
+        CommonUtil.compareNumberEquals(spRecordCount, metrics.getRecordCount(), "Record Count Between Stored Procedure and Amazon S3", "Verify record count between Store Procedure and Amazon S3 csv file");
     }
     @AfterClass(alwaysRun = true)
     public void generateReport() {

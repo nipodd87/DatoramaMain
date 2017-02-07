@@ -4,11 +4,7 @@ package com.ignitionone.datastorm.datorama.datoramaUtil;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
-import com.ignitionone.datastorm.datorama.model.CompanyStoreBean;
-import com.ignitionone.datastorm.datorama.model.ConversionMetrics;
-import com.ignitionone.datastorm.datorama.model.CreativeDeliveryBean;
-import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
-import com.ignitionone.datastorm.datorama.model.CreativeConversionBean;
+import com.ignitionone.datastorm.datorama.model.*;
 
 
 import java.io.FileNotFoundException;
@@ -288,8 +284,7 @@ public class DatoramaCSVUtil {
         mapper.setType(TraitConversionBean.class);
         String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
                 "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
-                "CampaignTargetFlightdateEnd","CampaignTargetStatus","TraitID","TraitName","TraitMessageID","TraitMessageName",
-                "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","ClickBasedConversions","ImpressionBasedConversions"};
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","TraitID","TraitName","IntegrationID","IntegrationName","CurrencyCode","ClickBasedConversions","ImpressionBasedConversions"};
         mapper.setColumnMapping(columns);
 
         CsvToBean<TraitConversionBean> csv = new CsvToBean<TraitConversionBean>();
@@ -332,14 +327,6 @@ public class DatoramaCSVUtil {
             lineItem.append(delimiter);
             lineItem.append(traitConversionList.get(i).getTraitName());
             lineItem.append(delimiter);
-            lineItem.append(traitConversionList.get(i).getTraitMessageId());
-            lineItem.append(delimiter);
-            lineItem.append(traitConversionList.get(i).getTraitMessageName());
-            lineItem.append(delimiter);
-            lineItem.append(traitConversionList.get(i).getAdserverPlacementId());
-            lineItem.append(delimiter);
-            lineItem.append(traitConversionList.get(i).getAdserverPlacementName());
-            lineItem.append(delimiter);
             lineItem.append(traitConversionList.get(i).getIntegrationId());
             lineItem.append(delimiter);
             lineItem.append(traitConversionList.get(i).getIntegrationName());
@@ -353,6 +340,33 @@ public class DatoramaCSVUtil {
             traitConversionModifiedList.add(lineItem.toString());
         }
         return traitConversionModifiedList;
+    }
+
+    public static ConversionMetrics getTraitConversionMeasurementTotal(String fileName, char separator) throws FileNotFoundException {
+        ConversionMetrics metrics = new ConversionMetrics();
+        int total_click_based_conversion = 0;
+        int total_view_based_conversion = 0;
+        int recordCount = 0;
+        
+        ColumnPositionMappingStrategy<TraitConversionBean> mapper = new ColumnPositionMappingStrategy<TraitConversionBean>();
+        mapper.setType(TraitConversionBean.class);
+        String[] columns = new String[]{"Date", "BUID", "CampaignID", "CampaignName", "CampaignFlightdateStart", "CampaignFlightdateEnd", "AccountManagerID",
+                "CampaignStatus", "AdvertiserSourceID", "AdvertiserSourceName", "CampaignTargetID", "CampaignTargetName", "CampaignTargetFlightdateStart",
+                "CampaignTargetFlightdateEnd", "CampaignTargetStatus", "TraitID", "TraitName", "IntegrationID", "IntegrationName", "CurrencyCode", "ClickBasedConversions", "ImpressionBasedConversions"};
+        mapper.setColumnMapping(columns);
+
+        CsvToBean<TraitConversionBean> csv = new CsvToBean<TraitConversionBean>();
+        List<TraitConversionBean> traitConversionList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
+        List<String> traitConversionModifiedList = new ArrayList<String>();
+        for (int i = 1; i <traitConversionList.size(); i++) {
+            total_click_based_conversion = total_click_based_conversion + Integer.parseInt(traitConversionList.get(i).getClickBasedConversions());
+            total_view_based_conversion = total_view_based_conversion + Integer.parseInt(traitConversionList.get(i).getImpressionBasedConversions());
+            recordCount++;
+        }
+        metrics.setTotalClickBasedConversion(total_click_based_conversion);
+        metrics.setTotalViewBasedConversion(total_view_based_conversion);
+        metrics.setRecordCount(recordCount);
+        return metrics;
     }
 
 }
