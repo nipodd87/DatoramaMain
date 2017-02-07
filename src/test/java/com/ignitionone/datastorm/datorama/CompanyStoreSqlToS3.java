@@ -54,7 +54,7 @@ public class CompanyStoreSqlToS3 extends BaseClass {
     }
 
     @Test
-    public void creativeDeliveryToS3() throws Exception {
+    public void companyStoreToS3() throws Exception {
         //Execute the Third Party File Info Query to get the Corresponding Information (Report Start, End date, File Status ID, Record Count, File Name
         executor = new DatoramaNanETL();
         executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", "4");
@@ -64,7 +64,7 @@ public class CompanyStoreSqlToS3 extends BaseClass {
         recordCount = DatoramaNanETL.recordCount;
         fileStatusID = DatoramaNanETL.fileStatusID;
         //Execute the Stored Procedure to get Start and End Date
-        spRecordCount = executor.getStoreProcedureCountWithoutParameters(storeProcFile, envt, "thirdPartyFileGeneration_CompanyStore");
+        spRecordCount = executor.getStoreProcedureCount(storeProcFile, envt, "thirdPartyFileGeneration_CompanyStore");
         //Check File Status in the Audit Log Table
         CommonUtil.compareNumberEquals(FILE_UPLOAD_SUCCESS, fileStatusID, "File Status ID Check", "same as expected in the Audit Log table");
         extentReportUtil.endTest();
