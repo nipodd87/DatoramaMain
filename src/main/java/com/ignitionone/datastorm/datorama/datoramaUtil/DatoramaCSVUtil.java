@@ -4,7 +4,14 @@ package com.ignitionone.datastorm.datorama.datoramaUtil;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
-import com.ignitionone.datastorm.datorama.model.*;
+import com.ignitionone.datastorm.datorama.model.CompanyStoreBean;
+import com.ignitionone.datastorm.datorama.model.ConversionMetrics;
+import com.ignitionone.datastorm.datorama.model.CreativeDeliveryBean;
+import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
+import com.ignitionone.datastorm.datorama.model.CreativeConversionBean;
+import com.ignitionone.datastorm.datorama.model.TraitDeliveryBean;
+import com.ignitionone.datastorm.datorama.model.TraitConversionBean;
+
 
 
 import java.io.FileNotFoundException;
@@ -112,6 +119,100 @@ public class DatoramaCSVUtil {
             totalImpression = totalImpression + Integer.parseInt(creativeDeliveryList.get(i).getImpressions());
             totalClicks = totalClicks + Integer.parseInt(creativeDeliveryList.get(i).getClicks());
             totalCost = totalCost + Double.parseDouble(creativeDeliveryList.get(i).getCost());
+            recordCount++;
+        }
+        metrics.setTotalImpressions(totalImpression);
+        metrics.setTotalClicks(totalClicks);
+        metrics.setTotalCost(Math.floor(totalCost * 1000) / 1000);
+        metrics.setRecordCount(recordCount);
+        return metrics;
+    }
+    public static List<String> getTraitDeliveryCSVData(String fileName, char separator, String delimiter) throws FileNotFoundException {
+        ColumnPositionMappingStrategy<TraitDeliveryBean> mapper = new ColumnPositionMappingStrategy<TraitDeliveryBean>();
+        mapper.setType(TraitDeliveryBean.class);
+        String[] columns = new String[]{"Date", "BUID", "CampaignID", "CampaignName", "CampaignFlightdateStart", "CampaignFlightdateEnd", "AccountManagerID", "CampaignStatus",
+                "AdvertiserSourceID", "AdvertiserSourceName", "CampaignTargetID", "CampaignTargetName", "CampaignTargetFlightdateStart", "CampaignTargetFlightdateEnd", "CampaignTargetStatus", "TraitID",
+                "TraitName","IntegrationID", "IntegrationName", "CurrencyCode", "Impressions", "Clicks", "Cost"};
+        mapper.setColumnMapping(columns);
+
+        CsvToBean<TraitDeliveryBean> csv = new CsvToBean<TraitDeliveryBean>();
+        List<TraitDeliveryBean> traitDeliveryList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
+
+        List<String> traitDeliveryModifiedList = new ArrayList<String>();
+        for (int i = 0; i < traitDeliveryList.size(); i++) {
+            //Get csv data
+            StringBuffer lineItem = new StringBuffer();
+            lineItem.append(traitDeliveryList.get(i).getDate());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getBuId());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCampaignId());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCampaignName());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCampaignFlightDateStart());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCampaignFlightDateEnd());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getAccountManagerId());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCampaignStatus());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getAdvertiserSourceId());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getAdvertiserSourceName());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCampaignTargetId());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCampaignTargetName());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCampaignTargetFlightDateStart());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCampaignTargetFlightDateEnd());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCampaignTargetStatus());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getTraitId());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getTraitName());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getIntegrationId());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getIntegrationName());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCurrencyCode());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getImpressions());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getClicks());
+            lineItem.append(delimiter);
+            lineItem.append(traitDeliveryList.get(i).getCost());
+
+            traitDeliveryModifiedList.add(lineItem.toString());
+        }
+        return traitDeliveryModifiedList;
+    }
+
+    public static DeliveryMetrics getTraitDeliveryMeasurementTotal(String fileName, char separator) throws FileNotFoundException {
+        DeliveryMetrics metrics = new DeliveryMetrics();
+        long totalImpression = 0;
+        long totalClicks = 0;
+        double totalCost = 0;
+        int recordCount = 0;
+        ColumnPositionMappingStrategy<TraitDeliveryBean> mapper = new ColumnPositionMappingStrategy<TraitDeliveryBean>();
+        mapper.setType(TraitDeliveryBean.class);
+        String[] columns = new String[]{"Date", "BUID", "CampaignID", "CampaignName", "CampaignFlightdateStart", "CampaignFlightdateEnd", "AccountManagerID", "CampaignStatus",
+                "AdvertiserSourceID", "AdvertiserSourceName", "CampaignTargetID", "CampaignTargetName", "CampaignTargetFlightdateStart", "CampaignTargetFlightdateEnd", "CampaignTargetStatus", "TraitID",
+                "TraitName","IntegrationID", "IntegrationName", "CurrencyCode", "Impressions", "Clicks", "Cost"};
+        mapper.setColumnMapping(columns);
+
+        CsvToBean<TraitDeliveryBean> csv = new CsvToBean<TraitDeliveryBean>();
+        List<TraitDeliveryBean> traitDeliveryList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
+        mapper.getColumnMapping();
+        for (int i = 1; i < traitDeliveryList.size(); i++) {
+            totalImpression = totalImpression + Integer.parseInt(traitDeliveryList.get(i).getImpressions());
+            totalClicks = totalClicks + Integer.parseInt(traitDeliveryList.get(i).getClicks());
+            totalCost = totalCost + Double.parseDouble(traitDeliveryList.get(i).getCost());
             recordCount++;
         }
         metrics.setTotalImpressions(totalImpression);
