@@ -282,4 +282,77 @@ public class DatoramaCSVUtil {
         }
         return recordCount;
     }
+
+    public static List<String> getTraitConversionCSVData(String fileName, char separator, String delimiter) throws FileNotFoundException {
+        ColumnPositionMappingStrategy<TraitConversionBean> mapper = new ColumnPositionMappingStrategy<TraitConversionBean>();
+        mapper.setType(TraitConversionBean.class);
+        String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
+                "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","TraitID","TraitName","TraitMessageID","TraitMessageName",
+                "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","ClickBasedConversions","ImpressionBasedConversions"};
+        mapper.setColumnMapping(columns);
+
+        CsvToBean<TraitConversionBean> csv = new CsvToBean<TraitConversionBean>();
+        List<TraitConversionBean> traitConversionList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
+        List<String> traitConversionModifiedList = new ArrayList<String>();
+        for (int i = 0; i < traitConversionList.size(); i++) {
+            //Get csv data
+            StringBuffer lineItem = new StringBuffer();
+            lineItem.append(traitConversionList.get(i).getDate());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getBuId());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCampaignId());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCampaignName());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCampaignFlightDateStart());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCampaignFlightDateEnd());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getAccountManagerId());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCampaignStatus());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getAdvertiserSourceId());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getAdvertiserSourceName());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCampaignTargetId());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCampaignTargetName());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCampaignTargetFlightDateStart());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCampaignTargetFlightDateEnd());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCampaignTargetStatus());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getTraitId());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getTraitName());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getTraitMessageId());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getTraitMessageName());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getAdserverPlacementId());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getAdserverPlacementName());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getIntegrationId());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getIntegrationName());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getCurrencyCode());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getClickBasedConversions());
+            lineItem.append(delimiter);
+            lineItem.append(traitConversionList.get(i).getImpressionBasedConversions());
+
+            traitConversionModifiedList.add(lineItem.toString());
+        }
+        return traitConversionModifiedList;
+    }
+
 }
