@@ -6,3 +6,4 @@ thirdPartyFileGeneration_CompanyStore=exec [dbo].[SI_SP_ThirdPartyReportFileGene
 thirdPartyFileGeneration_TraitConversion=exec [dbo].[SI_SP_ThirdPartyReportFileGeneration_TraitConversion] @StartDate = '$START_DATE$', @EndDate = '$END_DATE$'
 thirdPartyFileGeneration_TraitDelivery=exec [dbo].[SI_SP_ThirdPartyReportFileGeneration_TraitDelivery] @StartDate = '$START_DATE$', @EndDate = '$END_DATE$'
 thirdPartyFileGeneration_DomainConversion=exec [dbo].[SI_SP_ThirdPartyReportFileGeneration_DomainConversion] @StartDate = '$START_DATE$', @EndDate = '$END_DATE$'
+thirdPartyFileGeneration_DomainDelivery=exec [dbo].[SI_SP_ThirdPartyReportFileGeneration_DomainDelivery] @StartDate = '$START_DATE$', @EndDate = '$END_DATE$'
