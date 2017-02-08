@@ -12,7 +12,7 @@ import com.ignitionone.datastorm.datorama.model.CreativeConversionBean;
 import com.ignitionone.datastorm.datorama.model.TraitDeliveryBean;
 import com.ignitionone.datastorm.datorama.model.TraitConversionBean;
 import com.ignitionone.datastorm.datorama.model.DomainConversionBean;
-
+import com.ignitionone.datastorm.datorama.model.DomainDeliveryBean;
 
 
 import java.io.FileNotFoundException;
@@ -555,7 +555,7 @@ public class DatoramaCSVUtil {
         mapper.setType(DomainConversionBean.class);
         String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
                 "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
-                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CeativeID","CreativeName","CreativeMessageID","CreativeMessageName",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName",
                 "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","ClickBasedConversions","ImpressionBasedConversions"};
         mapper.setColumnMapping(columns);
 
@@ -568,6 +568,114 @@ public class DatoramaCSVUtil {
         }
         metrics.setTotalClickBasedConversion(total_click_based_conversion);
         metrics.setTotalViewBasedConversion(total_view_based_conversion);
+        metrics.setRecordCount(recordCount);
+        return metrics;
+    }
+
+
+    public static List<String> getDomainDeliveryCSVData(String fileName, char separator, String delimiter) throws FileNotFoundException {
+        ColumnPositionMappingStrategy<DomainDeliveryBean> mapper = new ColumnPositionMappingStrategy<DomainDeliveryBean>();
+        mapper.setType(DomainDeliveryBean.class);
+        String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
+                "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName",
+                "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","Impressions","Clicks","Cost"};
+        mapper.setColumnMapping(columns);
+
+        CsvToBean<DomainDeliveryBean> csv = new CsvToBean<DomainDeliveryBean>();
+        List<DomainDeliveryBean> domainDeliveryList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
+
+        List<String> domainDeliveryModifiedList = new ArrayList<String>();
+        for (int i = 0; i < domainDeliveryList.size(); i++) {
+            //Get csv data
+            StringBuffer lineItem = new StringBuffer();
+            lineItem.append(domainDeliveryList.get(i).getDate());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getBuId());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCampaignId());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCampaignName());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCampaignFlightDateStart());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCampaignFlightDateEnd());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getAccountManagerId());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCampaignStatus());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getAdvertiserSourceId());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getAdvertiserSourceName());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCampaignTargetId());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCampaignTargetName());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCampaignTargetFlightDateStart());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCampaignTargetFlightDateEnd());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCampaignTargetStatus());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCreativeId());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCreativeName());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCreativeMessageId());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCreativeMessageName());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getAdserverPlacementId());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getAdserverPlacementName());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getIntegrationId());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getIntegrationName());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCurrencyCode());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getSiteUrl());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getImpressions());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getClicks());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getCost());
+
+            domainDeliveryModifiedList.add(lineItem.toString());
+        }
+        return domainDeliveryModifiedList;
+    }
+
+    public static DeliveryMetrics getDomainDeliveryMeasurementTotal(String fileName, char separator) throws FileNotFoundException {
+        DeliveryMetrics metrics = new DeliveryMetrics();
+        long totalImpression = 0;
+        long totalClicks = 0;
+        double totalCost = 0;
+        int recordCount = 0;
+        ColumnPositionMappingStrategy<DomainDeliveryBean> mapper = new ColumnPositionMappingStrategy<DomainDeliveryBean>();
+        mapper.setType(DomainDeliveryBean.class);
+        String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
+                "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName",
+                "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","Impressions","Clicks","Cost"};
+        mapper.setColumnMapping(columns);
+
+        CsvToBean<DomainDeliveryBean> csv = new CsvToBean<DomainDeliveryBean>();
+        List<DomainDeliveryBean> domainDeliveryList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
+        mapper.getColumnMapping();
+        for (int i = 1; i < domainDeliveryList.size(); i++) {
+            totalImpression = totalImpression + Integer.parseInt(domainDeliveryList.get(i).getImpressions());
+            totalClicks = totalClicks + Integer.parseInt(domainDeliveryList.get(i).getClicks());
+            totalCost = totalCost + Double.parseDouble(domainDeliveryList.get(i).getCost());
+            recordCount++;
+        }
+        metrics.setTotalImpressions(totalImpression);
+        metrics.setTotalClicks(totalClicks);
+        metrics.setTotalCost(Math.floor(totalCost * 1000) / 1000);
         metrics.setRecordCount(recordCount);
         return metrics;
     }
