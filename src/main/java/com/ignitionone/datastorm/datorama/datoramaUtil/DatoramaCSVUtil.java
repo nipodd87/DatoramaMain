@@ -11,6 +11,7 @@ import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
 import com.ignitionone.datastorm.datorama.model.CreativeConversionBean;
 import com.ignitionone.datastorm.datorama.model.TraitDeliveryBean;
 import com.ignitionone.datastorm.datorama.model.TraitConversionBean;
+import com.ignitionone.datastorm.datorama.model.DomainConversionBean;
 
 
 
@@ -470,4 +471,104 @@ public class DatoramaCSVUtil {
         return metrics;
     }
 
+    public static List<String> getDomainConversionCSVData(String fileName, char separator, String delimiter) throws FileNotFoundException {
+        ColumnPositionMappingStrategy<DomainConversionBean> mapper = new ColumnPositionMappingStrategy<DomainConversionBean>();
+        mapper.setType(DomainConversionBean.class);
+        String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
+                "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CeativeID","CreativeName","CreativeMessageID","CreativeMessageName",
+                "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","ClickBasedConversions","ImpressionBasedConversions"};
+        mapper.setColumnMapping(columns);
+
+        CsvToBean<DomainConversionBean> csv = new CsvToBean<DomainConversionBean>();
+        List<DomainConversionBean> domainConversionList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
+        List<String> domainConversionModifiedList = new ArrayList<String>();
+        for (int i = 0; i < domainConversionList.size(); i++) {
+            //Get csv data
+            StringBuffer lineItem = new StringBuffer();
+            lineItem.append(domainConversionList.get(i).getDate());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getBuId());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCampaignId());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCampaignName());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCampaignFlightDateStart());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCampaignFlightDateEnd());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getAccountManagerId());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCampaignStatus());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getAdvertiserSourceId());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getAdvertiserSourceName());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCampaignTargetId());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCampaignTargetName());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCampaignTargetFlightDateStart());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCampaignTargetFlightDateEnd());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCampaignTargetStatus());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCreativeId());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCreativeName());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCreativeMessageId());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCreativeMessageName());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getAdserverPlacementId());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getAdserverPlacementName());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getIntegrationId());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getIntegrationName());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCurrencyCode());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getSiteUrl());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getClickBasedConversions());
+            lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getImpressionBasedConversions());
+
+            domainConversionModifiedList.add(lineItem.toString());
+        }
+        return domainConversionModifiedList;
+    }
+
+    public static ConversionMetrics getDomainConversionMeasurementTotal(String fileName, char separator) throws FileNotFoundException {
+        ConversionMetrics metrics = new ConversionMetrics();
+        int total_click_based_conversion = 0;
+        int total_view_based_conversion = 0;
+        int recordCount = 0;
+
+        ColumnPositionMappingStrategy<DomainConversionBean> mapper = new ColumnPositionMappingStrategy<DomainConversionBean>();
+        mapper.setType(DomainConversionBean.class);
+        String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
+                "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CeativeID","CreativeName","CreativeMessageID","CreativeMessageName",
+                "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","ClickBasedConversions","ImpressionBasedConversions"};
+        mapper.setColumnMapping(columns);
+
+        CsvToBean<DomainConversionBean> csv = new CsvToBean<DomainConversionBean>();
+        List<DomainConversionBean> domainConversionList = csv.parse(mapper, new CSVReader(new FileReader(System.getProperty("user.dir") + "/" + fileName), separator));
+        for (int i = 1; i <domainConversionList.size(); i++) {
+            total_click_based_conversion = total_click_based_conversion + Integer.parseInt(domainConversionList.get(i).getClickBasedConversions());
+            total_view_based_conversion = total_view_based_conversion + Integer.parseInt(domainConversionList.get(i).getImpressionBasedConversions());
+            recordCount++;
+        }
+        metrics.setTotalClickBasedConversion(total_click_based_conversion);
+        metrics.setTotalViewBasedConversion(total_view_based_conversion);
+        metrics.setRecordCount(recordCount);
+        return metrics;
+    }
 }
