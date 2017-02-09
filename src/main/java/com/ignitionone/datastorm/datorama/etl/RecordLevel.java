@@ -1,11 +1,7 @@
 package com.ignitionone.datastorm.datorama.etl;
 
-import com.amazonaws.services.dynamodbv2.xspec.S;
 import com.ignitionone.datastorm.datorama.sqlUtil.ExecuteSqlUtil;
-import com.ignitionone.datastorm.datorama.util.CommonUtil;
 import com.ignitionone.datastorm.datorama.util.ETLUtil;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

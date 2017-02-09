@@ -17,6 +17,7 @@ public class Jdbc {
     public static String DB_HOST_URL = "hostUrl";
     public static String DB_USERNAME = "username";
     public static String DB_PASSWORD = "password";
+    public static final String DELIMITER = "\\|@\\|";
 
     //~ Methods --------------------------------------------------------------------------------------------------------
 
@@ -48,7 +49,7 @@ public class Jdbc {
             for (int i = 1; i <= md.getColumnCount(); i++) {
                 coloumn.append(md.getColumnLabel(i));
                 if (i < md.getColumnCount()) {
-                    coloumn.append(",");
+                    coloumn.append("|@|");
                 }
             }
 
@@ -60,7 +61,7 @@ public class Jdbc {
                 for (int i = 1; i <= md.getColumnCount(); i++) {
                     sb.append(rs.getString(i));
                     if (i < md.getColumnCount()) {
-                        sb.append(",");
+                        sb.append("|@|");
                     }
                 }
                 dbValues.add(sb.toString());
@@ -90,8 +91,8 @@ public class Jdbc {
     public static Map<String, String> getDbKeyValues(List<String> dbValues, int rowNumber) {
         Map<String, String> DbKeyValue = new HashMap<String, String>();
 
-        String[] columnArray = dbValues.get(0).split(",");
-        String[] dbColumnArray = dbValues.get(rowNumber).split(",");
+        String[] columnArray = dbValues.get(0).split(DELIMITER);
+        String[] dbColumnArray = dbValues.get(rowNumber).split(DELIMITER);
 
         for (int i = 0; i < columnArray.length; i++) {
             DbKeyValue.put(columnArray[i], dbColumnArray[i]);
