@@ -3,9 +3,11 @@ package com.ignitionone.datastorm.datorama;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.ignitionone.datastorm.datorama.AmazonServices.S3Functions;
+import com.ignitionone.datastorm.datorama.datoramaUtil.DatoramaCSVUtil;
 import com.ignitionone.datastorm.datorama.datoramaUtil.JsonParser;
 import com.ignitionone.datastorm.datorama.apiUtil.APIRequestBodyGenerator;
 import com.ignitionone.datastorm.datorama.apiUtil.APIUtil;
+import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
 import com.ignitionone.datastorm.datorama.etl.DestinationTable;
 import com.ignitionone.datastorm.datorama.etl.FileLevel;
 import com.ignitionone.datastorm.datorama.etl.RecordLevel;
@@ -41,8 +43,16 @@ public class CreativeDeliveryS3ToDatorama extends ApiBaseClass{
     File creativeDeliveryFile;
     String creativeDeliveryFilePath;
     String Bucket_Name = "thirdpartyreporting";
-    String creativeDeliveryFileName = "SummarizedCreativeDeliveryEventData_";
-    String creativeDeliveryDirectory = "Datorama/Final/EventData/Summarized/Creative/Delivery";
+    String creativeDeliveryDirectory = "Datorama/Archive/EventData/Summarized/Creative/Delivery";
+    String sqlFile = "sql/sqlNan.sql";
+    String storeProcFile = "sql/datorama_stored_procedure.sql";
+    public static final int FILE_UPLOAD_SUCCESS=3;
+    DatoramaNanETL executor;
+    String reportStartDate;
+    String reportEndDate;
+    int recordCount;
+    int fileStatusID;
+    String creativeDeliveryFileName;
 
     @BeforeClass
     @Parameters(value = {"environment"})
@@ -55,6 +65,15 @@ public class CreativeDeliveryS3ToDatorama extends ApiBaseClass{
 
     @Test
     public void creativeDeliveryToDatorama() throws Exception {
+        //Execute the Third Party File Info Query to get the Corresponding Information Report Start Date and Report End Date
+        executor = new DatoramaNanETL();
+        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", "1");
+        reportStartDate=DatoramaNanETL.reportStartDate;
+        reportEndDate=DatoramaNanETL.reportEndDate;
+        creativeDeliveryFileName=DatoramaNanETL.fileName;
+        //Download the file from Amazon S3
+        creativeDeliveryFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, creativeDeliveryFileName, creativeDeliveryDirectory);
+        creativeDeliveryFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3, creativeDeliveryFilePath,"CreativeDeliverySummarizedData");
 
         RecordLevel recordLevel = new RecordLevel();
         extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
@@ -63,7 +82,7 @@ public class CreativeDeliveryS3ToDatorama extends ApiBaseClass{
         String AuthResponse = APIUtil.getResponseAsString("/auth/authenticate", APIRequestBodyGenerator.getAuthRequestBody());
         String token=from(AuthResponse).get("token");
 
-        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getCreativeDelivery("2017-01-01", "2017-01-31"), token);
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getCreativeDelivery(reportStartDate, reportEndDate), token);
         JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
         List<String> creativeDeliverySrcList = parser.convertJsonToList(jsonObject);
 
@@ -123,9 +142,8 @@ public class CreativeDeliveryS3ToDatorama extends ApiBaseClass{
         validate.put("Clicks", clicks);
         validate.put("Media Cost", cost);
 
-        CSVandTextReader csvReader = new CSVandTextReader();
-
-        List <String> creativeDeliveryDestList = csvReader.getCSVData(System.getProperty("user.dir")+"/"+"CreativeDeliverySummarizedData.csv");
+        //Read Data from CSV in a List of String delimited with |@|
+        List <String> creativeDeliveryDestList = DatoramaCSVUtil.getCreativeDeliveryCSVData("CreativeDeliverySummarizedData.csv", ',', "|@|");
 
 
         extentReportUtil.startTest("File level tests <BR> Verify Data Types <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);

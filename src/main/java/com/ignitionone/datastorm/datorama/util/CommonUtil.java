@@ -958,7 +958,7 @@ public class CommonUtil {
      * @param stepName in value
      * @param details  in value
      */
-    public void compareTextContains(String strText1, String strText2, String stepName, String details) {
+    public static void compareTextContains(String strText1, String strText2, String stepName, String details) {
         if ((strText1 == null) && (strText2 == null)) {
             reportUtil.logPass(stepName,
                     "Passed - " + details + "<BR>  Expected :" + strText2 + "<BR>  Found :" + strText1);
