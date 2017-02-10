@@ -326,7 +326,7 @@ public class DatoramaCSVUtil {
     public static List<String> getCompanyStoreCSVData(String fileName, char separator,String delimiter) throws FileNotFoundException {
         ColumnPositionMappingStrategy<CompanyStoreBean> mapper = new ColumnPositionMappingStrategy<CompanyStoreBean>();
         mapper.setType(CompanyStoreBean.class);
-        String[] columns = new String[]{"BUID", "CampaignID", "BUName", "CompanyID", "CompanyName", "AgencyID", "AgencyName",
+        String[] columns = new String[]{"BUID", "BUName", "CompanyID", "CompanyName", "AgencyID", "AgencyName",
                 "DivisionID", "DivisionName", "RegionID", "RegionName", "TimeZoneName"};
         mapper.setColumnMapping(columns);
 
@@ -358,7 +358,6 @@ public class DatoramaCSVUtil {
             lineItem.append(companyStoreList.get(i).getRegionName());
             lineItem.append(delimiter);
             lineItem.append(companyStoreList.get(i).getTimeZoneName());
-            lineItem.append(delimiter);
 
             companyStoreModifiedList.add(lineItem.toString());
     }
@@ -369,7 +368,7 @@ public class DatoramaCSVUtil {
         int recordCount = 0;
         ColumnPositionMappingStrategy<CompanyStoreBean> mapper = new ColumnPositionMappingStrategy<CompanyStoreBean>();
         mapper.setType(CompanyStoreBean.class);
-        String[] columns = new String[]{"BUID", "CampaignID", "BUName", "CompanyID", "CompanyName", "AgencyID", "AgencyName",
+        String[] columns = new String[]{"BUID", "BUName", "CompanyID", "CompanyName", "AgencyID", "AgencyName",
                 "DivisionID", "DivisionName", "RegionID", "RegionName", "TimeZoneName"};
         mapper.setColumnMapping(columns);
 
