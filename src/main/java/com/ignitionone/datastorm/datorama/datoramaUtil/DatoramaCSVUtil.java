@@ -358,7 +358,6 @@ public class DatoramaCSVUtil {
             lineItem.append(companyStoreList.get(i).getRegionName());
             lineItem.append(delimiter);
             lineItem.append(companyStoreList.get(i).getTimeZoneName());
-            lineItem.append(delimiter);
 
             companyStoreModifiedList.add(lineItem.toString());
     }

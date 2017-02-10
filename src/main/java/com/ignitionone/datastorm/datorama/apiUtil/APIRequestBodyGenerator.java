@@ -10,7 +10,7 @@ public class APIRequestBodyGenerator {
     }
 
     public static String getCompanyStore(String startDate, String endDate){
-        return "[{\"brandId\": \"12547\",\"dateRange\": \"THIS_MONTH\",\"startDate\": \""+startDate+"\",\"endDate\": \""+endDate+"\",\"measurements\": [],\"dimensions\": [\"Advertiser ID\",\"Advertiser\",\"Company ID\",\"Company\",\"Agency ID\",\"Agency \",\"Division ID\",\"Division\",\"Region ID\",\"Region\",\"Time Zone\"],\"groupDimensionFilters\": [{\"vals\": [\"Meta Data - Company Store\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Advertiser ID\",\"sortOrder\": \"DESC\",\"topResults\": \"50\",\"groupOthers\": true,\"topPerDimension\": false,\"totalDimensions\": []}]";
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"THIS_MONTH\",\"startDate\": \""+startDate+"\",\"endDate\": \""+endDate+"\",\"measurements\": [],\"dimensions\": [\"Advertiser ID\",\"Advertiser\",\"Company ID\",\"Company\",\"Agency ID\",\"Agency \",\"Division ID\",\"Division\",\"Region ID\",\"Region\",\"Time Zone\"],\"groupDimensionFilters\": [{\"vals\": [\"Meta Data - Company Store\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Advertiser ID\",\"sortOrder\": \"DESC\",\"topResults\": \"500\",\"groupOthers\": true,\"topPerDimension\": false,\"totalDimensions\": []}]";
     }
 
     public static String getCreativeConversion(String startDate, String endDate){
