@@ -77,7 +77,7 @@ public class CreativeDeliveryS3ToDatorama extends ApiBaseClass{
         String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getCreativeDelivery(reportStartDate, reportEndDate), token);
         JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
         List<String> creativeDeliverySrcList = parser.convertJsonToList(jsonObject);
-        
+
         //Read Data from CSV in a List of String delimited with |@|
         List <String> creativeDeliveryDestList = DatoramaCSVUtil.getCreativeDeliveryCSVData("CreativeDeliverySummarizedData.csv", ',', "|@|");
 
