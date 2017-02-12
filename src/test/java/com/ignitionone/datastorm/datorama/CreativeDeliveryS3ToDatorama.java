@@ -12,6 +12,7 @@ import com.ignitionone.datastorm.datorama.etl.DestinationTable;
 import com.ignitionone.datastorm.datorama.etl.FileLevel;
 import com.ignitionone.datastorm.datorama.etl.RecordLevel;
 import com.ignitionone.datastorm.datorama.util.CSVandTextReader;
+import com.ignitionone.datastorm.datorama.util.ETLUtil;
 import org.json.simple.JSONObject;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -53,6 +54,7 @@ public class CreativeDeliveryS3ToDatorama extends ApiBaseClass{
     int recordCount;
     int fileStatusID;
     String creativeDeliveryFileName;
+    ETLUtil etlUtil = new ETLUtil();
 
     @BeforeClass
     @Parameters(value = {"environment"})
@@ -144,13 +146,11 @@ public class CreativeDeliveryS3ToDatorama extends ApiBaseClass{
 
         //Read Data from CSV in a List of String delimited with |@|
         List <String> creativeDeliveryDestList = DatoramaCSVUtil.getCreativeDeliveryCSVData("CreativeDeliverySummarizedData.csv", ',', "|@|");
-
+        Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Mapping.xlsx", "Creative_Delivery_Mapper");
 
         extentReportUtil.startTest("File level tests <BR> Verify Data Types <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
-        FileLevel fileLevel= new FileLevel();
-        fileLevel.verifyTableCount(creativeDeliverySrcList,"Creative Delivery API Response", creativeDeliveryDestList, "Creative Delivery CSV Data");
 
-        recordLevel.verifySrcWithDestData(validate,creativeDeliverySrcList,creativeDeliveryDestList);
+        recordLevel.verifySrcWithDestData(mapper,creativeDeliverySrcList,creativeDeliveryDestList);
     }
     @AfterClass(alwaysRun = true)
     public void generateReport() {

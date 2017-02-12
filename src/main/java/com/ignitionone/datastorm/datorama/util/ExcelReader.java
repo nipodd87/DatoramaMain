@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ExcelReader {
 
-    public static String DELIMITER = ",";
+    public static String DELIMITER = "|@|";
     public static String DELETE_STRING = "[DEL]";
 
 

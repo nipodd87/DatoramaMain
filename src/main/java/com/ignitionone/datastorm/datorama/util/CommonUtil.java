@@ -570,8 +570,8 @@ public class CommonUtil {
      */
     public static void compareDateEquals(String strTxt1, String strTxt2, String stepName, String details)
             throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        compareDateEquals(strTxt1, "yyyy-MM-dd HH:mm", strTxt2, "yyyy-MM-dd HH:mm", stepName, details);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        compareDateEquals(strTxt1, "yyyy-MM-dd", strTxt2, "yyyy-MM-dd", stepName, details);
     }
 
     /**
