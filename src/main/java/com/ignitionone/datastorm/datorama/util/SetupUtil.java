@@ -44,13 +44,14 @@ public class SetupUtil {
         String testingMode = environment + ".testingMode";
         String dmsUserName = environment + ".dmsUserName";
         String dmsPassword = environment + ".dmsPassword";
-
+        /*
         if (browserName.trim().length() == 0) {
             browserName = (String) propEnvironment.get(browserUsed);
         }
         Browser browserRun = new Browser();
         this.driver = browserRun.createDriver(browserName);
         this.baseUrl = (String) propEnvironment.get(platformUrl);
+        */
         this.testingMode = (String) propEnvironment.get(testingMode);
         this.dmsUserName = (String) propEnvironment.get(dmsUserName);
         this.dmsPassword = (String) propEnvironment.get(dmsPassword);
