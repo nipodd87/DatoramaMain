@@ -5,8 +5,11 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.ignitionone.datastorm.datorama.AmazonServices.S3Functions;
 import com.ignitionone.datastorm.datorama.datoramaUtil.DatoramaCSVUtil;
 import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
+import com.ignitionone.datastorm.datorama.etl.DestinationTable;
+import com.ignitionone.datastorm.datorama.etl.RecordLevel;
 import com.ignitionone.datastorm.datorama.util.CommonUtil;
 import com.ignitionone.datastorm.datorama.model.ConversionMetrics;
+import com.ignitionone.datastorm.datorama.util.ETLUtil;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -15,6 +18,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by nitin.poddar on 1/31/2017.
@@ -47,7 +51,9 @@ public class TraitConversionSqlToS3  extends BaseClass  {
     ConversionMetrics metrics;
     public int total_click_based_conversion;
     public int total_view_based_conversion;
-
+    ETLUtil etlUtil = new ETLUtil();
+    RecordLevel recordLevel = new RecordLevel();
+    
     @BeforeClass
     @Parameters(value = {"environment"})
     public void setUp(String environment) throws Exception {
@@ -68,7 +74,9 @@ public class TraitConversionSqlToS3  extends BaseClass  {
         fileStatusID=DatoramaNanETL.fileStatusID;
 
         //Execute the Stored Procedure to get Start and End Date
-        spRecordCount=executor.getStoreProcedureCount(storeProcFile, envt,"thirdPartyFileGeneration_TraitConversion", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
+        List<String> spResultData = executor.getStoredProcedure(storeProcFile, envt,"thirdPartyFileGeneration_TraitConversion", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
+        spRecordCount = spResultData.size()-1;
+
         //Check File Status in the Audit Log Table
         CommonUtil.compareNumberEquals(FILE_UPLOAD_SUCCESS, fileStatusID, "File Status ID Check", "same as expected in the Audit Log table");
         extentReportUtil.endTest();
@@ -100,6 +108,16 @@ public class TraitConversionSqlToS3  extends BaseClass  {
         //Check the record count between Store Proc and Amazon Csv
         extentReportUtil.startTest("Trait Conversion SQL Nan to Amazon S3 Test Case 5<BR> Check the Record Count between Store Procedure and Amazon S3 CSV file", "between Store Procedure and Amazon S3 file");
         CommonUtil.compareNumberEquals(spRecordCount, metrics.getRecordCount(), "Record Count Between Stored Procedure and Amazon S3", "Verify record count between Store Procedure and Amazon S3 csv file");
+        extentReportUtil.endTest();
+
+        //Get List of String from CSV files
+        extentReportUtil.startTest("Trait Conversion SQL Nan to Amazon S3 Test Case 6<BR> Compare first 100 rows between Store Procedure and Amazon S3 CSV file", "between Store Procedure and Amazon S3 file");
+        List<String> traitConversionS3List = DatoramaCSVUtil.getTraitConversionCSVData("TraitConversionSummarizedData.csv", ',', "|@|");
+
+        //Reduce the List to Only 100 rows
+        List<String> traitConversionSPList100 = DatoramaNanETL.getFirstNRows(spResultData, 100);
+        Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Mapping.xlsx", "Trait_Conversion_S3_Mapper");
+        recordLevel.verifySrcWithDestData(mapper, traitConversionSPList100, traitConversionS3List);
     }
     @AfterClass(alwaysRun = true)
     public void generateReport() {
