@@ -215,4 +215,57 @@ public class Jdbc {
         }
         return counter;
     }
+
+    public static List<String> executeStoredProcedure(String query, String connectionUrl) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+
+        List<String> dbValues = new ArrayList<String>();
+        ResultSet rs = null;
+        Connection conn = null;
+        CallableStatement stmt = null;
+        int counter = 0;
+        try {
+
+            Class.forName(DRIVER).newInstance();
+            conn = DriverManager.getConnection(connectionUrl);
+            stmt = conn.prepareCall(query);
+            stmt.execute();
+            rs = stmt.getResultSet();
+            dbValues = dbDataConvertToList(rs);
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            stmt.close();
+            conn.close();
+        }
+        return dbValues;
+    }
+
+    private static List<String> dbDataConvertToList(ResultSet rs) throws SQLException {
+
+        List<String> dbValues = new ArrayList<String>();
+        StringBuffer coloumn = new StringBuffer();
+        ResultSetMetaData md = rs.getMetaData();
+        for (int i = 1; i <= md.getColumnCount(); i++) {
+            coloumn.append(md.getColumnLabel(i));
+            if (i < md.getColumnCount()) {
+                coloumn.append("|@|");
+            }
+        }
+        dbValues.add(coloumn.toString());
+
+        // Loop through the result set
+        while (rs.next()) {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 1; i <= md.getColumnCount(); i++) {
+                sb.append(rs.getString(i));
+                if (i < md.getColumnCount()) {
+                    sb.append("|@|");
+                }
+            }
+            dbValues.add(sb.toString());
+        }
+        return dbValues;
+    }
 }

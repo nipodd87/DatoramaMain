@@ -5,14 +5,19 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.ignitionone.datastorm.datorama.AmazonServices.S3Functions;
 import com.ignitionone.datastorm.datorama.datoramaUtil.DatoramaCSVUtil;
 import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
+import com.ignitionone.datastorm.datorama.etl.DestinationTable;
+import com.ignitionone.datastorm.datorama.etl.RecordLevel;
 import com.ignitionone.datastorm.datorama.util.CommonUtil;
 import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
+import com.ignitionone.datastorm.datorama.util.ETLUtil;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import java.io.File;
 import java.sql.ResultSet;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by nitin.poddar on 1/31/2017.
@@ -47,7 +52,8 @@ public class CreativeDeliverySqlToS3  extends BaseClass  {
     public int total_impressions;
     public int total_clicks;
     public double total_cost;
-
+    ETLUtil etlUtil = new ETLUtil();
+    RecordLevel recordLevel = new RecordLevel();
 
     @BeforeClass
     @Parameters(value = {"environment"})
@@ -68,7 +74,9 @@ public class CreativeDeliverySqlToS3  extends BaseClass  {
         recordCount=DatoramaNanETL.recordCount;
         fileStatusID=DatoramaNanETL.fileStatusID;
         //Execute the Stored Procedure to get Start and End Date
-        spRecordCount=executor.getStoreProcedureCount(storeProcFile, envt,"thirdPartyFileGeneration_CreativeDelivery", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
+        //spRecordCount=executor.getStoreProcedureCount(storeProcFile, envt,"thirdPartyFileGeneration_CreativeDelivery", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
+        List<String> spResultData = executor.getStoredProcedure(storeProcFile, envt,"thirdPartyFileGeneration_CreativeDelivery", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
+        spRecordCount = spResultData.size()-1;
         //Check File Status in the Audit Log Table
         CommonUtil.compareNumberEquals(FILE_UPLOAD_SUCCESS, fileStatusID, "File Status ID Check", "same as expected in the Audit Log table");
         extentReportUtil.endTest();
@@ -102,6 +110,15 @@ public class CreativeDeliverySqlToS3  extends BaseClass  {
         //Check the record count between Store Proc and Amazon Csv
         extentReportUtil.startTest("Creative Delivery SQL Nan to Amazon S3 Test Case 5<BR> Check the Record Count between Store Procedure and Amazon S3 CSV file", "between Store Procedure and Amazon S3 file");
         CommonUtil.compareNumberEquals(spRecordCount, metrics.getRecordCount(), "Record Count Between Stored Procedure and Amazon S3", "between Store Procedure and Amazon S3 csv file");
+        extentReportUtil.endTest();
+
+        //Get List of String from CSV files
+        extentReportUtil.startTest("Creative Delivery SQL Nan to Amazon S3 Test Case 6<BR> Compare first 200 rows between Store Procedure and Amazon S3 CSV file", "between Store Procedure and Amazon S3 file");
+        List<String> creativeDeliveryS3List = DatoramaCSVUtil.getCreativeDeliveryCSVData("CreativeDeliverySummarizedData.csv", ',', "|@|");
+        //Reduce the List to Only 200 rows
+        List<String> creativeDeliverySPList200 = DatoramaNanETL.getFirstNRows(spResultData, 200);
+        Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Mapping.xlsx", "Creative_Delivery_S3_Mapper");
+        recordLevel.verifySrcWithDestData(mapper, creativeDeliverySPList200, creativeDeliveryS3List);
     }
     @AfterClass(alwaysRun = true)
     public void generateReport() {
