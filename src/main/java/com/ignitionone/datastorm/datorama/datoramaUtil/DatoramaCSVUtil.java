@@ -475,7 +475,7 @@ public class DatoramaCSVUtil {
         mapper.setType(DomainConversionBean.class);
         String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
                 "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
-                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CeativeID","CreativeName","CreativeMessageID","CreativeMessageName",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName",
                 "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","ClickBasedConversions","ImpressionBasedConversions"};
         mapper.setColumnMapping(columns);
 
