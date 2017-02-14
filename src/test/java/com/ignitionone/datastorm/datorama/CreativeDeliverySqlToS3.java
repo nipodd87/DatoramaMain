@@ -73,6 +73,7 @@ public class CreativeDeliverySqlToS3  extends BaseClass  {
         creativeDeliveryFileName=DatoramaNanETL.fileName;
         recordCount=DatoramaNanETL.recordCount;
         fileStatusID=DatoramaNanETL.fileStatusID;
+
         //Execute the Stored Procedure to get Start and End Date
         //spRecordCount=executor.getStoreProcedureCount(storeProcFile, envt,"thirdPartyFileGeneration_CreativeDelivery", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
         List<String> spResultData = executor.getStoredProcedure(storeProcFile, envt,"thirdPartyFileGeneration_CreativeDelivery", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
