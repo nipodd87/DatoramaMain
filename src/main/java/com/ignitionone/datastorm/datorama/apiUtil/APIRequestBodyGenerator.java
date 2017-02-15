@@ -5,7 +5,7 @@ package com.ignitionone.datastorm.datorama.apiUtil;
  */
 public class APIRequestBodyGenerator {
 
-    public static String getAuthRequestBody(){
+    public static String getAuthRequestBody() {
         return "{\"email\": \"Harold.Cuebas@IgnitionOne.com\",\"password\": \"G@m3*0v3r\"}";
     }
 
