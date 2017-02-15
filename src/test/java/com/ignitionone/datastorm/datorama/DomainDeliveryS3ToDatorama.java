@@ -58,7 +58,7 @@ public class DomainDeliveryS3ToDatorama extends ApiBaseClass{
 
         //Execute the Third Party File Info Query to get the Corresponding Information Report Start Date and Report End Date
         executor = new DatoramaNanETL();
-        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", "1");
+        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", "7");
         reportStartDate=DatoramaNanETL.reportStartDate;
         reportEndDate=DatoramaNanETL.reportEndDate;
         domainDeliveryFileName=DatoramaNanETL.fileName;
