@@ -142,6 +142,13 @@ public class DatoramaNanETL extends SqlBaseClass {
         return result;
     }
 
+    public List<String> getStoredProcedure(String sqlFile, String environment, String sqlQueryName) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+        sqlSetup(sqlFile, sqlQueryName, environment);
+        List<String> result = jdbc.executeStoredProcedure(strSQL, connectionURL);
+        return result;
+    }
+
+
     public static List<String> getFirstNRows(List<String> list, int numberOfRows) {
         List<String> result = new ArrayList<String>();
         for (int i=0;i<numberOfRows;i++){
