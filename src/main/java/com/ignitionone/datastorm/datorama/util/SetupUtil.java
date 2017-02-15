@@ -29,7 +29,7 @@ public class SetupUtil {
      * @param propertiesFile in value
      */
     public SetupUtil(PropertyLoader propertiesFile, String browserName, String environment) {
-        String resultsFileName = "tracking";
+        String resultsFileName = "Datorama Report";
         propertiesFile.loadProperties("datastorm.properties");
         Properties propEnvironment = propertiesFile.getProps();
 
