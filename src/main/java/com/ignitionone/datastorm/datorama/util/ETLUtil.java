@@ -73,6 +73,7 @@ public class ETLUtil {
                     //so if there were more than 2 unique columns, it would throw an error, e.g. UserUniqueGUIDCreateUtcDate has no match type
                     verifySrcDestinationDataBasedOnMapping(mapSet, srcTableColumnsNames, distTableColumnsNames, srcList.get(srcCounter).split(DELIMITER), destList.get(destCounter).split(DELIMITER), srcValues[0]);
                     foundFlag = true;
+                    break;
 
                 }
 
