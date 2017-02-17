@@ -49,6 +49,14 @@ public class DatoramaNanETL extends SqlBaseClass {
         }
     }
 
+    public void getMeasurementCount(String sqlFile, String environment, String sqlQueryName, String oldString1, String newString1, String oldString2, String newString2,String OldColumn,String NewColumn) throws Exception {
+        sqlSetup(sqlFile, sqlQueryName, environment);
+        if (sqlQueryName.contains("Delivery")){
+            getMeasurementCountDelivery(strSQL.replace(oldString1, newString1).replace(oldString2, newString2).replace(OldColumn,NewColumn), connectionURL);
+        } else if (sqlQueryName.contains("Conversion")){
+            getMeasurementCountConversion(strSQL.replace(oldString1, newString1).replace(oldString2, newString2).replace(OldColumn,NewColumn), connectionURL);
+        }
+    }
 
     public void getThirdPartyInfo(String query, String connectionUrl) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
 
