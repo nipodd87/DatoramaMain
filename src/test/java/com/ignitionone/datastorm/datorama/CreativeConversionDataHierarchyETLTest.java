@@ -74,9 +74,16 @@ public class CreativeConversionDataHierarchyETLTest extends ApiBaseClass {
         executor.getMeasurementCount(sqlFile, envt, "getHierarchicalCountCreativeLevelForConversion", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate,"$ColumnName$",advertiser_id);
         total_click_based_conversion=DatoramaNanETL.total_click_based_conversion;
         total_view_based_conversion=DatoramaNanETL.total_view_based_conversion;
-        /*total_impressions=DatoramaNanETL.total_impressions;
-        total_clicks=DatoramaNanETL.total_clicks;
-        total_cost=DatoramaNanETL.total_cost;*/
+
+        String AuthResponse = APIUtil.getResponseAsString("/auth/authenticate", APIRequestBodyGenerator.getAuthRequestBody());
+        String token=from(AuthResponse).get("token");
+
+        //Get the API Response data from Datorama and convert into list of Strings
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getCreativeConversionDataHierarchy(reportStartDate, reportEndDate), token);
+        JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
+        List<String> creativeConversionSrcList = parser.convertJsonToList(jsonObject);
+
+
 
         CommonUtil.compareNumberEquals(total_click_based_conversion, total_view_based_conversion, "Record Count Between Stored Procedure and Amazon S3", "Verify record count between Store Procedure and Amazon S3 csv file");
 
