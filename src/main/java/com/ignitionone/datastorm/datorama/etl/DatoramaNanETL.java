@@ -143,19 +143,25 @@ public class DatoramaNanETL extends SqlBaseClass {
             conn.close();
         }
     }
-
+    //Calling Store Procedure by replacing two values from the SQL Query
     public List<String> getStoredProcedure(String sqlFile, String environment, String sqlQueryName, String oldString1, String newString1, String oldString2, String newString2) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         sqlSetup(sqlFile, sqlQueryName, environment);
         List<String> result = jdbc.executeStoredProcedure(strSQL.replace(oldString1, newString1).replace(oldString2, newString2), connectionURL);
         return result;
     }
 
+    //Calling Store Procedure without any value replacement from SQL Query
     public List<String> getStoredProcedure(String sqlFile, String environment, String sqlQueryName) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         sqlSetup(sqlFile, sqlQueryName, environment);
         List<String> result = jdbc.executeStoredProcedure(strSQL, connectionURL);
         return result;
     }
 
+    public List<String> executeQuery(String sqlFile, String environment, String sqlQueryName, String oldString1, String newString1, String oldString2, String newString2, String oldString3, String newString3) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        sqlSetup(sqlFile, sqlQueryName, environment);
+        List<String> result = jdbc.executeSQL(strSQL.replace(oldString1, newString1).replace(oldString2, newString2).replace(oldString3, newString3), connectionURL);
+        return result;
+    }
 
     public static List<String> getFirstNRows(List<String> list, int numberOfRows) {
         List<String> result = new ArrayList<String>();
