@@ -724,6 +724,29 @@ public class CommonUtil {
     /**
      * TODO: Enter Javadoc
      *
+     * @param doubleExpected in value
+     * @param doubleActual   in value
+     * @param epsilon in value
+     * @param stepName    in value
+     * @param details     in value
+     */
+    public static void compareNumberEquals(double doubleExpected, double doubleActual, double epsilon, String stepName, String details) {
+        if (doubleActual == doubleExpected ? true : Math.abs(doubleActual - doubleExpected) < epsilon) {
+            reportUtil.logPass(stepName,
+                    "Passed comparison to see if the numbers are equal " + details + "<BR>  Expected :" + doubleActual
+                            + "<BR>  Found :" + doubleExpected);
+        } else {
+            String message =
+                    "Failed comparison to see if the numbers are equal  " + details + "<BR>  Expected :" + doubleActual
+                            + "<BR>  Found :" + doubleExpected;
+            reportUtil.logFail(stepName, message);
+            MultiTest.addFailure(new TestFailureException(message));
+        }
+    }
+
+    /**
+     * TODO: Enter Javadoc
+     *
      * @param intText1 in value
      * @param intText2 in value
      * @param stepName in value

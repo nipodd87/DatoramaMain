@@ -144,7 +144,7 @@ public class ETLUtil {
                 } else if (dataType == DataType.DOUBLE) {
                     srcVal = new Double(srcValues[counter]);
                     destVal = new Double(destValues[destCounter]);
-                    CommonUtil.compareNumberEquals((Double) srcVal, (Double) destVal, "Verify data " + info, info);
+                    CommonUtil.compareNumberEquals((Double) srcVal, (Double) destVal, 0.001, "Verify data " + info, info);
                 } else if (dataType == DataType.LONG) {
                     srcVal = new Long(srcValues[counter]);
                     destVal = new Long(destValues[destCounter]);
