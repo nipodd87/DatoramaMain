@@ -41,4 +41,8 @@ public class APIRequestBodyGenerator {
         return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \""+startDate+"\",\"endDate\": \""+endDate+"\",\"measurements\":[{\"name\": \"Impressions\"},{\"name\": \"Cost\"},{\"name\": \"Clicks\"}],\"dimensions\": [\"Line Item ID\"],\"groupDimensionFilters\": [{\"vals\":[\"Creative Delivery\"],\"dimension\":\"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Line Item ID\",\"sortOrder\": \"ASC\",\"topResults\": \"500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
     }
 
+    public static String getCreativeDeliveryLevelCreative(String startDate, String endDate){
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \""+startDate+"\",\"endDate\": \""+endDate+"\",\"measurements\":[{\"name\": \"Impressions\"},{\"name\": \"Cost\"},{\"name\": \"Clicks\"}],\"dimensions\": [\"Creative ID\"],\"groupDimensionFilters\": [{\"vals\":[\"Creative Delivery\"],\"dimension\":\"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Creative ID\",\"sortOrder\": \"ASC\",\"topResults\": \"500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
+    }
+
 }
