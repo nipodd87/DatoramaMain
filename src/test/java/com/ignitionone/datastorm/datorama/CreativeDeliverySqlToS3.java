@@ -106,7 +106,7 @@ public class CreativeDeliverySqlToS3  extends BaseClass  {
         //Compare the count of the measurement between stored procedure and datorama
         CommonUtil.compareNumberEquals(total_impressions, metrics.getTotalImpressions(), "Check Sum of Impressions", " between actual NAN table and Amazon S3 csv file");
         CommonUtil.compareNumberEquals(total_clicks, metrics.getTotalClicks(), "Check Sum of Clicks", " between actual NAN table and Amazon S3 csv file");
-        CommonUtil.compareNumberEquals(total_cost, metrics.getTotalCost(), "Check Sum of Costs", " between actual NAN table and Amazon S3 csv file");
+        CommonUtil.compareNumberEquals(total_cost, metrics.getTotalCost(), 0.01, "Check Sum of Costs", " between actual NAN table and Amazon S3 csv file");
         extentReportUtil.endTest();
         //Check the record count between Store Proc and Amazon Csv
         extentReportUtil.startTest("Creative Delivery SQL Nan to Amazon S3 Test Case 5<BR> Check the Record Count between Store Procedure and Amazon S3 CSV file", "between Store Procedure and Amazon S3 file");
