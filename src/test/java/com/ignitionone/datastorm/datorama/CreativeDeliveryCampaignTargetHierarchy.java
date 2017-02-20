@@ -2,6 +2,7 @@ package com.ignitionone.datastorm.datorama;
 
 import com.ignitionone.datastorm.datorama.apiUtil.APIRequestBodyGenerator;
 import com.ignitionone.datastorm.datorama.apiUtil.APIUtil;
+import com.ignitionone.datastorm.datorama.datoramaUtil.FileTypeID;
 import com.ignitionone.datastorm.datorama.datoramaUtil.JsonParser;
 import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
 import com.ignitionone.datastorm.datorama.etl.DestinationTable;
@@ -50,7 +51,7 @@ public class CreativeDeliveryCampaignTargetHierarchy extends ApiBaseClass {
         executor = new DatoramaNanETL();
 
         //Get Report Start and End Date for Creative Delivery File based on File Type ID
-        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", "1");
+        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", FileTypeID.CREATIVE_DELIVERY);
         reportStartDate = DatoramaNanETL.reportStartDate;
         reportEndDate = DatoramaNanETL.reportEndDate;
 

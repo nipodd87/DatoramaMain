@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.ignitionone.datastorm.datorama.AmazonServices.S3Functions;
 import com.ignitionone.datastorm.datorama.datoramaUtil.DatoramaCSVUtil;
+import com.ignitionone.datastorm.datorama.datoramaUtil.FileTypeID;
 import com.ignitionone.datastorm.datorama.datoramaUtil.JsonParser;
 import com.ignitionone.datastorm.datorama.apiUtil.APIRequestBodyGenerator;
 import com.ignitionone.datastorm.datorama.apiUtil.APIUtil;
@@ -63,7 +64,7 @@ public class CompanyStoreS3ToDatorama extends ApiBaseClass {
     public void companyStoreToDatorama() throws Exception {
         //Execute the Third Party File Info Query to get the Corresponding Information Report Start Date and Report End Date
         executor = new DatoramaNanETL();
-        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", "4");
+        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", FileTypeID.COMPANY_STORE);
         reportStartDate = DatoramaNanETL.reportStartDate;
         reportEndDate = DatoramaNanETL.reportEndDate;
         companyStoreFileName = DatoramaNanETL.fileName;

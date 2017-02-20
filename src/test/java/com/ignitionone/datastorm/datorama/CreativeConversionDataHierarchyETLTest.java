@@ -4,6 +4,7 @@ package com.ignitionone.datastorm.datorama;
 import com.ignitionone.datastorm.datorama.apiUtil.APIRequestBodyGenerator;
 import com.ignitionone.datastorm.datorama.apiUtil.APIUtil;
 import com.ignitionone.datastorm.datorama.datoramaUtil.DatoramaCSVUtil;
+import com.ignitionone.datastorm.datorama.datoramaUtil.FileTypeID;
 import com.ignitionone.datastorm.datorama.datoramaUtil.JsonParser;
 import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
 import com.ignitionone.datastorm.datorama.etl.DestinationTable;
@@ -62,7 +63,7 @@ public class CreativeConversionDataHierarchyETLTest extends ApiBaseClass {
 
         //Execute the Third Party File Info Query to get the Corresponding Information Report Start Date and Report End Date
         executor = new DatoramaNanETL();
-        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", "1");
+        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", FileTypeID.CREATIVE_DELIVERY);
         reportStartDate = DatoramaNanETL.reportStartDate;
         reportEndDate = DatoramaNanETL.reportEndDate;
         domainDeliveryFileName = DatoramaNanETL.fileName;
