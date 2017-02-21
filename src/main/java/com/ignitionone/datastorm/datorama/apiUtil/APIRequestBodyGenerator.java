@@ -61,4 +61,11 @@ public class APIRequestBodyGenerator {
         return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Click Based Conversions\"},{\"name\": \"View Based Conversions\"}],\"dimensions\": [\"Advertiser ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Creative Conversion\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Advertiser ID\",\"sortOrder\": \"DESC\",\"topResults\": \"500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
     }
 
+    public static String getCreativeDeliveryLevelAdvertiser(String startDate, String endDate){
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \""+startDate+"\",\"endDate\": \""+endDate+"\",\"measurements\":[{\"name\": \"Impressions\"},{\"name\": \"Cost\"},{\"name\": \"Clicks\"}],\"dimensions\": [\"Advertiser ID\"],\"groupDimensionFilters\": [{\"vals\":[\"Creative Delivery\"],\"dimension\":\"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Advertiser ID\",\"sortOrder\": \"ASC\",\"topResults\": \"500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
+    }
+
+    public static String getCreativeDeliveryLevelCampaign(String startDate, String endDate){
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \""+startDate+"\",\"endDate\": \""+endDate+"\",\"measurements\":[{\"name\": \"Impressions\"},{\"name\": \"Cost\"},{\"name\": \"Clicks\"}],\"dimensions\": [\"Campaign ID\"],\"groupDimensionFilters\": [{\"vals\":[\"Creative Delivery\"],\"dimension\":\"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Campaign ID\",\"sortOrder\": \"ASC\",\"topResults\": \"500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
+    }
 }
