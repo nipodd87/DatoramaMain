@@ -7,7 +7,6 @@ import com.ignitionone.datastorm.datorama.datoramaUtil.JsonParser;
 import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
 import com.ignitionone.datastorm.datorama.etl.DestinationTable;
 import com.ignitionone.datastorm.datorama.etl.RecordLevel;
-import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
 import com.ignitionone.datastorm.datorama.util.ETLUtil;
 import org.json.simple.JSONObject;
 import org.testng.annotations.AfterClass;
@@ -37,7 +36,6 @@ public class CreativeConversionAdvertiserHierarchy extends ApiBaseClass {
 
     int fileStatusID;
     String FileName;
-    DeliveryMetrics metrics;
     public int total_click_based_conversion;
     public int total_view_based_conversion;
     ETLUtil etlUtil = new ETLUtil();
@@ -78,7 +76,7 @@ public class CreativeConversionAdvertiserHierarchy extends ApiBaseClass {
         extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
 
         //Create Source and Destination data mapping using ETL util methods from excel sheets
-        Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Creative_Hierarchcial.xlsx", "CreativeConv_Campaign");
+        Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Creative_Hierarchcial.xlsx", "CreativeConv_Advertiser");
 
         extentReportUtil.startTest("Creative Conversion <BR> Advertiser ID: Get Measurement Counts  <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE+" Report Start Date:"+reportStartDate+" Report End Date: "+reportEndDate);
         recordLevel.verifySrcWithDestData(mapper,creativeLevelSQLList,creativeLevelAPIList);
