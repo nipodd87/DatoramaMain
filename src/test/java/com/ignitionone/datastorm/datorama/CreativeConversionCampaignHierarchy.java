@@ -1,16 +1,13 @@
 package com.ignitionone.datastorm.datorama;
 
-
 import com.ignitionone.datastorm.datorama.apiUtil.APIRequestBodyGenerator;
 import com.ignitionone.datastorm.datorama.apiUtil.APIUtil;
-import com.ignitionone.datastorm.datorama.datoramaUtil.DatoramaCSVUtil;
 import com.ignitionone.datastorm.datorama.datoramaUtil.FileTypeID;
 import com.ignitionone.datastorm.datorama.datoramaUtil.JsonParser;
 import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
 import com.ignitionone.datastorm.datorama.etl.DestinationTable;
 import com.ignitionone.datastorm.datorama.etl.RecordLevel;
 import com.ignitionone.datastorm.datorama.model.DeliveryMetrics;
-import com.ignitionone.datastorm.datorama.util.CommonUtil;
 import com.ignitionone.datastorm.datorama.util.ETLUtil;
 import org.json.simple.JSONObject;
 import org.testng.annotations.AfterClass;
@@ -18,18 +15,17 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import static io.restassured.path.json.JsonPath.from;
 
 /**
- * Created by karthik.inuganti on 2/16/2017.
+ * Created by karthik.inuganti on 2/21/2017.
  */
-public class CreativeConversionDataHierarchyETLTest extends ApiBaseClass {
-    private static final String REPORT_HEADER = "Compare Creative Level Data Hierarchical counts between SQL NAN and Datorama Stream Using API";
-    private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels to test the counts between SQL NAN and Datorama APi End Point.";
+public class CreativeConversionCampaignHierarchy extends ApiBaseClass{
+    private static final String REPORT_HEADER = "Compare Creative Level Campaign Data Hierarchical counts between SQL NAN and Datorama Stream Using API";
+    private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for Campaign to test the counts between SQL NAN and Datorama APi End Point.";
     public JsonParser parser = new JsonParser();
     String envt;
     String SOURCE_TABLE = "SQL Nan tables";
@@ -38,16 +34,12 @@ public class CreativeConversionDataHierarchyETLTest extends ApiBaseClass {
     DatoramaNanETL executor;
     String reportStartDate;
     String reportEndDate;
-    String advertiser_id="advertiser_id";
 
     int fileStatusID;
-    String domainDeliveryFileName;
+    String FileName;
     DeliveryMetrics metrics;
     public int total_click_based_conversion;
     public int total_view_based_conversion;
-    public int total_impressions;
-    public int total_clicks;
-    public double total_cost;
     ETLUtil etlUtil = new ETLUtil();
     RecordLevel recordLevel = new RecordLevel();
 
@@ -63,32 +55,34 @@ public class CreativeConversionDataHierarchyETLTest extends ApiBaseClass {
 
         //Execute the Third Party File Info Query to get the Corresponding Information Report Start Date and Report End Date
         executor = new DatoramaNanETL();
-        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", FileTypeID.CREATIVE_DELIVERY);
+        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", FileTypeID.CREATIVE_CONVERSION);
         reportStartDate = DatoramaNanETL.reportStartDate;
         reportEndDate = DatoramaNanETL.reportEndDate;
-        domainDeliveryFileName = DatoramaNanETL.fileName;
+        FileName = DatoramaNanETL.fileName;
         fileStatusID = DatoramaNanETL.fileStatusID;
+
 
         //Execute the SQL NAN Query with the Start and End Date to get the Total Counts.
         //Check Measurement Counts for Impressions, Cost and Clicks from the table
+        List<String> creativeLevelSQLList = executor.executeQuery(sqlFile, envt, "getCountCreativeConversionLevelForCampaign", "$ColumnName$", "Campaign_ID", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
 
-        executor.getMeasurementCount(sqlFile, envt, "getHierarchicalCountCreativeLevelForConversion", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate,"$ColumnName$",advertiser_id);
-        total_click_based_conversion=DatoramaNanETL.total_click_based_conversion;
-        total_view_based_conversion=DatoramaNanETL.total_view_based_conversion;
-
+        //Authenticate Datorama to fetch Authentication Token
         String AuthResponse = APIUtil.getResponseAsString("/auth/authenticate", APIRequestBodyGenerator.getAuthRequestBody());
         String token=from(AuthResponse).get("token");
 
-        //Get the API Response data from Datorama and convert into list of Strings
-        //String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getCreativeConversionDataHierarchy(reportStartDate, reportEndDate), token);
-        //JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
-        //List<String> creativeConversionSrcList = parser.convertJsonToList(jsonObject);
+        //Execute the API query to fetch the Creative Delivery data
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getCreativeConversionLevelCampaign(reportStartDate, reportEndDate), token);
+        JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
+        List<String> creativeLevelAPIList = parser.convertJsonToList(jsonObject);
 
+        extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
 
+        //Create Source and Destination data mapping using ETL util methods from excel sheets
+        Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Creative_Conversion_Hierarchcial.xlsx", "CreativeConv_Campaign");
 
-        CommonUtil.compareNumberEquals(total_click_based_conversion, total_view_based_conversion, "Record Count Between Stored Procedure and Amazon S3", "Verify record count between Store Procedure and Amazon S3 csv file");
+        extentReportUtil.startTest("Creative Conversion <BR> Campaign ID: Get Measurement Counts  <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE+" Report Start Date:"+reportStartDate+" Report End Date: "+reportEndDate);
+        recordLevel.verifySrcWithDestData(mapper,creativeLevelSQLList,creativeLevelAPIList);
 
-        extentReportUtil.endTest();
 
 
     }
