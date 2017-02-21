@@ -78,7 +78,7 @@ public class CreativeConversionAdvertiserHierarchy extends ApiBaseClass {
         extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
 
         //Create Source and Destination data mapping using ETL util methods from excel sheets
-        Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Creative_Conversion_Hierarchcial.xlsx", "CreativeConv_Campaign");
+        Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Creative_Hierarchcial.xlsx", "CreativeConv_Campaign");
 
         extentReportUtil.startTest("Creative Conversion <BR> Advertiser ID: Get Measurement Counts  <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE+" Report Start Date:"+reportStartDate+" Report End Date: "+reportEndDate);
         recordLevel.verifySrcWithDestData(mapper,creativeLevelSQLList,creativeLevelAPIList);
