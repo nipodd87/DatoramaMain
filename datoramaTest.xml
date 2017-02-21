@@ -1,0 +1,8 @@
+<suite name="dataStrom" verbose="1" parallel="tests" thread-count="5">
+    <test name = "tracking">
+        <parameter name="environment" value="qa" />
+        <classes>
+            <class name="com.ignitionone.datastorm.datorama.CreativeConversionCampaignHierarchy"/>
+        </classes>
+    </test>
+</suite>
