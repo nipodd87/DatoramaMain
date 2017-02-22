@@ -2,7 +2,14 @@
     <test name = "tracking">
         <parameter name="environment" value="qa" />
         <classes>
+            <class name="com.ignitionone.datastorm.datorama.CreativeConversionAdvertiserHierarchy"/>
             <class name="com.ignitionone.datastorm.datorama.CreativeConversionCampaignHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeConversionCreativeHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeConversionCampaignTargetHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryAdvertiserHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryCampaignHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryCreativeHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryCampaignTargetHierarchy"/>
         </classes>
     </test>
 </suite>

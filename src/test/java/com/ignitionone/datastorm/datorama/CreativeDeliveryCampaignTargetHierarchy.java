@@ -72,7 +72,7 @@ public class CreativeDeliveryCampaignTargetHierarchy extends ApiBaseClass {
         //Create Source and Destination data mapping using ETL util methods from excel sheets
         Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Creative_Hierarchcial.xlsx", "CreativeDelivery_CampaignTarget");
 
-        extentReportUtil.startTest("Creative Delivery <BR> Campaign Target ID: Get Measurement Counts  <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE+" Report Start Date:"+reportStartDate+" Report End Date: "+reportEndDate);
+        extentReportUtil.logInfo("Creative Delivery <BR> Campaign Target ID: Get Measurement Counts  <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE+" Report Start Date:"+reportStartDate+" Report End Date: "+reportEndDate);
         recordLevel.verifySrcWithDestData(mapper,creativeLevelSQLList,creativeLevelAPIList);
     }
 

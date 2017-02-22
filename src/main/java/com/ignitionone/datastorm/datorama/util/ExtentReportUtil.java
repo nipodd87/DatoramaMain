@@ -243,7 +243,7 @@ public class ExtentReportUtil {
     public void writeReport() {
         if (reporter != null) {
              reporter.flush();
-//            reporter.close();
+             reporter.close();
         }
     }
 }
