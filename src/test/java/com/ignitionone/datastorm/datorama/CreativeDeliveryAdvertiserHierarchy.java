@@ -24,8 +24,8 @@ import static io.restassured.path.json.JsonPath.from;
  */
 public class CreativeDeliveryAdvertiserHierarchy extends ApiBaseClass {
 
-    private static final String REPORT_HEADER = "Compare Creative Level Advertiser Hierarchical counts between SQL NAN and Datorama Stream Using API";
-    private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels to test the counts between SQL NAN and Datorama API Endpoints";
+    private static final String REPORT_HEADER = "Creative Delivery counts between SQL NAN and Datorama For:  ADVERTISER";
+    private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for ADVERTISER to test the counts between SQL NAN and Datorama API Endpoints";
     public JsonParser parser = new JsonParser();
     String envt;
     String SOURCE_TABLE = "SQL Nan tables";
