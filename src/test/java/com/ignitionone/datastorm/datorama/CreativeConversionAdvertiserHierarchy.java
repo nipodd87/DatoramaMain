@@ -23,8 +23,8 @@ import static io.restassured.path.json.JsonPath.from;
  * Created by karthik.inuganti on 2/21/2017.
  */
 public class CreativeConversionAdvertiserHierarchy extends ApiBaseClass {
-    private static final String REPORT_HEADER = "Compare Creative Level Advertiser Data Hierarchical counts between SQL NAN and Datorama Stream Using API";
-    private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for Advertiser to test the counts between SQL NAN and Datorama APi End Point.";
+    private static final String REPORT_HEADER = "Creative Conversion counts between SQL NAN and Datorama For:  ADVERTISER";
+    private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for ADVERTISER to test the counts between SQL NAN and Datorama APi End Point.";
     public JsonParser parser = new JsonParser();
     String envt;
     String SOURCE_TABLE = "SQL Nan tables";
