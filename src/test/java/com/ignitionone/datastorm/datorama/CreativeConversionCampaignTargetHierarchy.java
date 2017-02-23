@@ -51,7 +51,7 @@ public class CreativeConversionCampaignTargetHierarchy extends ApiBaseClass {
     }
 
     @Test
-    public void domainDeliveryToDatorama() throws Exception {
+    public void creativeLevelCampaignTargetTestNanToDatorama() throws Exception {
 
         //Execute the Third Party File Info Query to get the Corresponding Information Report Start Date and Report End Date
         executor = new DatoramaNanETL();
