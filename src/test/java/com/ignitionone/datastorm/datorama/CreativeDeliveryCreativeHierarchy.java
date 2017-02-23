@@ -24,7 +24,7 @@ import static io.restassured.path.json.JsonPath.from;
  */
 public class CreativeDeliveryCreativeHierarchy extends ApiBaseClass {
 
-    private static final String REPORT_HEADER = "Creative Delivery counts between SQL NAN and Datorama For:  CREATIVE";
+    private static final String REPORT_HEADER = "Creative Delivery: Hierarchical Level Test <BR> Measurement Sum Comparison Between SQL NAN And Datorama <BR> Group By:  CREATIVE ID";
     private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for CREATIVE to test the counts between SQL NAN and Datorama API Endpoints";
     public JsonParser parser = new JsonParser();
     String envt;
