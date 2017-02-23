@@ -1,12 +1,21 @@
 package com.ignitionone.datastorm.datorama.apiUtil;
 
+import com.ignitionone.datastorm.datorama.util.Encryption;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 /**
  * Created by nitin.poddar on 1/13/2017.
  */
 public class APIRequestBodyGenerator {
 
-    public static String getAuthRequestBody() {
-        return "{\"email\": \"Harold.Cuebas@IgnitionOne.com\",\"password\": \"G@m3*0v3r\"}";
+    public static String getAuthRequestBody() throws GeneralSecurityException, IOException {
+        String encryptedEmail = APIUtil.getPropertyValue("datorama.qa.email", "datastorm.properties");
+        String encryptedPassword = APIUtil.getPropertyValue("datorama.qa.password", "datastorm.properties");
+        String email = Encryption.decrypt(encryptedEmail);
+        String password = Encryption.decrypt(encryptedPassword);
+        return "{\"email\": \""+email+"\",\"password\": \""+password+"\"}";
     }
 
     public static String getCompanyStore(String startDate, String endDate) {
@@ -68,4 +77,5 @@ public class APIRequestBodyGenerator {
     public static String getCreativeDeliveryLevelCampaign(String startDate, String endDate){
         return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \""+startDate+"\",\"endDate\": \""+endDate+"\",\"measurements\":[{\"name\": \"Impressions\"},{\"name\": \"Cost\"},{\"name\": \"Clicks\"}],\"dimensions\": [\"Campaign ID\"],\"groupDimensionFilters\": [{\"vals\":[\"Creative Delivery\"],\"dimension\":\"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Campaign ID\",\"sortOrder\": \"ASC\",\"topResults\": \"500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
     }
+
 }
