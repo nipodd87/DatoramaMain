@@ -95,6 +95,9 @@ public class APIRequestBodyGenerator {
         return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Impressions\"},{\"name\": \"Trait Cost\"},{\"name\": \"Trait Clicks\"}],\"dimensions\": [\"Segment ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Delivery\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Segment ID\",\"sortOrder\": \"ASC\",\"topResults\": \"5000\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
     }
 
+    public static String getTraitConversionLevelTrait(String startDate, String endDate) {
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Click Based Conversions\"},{\"name\": \"Trait View Based Conversions\"}],\"dimensions\": [\"Segment ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Conversion\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Segment ID\",\"sortOrder\": \"DESC\",\"topResults\": \"5000\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
+    }
 }
 
 
