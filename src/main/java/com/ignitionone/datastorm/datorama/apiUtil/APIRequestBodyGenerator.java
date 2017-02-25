@@ -87,6 +87,10 @@ public class APIRequestBodyGenerator {
         return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Impressions\"},{\"name\": \"Trait Cost\"},{\"name\": \"Trait Clicks\"}],\"dimensions\": [\"Campaign ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Delivery\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Campaign ID\",\"sortOrder\": \"ASC\",\"topResults\": \"5000\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
     }
 
+    public static String getTraitDeliveryLevelCampaignTarget(String startDate, String endDate) {
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Impressions\"},{\"name\": \"Trait Cost\"},{\"name\": \"Trait Clicks\"}],\"dimensions\": [\"Line Item ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Delivery\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Line Item ID\",\"sortOrder\": \"ASC\",\"topResults\": \"5000\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
+    }
+
 
 }
 
