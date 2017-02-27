@@ -6,6 +6,7 @@ import com.ignitionone.datastorm.datorama.datoramaUtil.FileTypeID;
 import com.ignitionone.datastorm.datorama.datoramaUtil.JsonParser;
 import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
 import com.ignitionone.datastorm.datorama.etl.DestinationTable;
+import com.ignitionone.datastorm.datorama.etl.FileLevel;
 import com.ignitionone.datastorm.datorama.etl.RecordLevel;
 import com.ignitionone.datastorm.datorama.util.ETLUtil;
 import org.json.simple.JSONObject;
@@ -35,6 +36,7 @@ public class DomainConversionDomainHierarchy extends ApiBaseClass {
     String reportEndDate;
     ETLUtil etlUtil = new ETLUtil();
     RecordLevel recordLevel = new RecordLevel();
+    FileLevel fileLevel = new FileLevel();
 
     @BeforeClass
     @Parameters(value = {"environment"})
@@ -56,7 +58,7 @@ public class DomainConversionDomainHierarchy extends ApiBaseClass {
 
         //Execute the SQL NAN Query with the Start and End Date to get the Total Counts.
         //Check Measurement Counts for Impressions, Cost and Clicks from the table
-        List<String> domainLevelSQLList = executor.executeQuery(sqlFile, envt, "getCountDomainDeliveryLevelByDomain", "$ColumnName$", "site_url", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
+        List<String> domainLevelSQLList = executor.executeQuery(sqlFile, envt, "getCountDomainConversionLevelByDomain", "$ColumnName$", "site_url", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
 
         //Authenticate Datorama to fetch Authentication Token
         String AuthResponse = APIUtil.getResponseAsString("/auth/authenticate", APIRequestBodyGenerator.getAuthRequestBody());
@@ -71,6 +73,10 @@ public class DomainConversionDomainHierarchy extends ApiBaseClass {
 
         //Create Source and Destination data mapping using ETL util methods from excel sheets
         Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Domain_Hierarchcial.xlsx", "DomainConversion_DomainID");
+
+        extentReportUtil.logInfo("File level tests <BR> Verify Data Types <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE + " Report Start Date:" + reportStartDate + " Report End Date: " + reportEndDate);
+        fileLevel.verifyTableCount(domainLevelSQLList, "Domain Conversion API Response", domainLevelAPIList, "Domain Conversion CSV Data");
+
 
         extentReportUtil.logInfo("Domain Conversion <BR> Domain ID: Get Measurement Counts  <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE+" Report Start Date:"+reportStartDate+" Report End Date: "+reportEndDate);
         recordLevel.verifySrcWithDestData(mapper,domainLevelSQLList,domainLevelAPIList);

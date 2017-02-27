@@ -6,6 +6,7 @@ import com.ignitionone.datastorm.datorama.datoramaUtil.FileTypeID;
 import com.ignitionone.datastorm.datorama.datoramaUtil.JsonParser;
 import com.ignitionone.datastorm.datorama.etl.DatoramaNanETL;
 import com.ignitionone.datastorm.datorama.etl.DestinationTable;
+import com.ignitionone.datastorm.datorama.etl.FileLevel;
 import com.ignitionone.datastorm.datorama.etl.RecordLevel;
 import com.ignitionone.datastorm.datorama.util.ETLUtil;
 import org.json.simple.JSONObject;
@@ -35,6 +36,7 @@ public class TraitConversionTraitHierarchy extends ApiBaseClass {
     String reportEndDate;
     ETLUtil etlUtil = new ETLUtil();
     RecordLevel recordLevel = new RecordLevel();
+    FileLevel fileLevel = new FileLevel();
 
     @BeforeClass
     @Parameters(value = {"environment"})
@@ -71,6 +73,9 @@ public class TraitConversionTraitHierarchy extends ApiBaseClass {
 
         //Create Source and Destination data mapping using ETL util methods from excel sheets
         Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Trait_Hierarchcial.xlsx", "TraitCon_TraitID");
+
+        extentReportUtil.logInfo("File level tests <BR> Verify Data Types <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE + " Report Start Date:" + reportStartDate + " Report End Date: " + reportEndDate);
+        fileLevel.verifyTableCount(traitLevelSQLList, "Trait Conversion API Response", traitLevelAPIList, "Trait Conversion CSV Data");
 
         extentReportUtil.logInfo("Trait Conversion <BR> TRAIT ID: Get Measurement Counts  <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE+" Report Start Date:"+reportStartDate+" Report End Date: "+reportEndDate);
         recordLevel.verifySrcWithDestData(mapper,traitLevelSQLList,traitLevelAPIList);
