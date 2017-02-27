@@ -98,6 +98,15 @@ public class APIRequestBodyGenerator {
     public static String getTraitConversionLevelTrait(String startDate, String endDate) {
         return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Click Based Conversions\"},{\"name\": \"Trait View Based Conversions\"}],\"dimensions\": [\"Segment ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Conversion\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Segment ID\",\"sortOrder\": \"DESC\",\"topResults\": \"5000\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
     }
+
+    public static String getDomainDeliveryLevelDomain(String startDate, String endDate) {
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Domain Impressions\"},{\"name\": \"Domain Cost\"},{\"name\": \"Domain Clicks\"}],\"dimensions\": [\"Domain\"],\"groupDimensionFilters\": [{\"vals\": [\"Domain Delivery\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Domain\",\"sortOrder\": \"ASC\",\"topResults\": \"5000\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}\n]";
+    }
+
+    public static String getDomainConversionLevelDomain(String startDate, String endDate) {
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Domain Click Based Conversions\"},{\"name\": \"Domain View Based Conversions\"}],\"dimensions\": [\"Domain\"],\"groupDimensionFilters\": [{\"vals\": [\"Domain Conversion\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Domain\",\"sortOrder\": \"DESC\",\"topResults\": \"5000\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
+    }
+
 }
 
 
