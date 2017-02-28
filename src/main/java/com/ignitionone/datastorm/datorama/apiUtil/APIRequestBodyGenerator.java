@@ -15,7 +15,7 @@ public class APIRequestBodyGenerator {
         String encryptedPassword = APIUtil.getPropertyValue("datorama.qa.password", "datastorm.properties");
         String email = Encryption.decrypt(encryptedEmail);
         String password = Encryption.decrypt(encryptedPassword);
-        return "{\"email\": \""+email+"\",\"password\": \""+password+"\"}";
+        return "{\"email\": \"" + email + "\",\"password\": \"" + password + "\"}";
     }
 
     public static String getCompanyStore(String startDate, String endDate) {
@@ -80,7 +80,31 @@ public class APIRequestBodyGenerator {
 
 
     public static String getTraitDeliveryLevelAdvertiser(String startDate, String endDate) {
-        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Impressions\"},{\"name\": \"Trait Cost\"},{\"name\": \"Trait Clicks\"}],\"dimensions\": [\"Advertiser ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Delivery\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Advertiser ID\",\"sortOrder\": \"ASC\",\"topResults\": \"500\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Impressions\"},{\"name\": \"Trait Cost\"},{\"name\": \"Trait Clicks\"}],\"dimensions\": [\"Advertiser ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Delivery\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Advertiser ID\",\"sortOrder\": \"ASC\",\"topResults\": \"5000\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
+    }
+
+    public static String getTraitDeliveryLevelCampaign(String startDate, String endDate) {
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Impressions\"},{\"name\": \"Trait Cost\"},{\"name\": \"Trait Clicks\"}],\"dimensions\": [\"Campaign ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Delivery\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Campaign ID\",\"sortOrder\": \"ASC\",\"topResults\": \"5000\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
+    }
+
+    public static String getTraitDeliveryLevelCampaignTarget(String startDate, String endDate) {
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Impressions\"},{\"name\": \"Trait Cost\"},{\"name\": \"Trait Clicks\"}],\"dimensions\": [\"Line Item ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Delivery\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Line Item ID\",\"sortOrder\": \"ASC\",\"topResults\": \"5000\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
+    }
+
+    public static String getTraitDeliveryLevelTrait(String startDate, String endDate) {
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Impressions\"},{\"name\": \"Trait Cost\"},{\"name\": \"Trait Clicks\"}],\"dimensions\": [\"Segment ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Delivery\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Segment ID\",\"sortOrder\": \"ASC\",\"topResults\": \"5000\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
+    }
+
+    public static String getTraitConversionLevelTrait(String startDate, String endDate) {
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Trait Click Based Conversions\"},{\"name\": \"Trait View Based Conversions\"}],\"dimensions\": [\"Segment ID\"],\"groupDimensionFilters\": [{\"vals\": [\"Trait Conversion\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Segment ID\",\"sortOrder\": \"DESC\",\"topResults\": \"5000\",\"groupOthers\": true,\"topPerDimension\": true,\"totalDimensions\": []}]";
+    }
+
+    public static String getDomainDeliveryLevelDomain(String startDate, String endDate) {
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Domain Impressions\"},{\"name\": \"Domain Cost\"},{\"name\": \"Domain Clicks\"}],\"dimensions\": [\"Domain\"],\"groupDimensionFilters\": [{\"vals\": [\"Domain Delivery\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Domain\",\"sortOrder\": \"ASC\",\"topResults\": \"5000\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}\n]";
+    }
+
+    public static String getDomainConversionLevelDomain(String startDate, String endDate) {
+        return "[{\"brandId\": \"12547\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Domain Click Based Conversions\"},{\"name\": \"Domain View Based Conversions\"}],\"dimensions\": [\"Domain\"],\"groupDimensionFilters\": [{\"vals\": [\"Domain Conversion\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Domain\",\"sortOrder\": \"DESC\",\"topResults\": \"5000\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
     }
 
 }

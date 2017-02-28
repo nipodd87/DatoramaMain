@@ -10,7 +10,6 @@ import com.ignitionone.datastorm.datorama.etl.FileLevel;
 import com.ignitionone.datastorm.datorama.etl.RecordLevel;
 import com.ignitionone.datastorm.datorama.util.ETLUtil;
 import org.json.simple.JSONObject;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -22,11 +21,11 @@ import java.util.Map;
 import static io.restassured.path.json.JsonPath.from;
 
 /**
- * Created by karthik.inuganti on 2/24/2017.
+ * Created by karthik.inuganti on 2/27/2017.
  */
-public class TraitDeliveryAdvertiserHierarchy extends ApiBaseClass {
-    private static final String REPORT_HEADER = "Trait Delivery: Hierarchical Level Test <BR> Measurement Sum Comparison Between SQL NAN And Datorama <BR> Group By:  ADVERTISER ID";
-    private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for ADVERTISER to test the counts between SQL NAN and Datorama API Endpoints";
+public class DomainConversionDomainHierarchy extends ApiBaseClass {
+    private static final String REPORT_HEADER = "Domain Conversion: Hierarchical Level Test <BR> Measurement Sum Comparison Between SQL NAN And Datorama <BR> Group By:  DOMAIN ID or SITE URL";
+    private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for DOMAIN to test the counts between SQL NAN and Datorama API Endpoints";
     public JsonParser parser = new JsonParser();
     String envt;
     String SOURCE_TABLE = "SQL Nan tables";
@@ -47,39 +46,40 @@ public class TraitDeliveryAdvertiserHierarchy extends ApiBaseClass {
     }
 
     @Test
-    public void traitLevelAdvertiserTest() throws Exception {
+    public void domainLevelDomainTest() throws Exception {
 
         //Execute the Third Party File Info Query to get the Corresponding Information Report Start Date and Report End Date
         executor = new DatoramaNanETL();
 
         //Get Report Start and End Date for Creative Delivery File based on File Type ID
-        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", FileTypeID.TRAIT_DELIVERY);
+        executor.executeThirdPartyFileInfo(sqlFile, envt, "getThirdPartyFileInfo", "$fileTypeID$", FileTypeID.DOMAIN_DELIVERY);
         reportStartDate = DatoramaNanETL.reportStartDate;
         reportEndDate = DatoramaNanETL.reportEndDate;
 
         //Execute the SQL NAN Query with the Start and End Date to get the Total Counts.
         //Check Measurement Counts for Impressions, Cost and Clicks from the table
-        List<String> traitLevelSQLList = executor.executeQuery(sqlFile, envt, "getCountTraitDeliveryLevelByAdvertiser", "$ColumnName$", "advertiser_id", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
+        List<String> domainLevelSQLList = executor.executeQuery(sqlFile, envt, "getCountDomainConversionLevelByDomain", "$ColumnName$", "site_url", "$START_DATE$", reportStartDate, "$END_DATE$", reportEndDate);
 
         //Authenticate Datorama to fetch Authentication Token
         String AuthResponse = APIUtil.getResponseAsString("/auth/authenticate", APIRequestBodyGenerator.getAuthRequestBody());
         String token=from(AuthResponse).get("token");
 
         //Execute the API query to fetch the Creative Delivery data
-        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getTraitDeliveryLevelAdvertiser(reportStartDate, reportEndDate), token);
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getDomainConversionLevelDomain(reportStartDate, reportEndDate), token);
         JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
-        List<String> traitLevelAPIList = parser.convertJsonToList(jsonObject);
+        List<String> domainLevelAPIList = parser.convertJsonToList(jsonObject);
 
         extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
 
         //Create Source and Destination data mapping using ETL util methods from excel sheets
-        Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Trait_Hierarchcial.xlsx", "TraitDelivery_AdvertiserID");
+        Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Domain_Hierarchcial.xlsx", "DomainConversion_DomainID");
 
         extentReportUtil.logInfo("File level tests <BR> Verify Data Types <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE + " Report Start Date:" + reportStartDate + " Report End Date: " + reportEndDate);
-        fileLevel.verifyTableCount(traitLevelSQLList, "Trait Delivery API Response", traitLevelAPIList, "Trait Delivery CSV Data");
+        fileLevel.verifyTableCount(domainLevelSQLList, "Domain Conversion API Response", domainLevelAPIList, "Domain Conversion CSV Data");
 
-        extentReportUtil.logInfo("Trait Delivery <BR> Advertiser ID: Get Measurement Counts  <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE+" Report Start Date:"+reportStartDate+" Report End Date: "+reportEndDate);
-        recordLevel.verifySrcWithDestData(mapper,traitLevelSQLList,traitLevelAPIList);
+
+        extentReportUtil.logInfo("Domain Conversion <BR> Domain ID: Get Measurement Counts  <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE+" Report Start Date:"+reportStartDate+" Report End Date: "+reportEndDate);
+        recordLevel.verifySrcWithDestData(mapper,domainLevelSQLList,domainLevelAPIList);
     }
 
     @AfterClass(alwaysRun = true)
