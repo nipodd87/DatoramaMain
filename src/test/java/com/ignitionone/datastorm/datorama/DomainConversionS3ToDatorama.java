@@ -25,7 +25,7 @@ import static io.restassured.path.json.JsonPath.from;
 /**
  * Created by nitin.poddar on 1/13/2017.
  */
-public class DomainConversionS3ToDatorama extends ApiBaseClass{
+public class DomainConversionS3ToDatorama extends BaseClass{
 
     private static final String REPORT_HEADER = "Compare Domain Conversion File between Amazon S3 and Datorama Stream Using API";
     private static final String REPORT_TITLE = "This test is to verify Domain Conversion file is picked and processed properly by Datorama.";

@@ -25,7 +25,7 @@ import static io.restassured.path.json.JsonPath.from;
 /**
  * Created by karthik.inuganti on 1/31/2017.
  */
-public class TraitConversionS3ToDatorama extends ApiBaseClass{
+public class TraitConversionS3ToDatorama extends BaseClass{
 
     private static final String REPORT_HEADER = "Compare Trait Conversion File between Amazon S3 and Datorama Stream Using API";
     private static final String REPORT_TITLE = "This test is to verify Trait Conversion file is picked and processed properly by Datorama.";

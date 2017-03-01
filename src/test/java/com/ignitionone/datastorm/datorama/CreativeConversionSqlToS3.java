@@ -37,7 +37,7 @@ public class CreativeConversionSqlToS3  extends BaseClass  {
     AmazonS3 s3 = new AmazonS3Client();
     File creativeConversionFile;
     String creativeConversionFilePath;
-    String Bucket_Name = "thirdpartyreporting";
+    String Bucket_Name = "ione-platform-xfer-datorama-24fc-us-east-1-DEV";
     String creativeConversionDirectory = "Datorama/Archive/EventData/Summarized/Creative/Conversion";
     String sqlFile = "sql/sqlNan.sql";
     String storeProcFile = "sql/datorama_stored_procedure.sql";

@@ -22,7 +22,7 @@ import static io.restassured.path.json.JsonPath.from;
 /**
  * Created by nitin.poddar on 2/17/2017.
  */
-public class CreativeDeliveryCampaignHierarchy extends ApiBaseClass {
+public class CreativeDeliveryCampaignHierarchy extends BaseClass {
 
     private static final String REPORT_HEADER = "Creative Delivery: Hierarchical Level Test <BR> Measurement Sum Comparison Between SQL NAN And Datorama <BR> Group By:  CAMPAIGN ID";
     private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for CAMPAIGN to test the counts between SQL NAN and Datorama API Endpoints";

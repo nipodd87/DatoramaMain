@@ -26,7 +26,7 @@ import static io.restassured.path.json.JsonPath.from;
  * Created by karthik.inuganti on 2/21/2017.
  */
 
-public class TraitDeliveryCampaignTargetHierarchy extends ApiBaseClass{
+public class TraitDeliveryCampaignTargetHierarchy extends BaseClass{
     private static final String REPORT_HEADER = "Trait Delivery: Hierarchical Level Test <BR> Measurement Sum Comparison Between SQL NAN And Datorama <BR> Group By:  CAMPAIGN TARGET ID";
     private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for CAMPAIGN TARGET to test the counts between SQL NAN and Datorama API Endpoints";
     public JsonParser parser = new JsonParser();
