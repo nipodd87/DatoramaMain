@@ -37,7 +37,6 @@ public class CreativeConversionS3ToDatorama extends BaseClass{
     AmazonS3 s3 = new AmazonS3Client();
     File creativeConversionFile;
     String creativeConversionFilePath;
-    String Bucket_Name = "thirdpartyreporting";
     String creativeConversionDirectory = "Datorama/Archive/EventData/Summarized/Creative/Conversion";
     String sqlFile = "sql/sqlNan.sql";
     DatoramaNanETL executor;
@@ -64,8 +63,8 @@ public class CreativeConversionS3ToDatorama extends BaseClass{
         creativeConversionFileName=DatoramaNanETL.fileName;
 
         //Download the file from Amazon S3
-        creativeConversionFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, creativeConversionFileName, creativeConversionDirectory);
-        creativeConversionFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3, creativeConversionFilePath,"CreativeConversionSummarizedData");
+        creativeConversionFilePath = s3Functions.getFilePathFromBucket(bucketName, s3, creativeConversionFileName, creativeConversionDirectory);
+        creativeConversionFile=s3Functions.DownloadCSVFromS3(bucketName,s3, creativeConversionFilePath,"CreativeConversionSummarizedData");
 
         RecordLevel recordLevel = new RecordLevel();
         extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);

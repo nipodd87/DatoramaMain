@@ -41,7 +41,6 @@ public class TraitConversionS3ToDatorama extends BaseClass{
     String sqlFile = "sql/sqlNan.sql";
     File traitConversionFile;
     String traitConversionFilePath;
-    String Bucket_Name = "thirdpartyreporting";
     String traitConversionFileName;
     String traitConversionDirectory = "Datorama/Archive/EventData/Summarized/Trait/Conversion";
     ETLUtil etlUtil = new ETLUtil();
@@ -64,8 +63,8 @@ public class TraitConversionS3ToDatorama extends BaseClass{
         traitConversionFileName=DatoramaNanETL.fileName;
 
         //Download the file from Amazon S3
-        traitConversionFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, traitConversionFileName, traitConversionDirectory);
-        traitConversionFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3, traitConversionFilePath,"TraitConversionSummarizedData");
+        traitConversionFilePath = s3Functions.getFilePathFromBucket(bucketName, s3, traitConversionFileName, traitConversionDirectory);
+        traitConversionFile=s3Functions.DownloadCSVFromS3(bucketName,s3, traitConversionFilePath,"TraitConversionSummarizedData");
 
         RecordLevel recordLevel = new RecordLevel();
         extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);

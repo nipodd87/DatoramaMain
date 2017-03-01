@@ -49,7 +49,6 @@ public class TraitDeliveryS3ToDatorama extends BaseClass{
     AmazonS3 s3 = new AmazonS3Client();
     File traitDeliveryFile;
     String traitDeliveryFilePath;
-    String Bucket_Name = "thirdpartyreporting";
     String traitDeliveryFileName;
     String traitDeliveryDirectory = "Datorama/Archive/EventData/Summarized/Trait/Delivery";
     String sqlFile = "sql/sqlNan.sql";
@@ -78,8 +77,8 @@ public class TraitDeliveryS3ToDatorama extends BaseClass{
         traitDeliveryFileName=DatoramaNanETL.fileName;
 
         //Download the file from Amazon S3
-        traitDeliveryFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, traitDeliveryFileName, traitDeliveryDirectory);
-        traitDeliveryFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3, traitDeliveryFilePath,"TraitDeliverySummarizedData");
+        traitDeliveryFilePath = s3Functions.getFilePathFromBucket(bucketName, s3, traitDeliveryFileName, traitDeliveryDirectory);
+        traitDeliveryFile=s3Functions.DownloadCSVFromS3(bucketName,s3, traitDeliveryFilePath,"TraitDeliverySummarizedData");
 
         RecordLevel recordLevel = new RecordLevel();
         extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);

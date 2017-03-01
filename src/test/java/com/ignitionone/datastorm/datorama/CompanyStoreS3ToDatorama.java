@@ -36,11 +36,8 @@ public class CompanyStoreS3ToDatorama extends BaseClass {
     AmazonS3 s3 = new AmazonS3Client();
     File companyStoreFile;
     String companyStoreFilePath;
-    String Bucket_Name = "thirdpartyreporting";
     String companyStoreDirectory = "Datorama/Archive/MetaData/CompanyStoreMetaData";
     String sqlFile = "sql/sqlNan.sql";
-    String storeProcFile = "sql/datorama_stored_procedure.sql";
-    public static final int FILE_UPLOAD_SUCCESS = 3;
     DatoramaNanETL executor;
     String reportStartDate;
     String reportEndDate;
@@ -72,8 +69,8 @@ public class CompanyStoreS3ToDatorama extends BaseClass {
         fileStatusID = DatoramaNanETL.fileStatusID;
 
         //Download the file from Amazon S3
-        companyStoreFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, companyStoreFileName, companyStoreDirectory);
-        companyStoreFile = s3Functions.DownloadCSVFromS3(Bucket_Name, s3, companyStoreFilePath, "CompanyStoreSummarizedData");
+        companyStoreFilePath = s3Functions.getFilePathFromBucket(bucketName, s3, companyStoreFileName, companyStoreDirectory);
+        companyStoreFile = s3Functions.DownloadCSVFromS3(bucketName, s3, companyStoreFilePath, "CompanyStoreSummarizedData");
 
         RecordLevel recordLevel = new RecordLevel();
         extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);

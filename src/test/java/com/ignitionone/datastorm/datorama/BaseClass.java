@@ -27,6 +27,8 @@ public class BaseClass {
     protected String testingMode;
     protected AmazonS3 s3;
     protected String baseUrl;
+    public static String bucketName;
+    public static String brandId;
     public static RequestSpecBuilder requestBuilder;
     public static RequestSpecification requestSpec;
     public static ResponseSpecBuilder responseBuilder;
@@ -43,6 +45,7 @@ public class BaseClass {
         commonUtil = new CommonUtil(extentReportUtil);
         elementUtil = new ElementUtil(extentReportUtil);
         extentReportUtil.startTest(reportHeader, reportTitle);
+        getEnvironmentDetails(environment);
     }
 
     public void setUp(String environment,String reportHeader, String reportTitle) throws Exception {
@@ -50,6 +53,15 @@ public class BaseClass {
         setupReport(reportHeader, reportTitle);
         buildRequestSpec(environment);
         buildResponseSpec();
+        getEnvironmentDetails(environment);
+    }
+
+    public void getEnvironmentDetails(String environment) {
+        PropertyLoader propertiesFile = new PropertyLoader();
+        propertiesFile.loadProperties("datastorm.properties");
+        Properties dataStormProperties = propertiesFile.getProps();
+        bucketName = (String) dataStormProperties.get(environment + "." + "bucketName");
+        brandId = (String) dataStormProperties.get(environment + "." + "brandId");
     }
 
     public void buildResponseSpec() {

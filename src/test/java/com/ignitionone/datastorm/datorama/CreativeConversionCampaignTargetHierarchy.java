@@ -37,9 +37,6 @@ public class CreativeConversionCampaignTargetHierarchy extends BaseClass {
     String reportEndDate;
     int fileStatusID;
     String FileName;
-    DeliveryMetrics metrics;
-    public int total_click_based_conversion;
-    public int total_view_based_conversion;
     ETLUtil etlUtil = new ETLUtil();
     RecordLevel recordLevel = new RecordLevel();
 

@@ -36,7 +36,6 @@ public class CreativeDeliverySqlToS3  extends BaseClass  {
     AmazonS3 s3 = new AmazonS3Client();
     File creativeDeliveryFile;
     String creativeDeliveryFilePath;
-    String Bucket_Name = "thirdpartyreporting";
     String creativeDeliveryDirectory = "Datorama/Archive/EventData/Summarized/Creative/Delivery";
     String sqlFile = "sql/sqlNan.sql";
     String storeProcFile = "sql/datorama_stored_procedure.sql";
@@ -87,8 +86,8 @@ public class CreativeDeliverySqlToS3  extends BaseClass  {
         extentReportUtil.endTest();
         //Check if the file is present and uploaded properly in Amazon S3 bucket
         extentReportUtil.startTest("Creative Delivery SQL Nan to Amazon S3 Test Case 3 <BR> Verify File Upload Status", "Verify to see if the file with correct name and format has been uploaded in Amazon S3 Bucket");
-        creativeDeliveryFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, creativeDeliveryFileName, creativeDeliveryDirectory);
-        creativeDeliveryFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3, creativeDeliveryFilePath,"CreativeDeliverySummarizedData");
+        creativeDeliveryFilePath = s3Functions.getFilePathFromBucket(bucketName, s3, creativeDeliveryFileName, creativeDeliveryDirectory);
+        creativeDeliveryFile=s3Functions.DownloadCSVFromS3(bucketName,s3, creativeDeliveryFilePath,"CreativeDeliverySummarizedData");
         //Check File Existence in Amazon S3
         if (creativeDeliveryFile != null){
             extentReportUtil.logPass("Check File Existence", "File was uploaded successfully in Amazon S3");
