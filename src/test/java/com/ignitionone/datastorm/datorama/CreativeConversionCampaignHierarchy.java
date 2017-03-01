@@ -67,7 +67,7 @@ public class CreativeConversionCampaignHierarchy extends BaseClass{
         String token=from(AuthResponse).get("token");
 
         //Execute the API query to fetch the Creative Delivery data
-        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getCreativeConversionLevelCampaign(reportStartDate, reportEndDate), token);
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getCreativeConversionLevelCampaign(reportStartDate, reportEndDate, brandId), token);
         JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
         List<String> creativeLevelAPIList = parser.convertJsonToList(jsonObject);
 

@@ -88,7 +88,7 @@ public class TraitDeliveryS3ToDatorama extends BaseClass{
         String token=from(AuthResponse).get("token");
 
         //Execute the API query to fetch the Trait Delivery data
-        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getTraitDelivery(reportStartDate, reportEndDate), token);
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getTraitDelivery(reportStartDate, reportEndDate, brandId), token);
         JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
         List<String> traitDeliverySrcList = parser.convertJsonToList(jsonObject);
 

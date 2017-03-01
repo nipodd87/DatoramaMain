@@ -80,7 +80,7 @@ public class CompanyStoreS3ToDatorama extends BaseClass {
         String token = from(AuthResponse).get("token");
 
         //Execute the API query to fetch the Company Store data
-        String Resp = APIUtil.getResportAsString("/query/execBatchQuery", APIRequestBodyGenerator.getCompanyStore(reportStartDate, reportEndDate), token);
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery", APIRequestBodyGenerator.getCompanyStore(reportStartDate, reportEndDate, brandId), token);
         JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
         List<String> companyStoreSrcList = parser.convertJsonToList(jsonObject);
 

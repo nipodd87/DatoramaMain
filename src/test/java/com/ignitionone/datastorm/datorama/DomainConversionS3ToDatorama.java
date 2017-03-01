@@ -74,7 +74,7 @@ public class DomainConversionS3ToDatorama extends BaseClass{
         String token=from(AuthResponse).get("token");
 
         //Get the API Response data from Datorama and convert into list of Strings
-        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getDomainConversion(reportStartDate, reportEndDate), token);
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getDomainConversion(reportStartDate, reportEndDate, brandId), token);
         JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
         List<String> domainConversionSrcList = parser.convertJsonToList(jsonObject);
 

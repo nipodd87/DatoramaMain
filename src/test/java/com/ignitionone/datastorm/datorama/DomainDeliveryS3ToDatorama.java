@@ -75,7 +75,7 @@ public class DomainDeliveryS3ToDatorama extends BaseClass{
         String token=from(AuthResponse).get("token");
 
         //Execute the API query to fetch the Domain Delivery data
-        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getDomainDelivery(reportStartDate, reportEndDate), token);
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getDomainDelivery(reportStartDate, reportEndDate, brandId), token);
         JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
         List<String> domainDeliverySrcList = parser.convertJsonToList(jsonObject);
 
