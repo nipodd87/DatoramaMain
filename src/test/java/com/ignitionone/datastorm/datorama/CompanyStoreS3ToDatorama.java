@@ -24,7 +24,7 @@ import java.util.Map;
 import static io.restassured.path.json.JsonPath.from;
 
 
-public class CompanyStoreS3ToDatorama extends ApiBaseClass {
+public class CompanyStoreS3ToDatorama extends BaseClass {
 
     private static final String REPORT_HEADER = "Compare Company Store File between Amazon S3 and Datorama Stream Using API";
     private static final String REPORT_TITLE = "This test is to verify Company Store file is picked and processed properly by Datorama.";

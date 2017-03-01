@@ -23,7 +23,7 @@ import static io.restassured.path.json.JsonPath.from;
 /**
  * Created by karthik.inuganti on 2/27/2017.
  */
-public class DomainConversionDomainHierarchy extends ApiBaseClass {
+public class DomainConversionDomainHierarchy extends BaseClass {
     private static final String REPORT_HEADER = "Domain Conversion: Hierarchical Level Test <BR> Measurement Sum Comparison Between SQL NAN And Datorama <BR> Group By:  DOMAIN ID or SITE URL";
     private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for DOMAIN to test the counts between SQL NAN and Datorama API Endpoints";
     public JsonParser parser = new JsonParser();

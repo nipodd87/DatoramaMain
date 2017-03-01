@@ -23,7 +23,7 @@ import static io.restassured.path.json.JsonPath.from;
 /**
  * Created by karthik.inuganti on 2/24/2017.
  */
-public class TraitConversionTraitHierarchy extends ApiBaseClass {
+public class TraitConversionTraitHierarchy extends BaseClass {
     private static final String REPORT_HEADER = "Trait Conversion: Hierarchical Level Test <BR> Measurement Sum Comparison Between SQL NAN And Datorama <BR> Group By:  TRAIT ID";
     private static final String REPORT_TITLE = "This test is to compare at different hierarchical levels for TRAIT to test the counts between SQL NAN and Datorama API Endpoints";
     public JsonParser parser = new JsonParser();

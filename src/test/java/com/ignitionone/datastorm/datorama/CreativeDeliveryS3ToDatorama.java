@@ -25,7 +25,7 @@ import static io.restassured.path.json.JsonPath.from;
 /**
  * Created by nitin.poddar on 1/13/2017.
  */
-public class CreativeDeliveryS3ToDatorama extends ApiBaseClass{
+public class CreativeDeliveryS3ToDatorama extends BaseClass{
 
     private static final String REPORT_HEADER = "Compare Creative Delivery File between Amazon S3 and Datorama Stream Using API";
     private static final String REPORT_TITLE = "This test is to verify Creative Delivery file is picked and processed properly by Datorama.";
