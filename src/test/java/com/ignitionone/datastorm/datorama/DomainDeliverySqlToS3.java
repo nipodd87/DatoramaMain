@@ -36,7 +36,6 @@ public class DomainDeliverySqlToS3 extends BaseClass {
     AmazonS3 s3 = new AmazonS3Client();
     File domainDeliveryFile;
     String domainDeliveryFilePath;
-    String Bucket_Name = "thirdpartyreporting";
     String domainDeliveryDirectory = "Datorama/Archive/EventData/Summarized/Domain/Delivery";
     String sqlFile = "sql/sqlNan.sql";
     String storeProcFile = "sql/datorama_stored_procedure.sql";
@@ -88,8 +87,8 @@ public class DomainDeliverySqlToS3 extends BaseClass {
         
         //Check if the file is present and uploaded properly in Amazon S3 bucket
         extentReportUtil.startTest("Domain Delivery SQL Nan to Amazon S3 Test Case 3 <BR> Verify File Upload Status", "Verify to see if the file with correct name and format has been uploaded in Amazon S3 Bucket");
-        domainDeliveryFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, domainDeliveryFileName, domainDeliveryDirectory);
-        domainDeliveryFile =s3Functions.DownloadCSVFromS3(Bucket_Name,s3, domainDeliveryFilePath,"DomainDeliverySummarizedData");
+        domainDeliveryFilePath = s3Functions.getFilePathFromBucket(bucketName, s3, domainDeliveryFileName, domainDeliveryDirectory);
+        domainDeliveryFile =s3Functions.DownloadCSVFromS3(bucketName,s3, domainDeliveryFilePath,"DomainDeliverySummarizedData");
         
         //Check File Existence in Amazon S3
         if (domainDeliveryFile != null){

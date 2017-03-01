@@ -33,11 +33,8 @@ public class CreativeConversionAdvertiserHierarchy extends BaseClass {
     DatoramaNanETL executor;
     String reportStartDate;
     String reportEndDate;
-
     int fileStatusID;
     String FileName;
-    public int total_click_based_conversion;
-    public int total_view_based_conversion;
     ETLUtil etlUtil = new ETLUtil();
     RecordLevel recordLevel = new RecordLevel();
 

@@ -37,7 +37,6 @@ public class CreativeConversionSqlToS3  extends BaseClass  {
     AmazonS3 s3 = new AmazonS3Client();
     File creativeConversionFile;
     String creativeConversionFilePath;
-    String Bucket_Name = "ione-platform-xfer-datorama-24fc-us-east-1-DEV";
     String creativeConversionDirectory = "Datorama/Archive/EventData/Summarized/Creative/Conversion";
     String sqlFile = "sql/sqlNan.sql";
     String storeProcFile = "sql/datorama_stored_procedure.sql";
@@ -88,8 +87,8 @@ public class CreativeConversionSqlToS3  extends BaseClass  {
 
         //Check if the file is present and uploaded properly in Amazon S3 bucket
         extentReportUtil.startTest("Creative Conversion SQL Nan to Amazon S3 Test Case 3 <BR> Verify File Upload Status", "Verify to see if the file with correct name and format has been uploaded in Amazon S3 Bucket");
-        creativeConversionFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, creativeConversionFileName, creativeConversionDirectory);
-        creativeConversionFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3, creativeConversionFilePath,"CreativeConversionSummarizedData");
+        creativeConversionFilePath = s3Functions.getFilePathFromBucket(bucketName, s3, creativeConversionFileName, creativeConversionDirectory);
+        creativeConversionFile=s3Functions.DownloadCSVFromS3(bucketName,s3, creativeConversionFilePath,"CreativeConversionSummarizedData");
 
         //Check File Existence in Amazon S3
         if (creativeConversionFile != null){

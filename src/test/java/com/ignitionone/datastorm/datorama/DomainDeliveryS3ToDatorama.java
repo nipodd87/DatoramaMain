@@ -37,7 +37,6 @@ public class DomainDeliveryS3ToDatorama extends BaseClass{
     AmazonS3 s3 = new AmazonS3Client();
     File domainDeliveryFile;
     String domainDeliveryFilePath;
-    String Bucket_Name = "thirdpartyreporting";
     String domainDeliveryDirectory = "Datorama/Archive/EventData/Summarized/Domain/Delivery";
     String sqlFile = "sql/sqlNan.sql";
     DatoramaNanETL executor;
@@ -65,8 +64,8 @@ public class DomainDeliveryS3ToDatorama extends BaseClass{
         domainDeliveryFileName=DatoramaNanETL.fileName;
 
         //Download the file from Amazon S3
-        domainDeliveryFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, domainDeliveryFileName, domainDeliveryDirectory);
-        domainDeliveryFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3, domainDeliveryFilePath,"DomainDeliverySummarizedData");
+        domainDeliveryFilePath = s3Functions.getFilePathFromBucket(bucketName, s3, domainDeliveryFileName, domainDeliveryDirectory);
+        domainDeliveryFile=s3Functions.DownloadCSVFromS3(bucketName,s3, domainDeliveryFilePath,"DomainDeliverySummarizedData");
 
         RecordLevel recordLevel = new RecordLevel();
         extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);

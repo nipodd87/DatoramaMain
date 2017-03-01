@@ -35,7 +35,6 @@ public class CompanyStoreSqlToS3 extends BaseClass {
     AmazonS3 s3 = new AmazonS3Client();
     File companyStoreFile;
     String companyStoreFilePath;
-    String Bucket_Name = "thirdpartyreporting";
     String companyStoreDirectory = "Datorama/Archive/MetaData/CompanyStoreMetaData";
     String sqlFile = "sql/sqlNan.sql";
     String storeProcFile = "sql/datorama_stored_procedure.sql";
@@ -82,8 +81,8 @@ public class CompanyStoreSqlToS3 extends BaseClass {
         extentReportUtil.endTest();
         //Check if the file is present and uploaded properly in Amazon S3 bucket
         extentReportUtil.startTest("Company Store File SQL Nan to Amazon S3 Test Case 3 <BR> Verify File Upload Status", "Verify to see if the file with correct name and format has been uploaded in Amazon S3 Bucket");
-        companyStoreFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, companyStoreFileName, companyStoreDirectory);
-        companyStoreFile = s3Functions.DownloadCSVFromS3(Bucket_Name, s3, companyStoreFilePath, "CompanyStoreSummarizedData");
+        companyStoreFilePath = s3Functions.getFilePathFromBucket(bucketName, s3, companyStoreFileName, companyStoreDirectory);
+        companyStoreFile = s3Functions.DownloadCSVFromS3(bucketName, s3, companyStoreFilePath, "CompanyStoreSummarizedData");
         //Check File Existence in Amazon S3
         if (companyStoreFile != null) {
             extentReportUtil.logPass("Check File Existence", "File was uploaded successfully in Amazon S3: " + companyStoreFileName);

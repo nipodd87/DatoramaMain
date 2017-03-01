@@ -34,7 +34,6 @@ public class DomainConversionSqlToS3  extends BaseClass  {
     AmazonS3 s3 = new AmazonS3Client();
     File domainConversionFile;
     String domainConversionFilePath;
-    String Bucket_Name = "thirdpartyreporting";
     String domainConversionDirectory = "Datorama/Archive/EventData/Summarized/Domain/Conversion";
     String sqlFile = "sql/sqlNan.sql";
     String storeProcFile = "sql/datorama_stored_procedure.sql";
@@ -84,8 +83,8 @@ public class DomainConversionSqlToS3  extends BaseClass  {
         
         //Check if the file is present and uploaded properly in Amazon S3 bucket
         extentReportUtil.startTest("Domain Conversion SQL Nan to Amazon S3 Test Case 3 <BR> Verify File Upload Status", "Verify to see if the file with correct name and format has been uploaded in Amazon S3 Bucket");
-        domainConversionFilePath = s3Functions.getFilePathFromBucket(Bucket_Name, s3, domainConversionFileName, domainConversionDirectory);
-        domainConversionFile=s3Functions.DownloadCSVFromS3(Bucket_Name,s3, domainConversionFilePath,"DomainConversionSummarizedData");
+        domainConversionFilePath = s3Functions.getFilePathFromBucket(bucketName, s3, domainConversionFileName, domainConversionDirectory);
+        domainConversionFile=s3Functions.DownloadCSVFromS3(bucketName,s3, domainConversionFilePath,"DomainConversionSummarizedData");
         
         //Check File Existence in Amazon S3
         if (domainConversionFile != null){
