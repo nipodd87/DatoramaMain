@@ -66,7 +66,7 @@ public class TraitDeliveryCampaignHierarchy extends BaseClass {
         String token=from(AuthResponse).get("token");
 
         //Execute the API query to fetch the Creative Delivery data
-        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getTraitDeliveryLevelCampaign(reportStartDate, reportEndDate), token);
+        String Resp = APIUtil.getResportAsString("/query/execBatchQuery",APIRequestBodyGenerator.getTraitDeliveryLevelCampaign(reportStartDate, reportEndDate, brandId), token);
         JSONObject jsonObject = parser.convertStringtoJsonObj(Resp);
         List<String> traitLevelAPIList = parser.convertJsonToList(jsonObject);
 
