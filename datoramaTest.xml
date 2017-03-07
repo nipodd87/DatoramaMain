@@ -1,6 +1,6 @@
 <suite name="Datorama Test" verbose="1" parallel="tests" thread-count="5">
     <test name = "Datorama Hierarchical Tests">
-        <parameter name="environment" value="dev" />
+        <parameter name="environment" value="prod" />
         <classes>
             <class name="com.ignitionone.datastorm.datorama.CreativeConversionAdvertiserHierarchy"/>
             <class name="com.ignitionone.datastorm.datorama.CreativeConversionCampaignHierarchy"/>
