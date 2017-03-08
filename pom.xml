@@ -37,6 +37,9 @@
     <properties>
         <unitils.version>3.4.2</unitils.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            <project.http.version>1.22.0</project.http.version>
+            <project.oauth.version>1.22.0</project.oauth.version>
+            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <repositories>
@@ -203,6 +206,25 @@
             <version>2.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-dfareporting</artifactId>
+            <version>v2.7-rev1-1.22.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.oauth-client</groupId>
+            <artifactId>google-oauth-client-jetty</artifactId>
+            <version>${project.oauth.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-jackson2</artifactId>
+            <version>${project.http.version}</version>
+        </dependency>
+
     </dependencies>
+
 
 </project>

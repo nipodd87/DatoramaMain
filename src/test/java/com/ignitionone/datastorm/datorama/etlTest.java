@@ -1,6 +1,8 @@
 package com.ignitionone.datastorm.datorama;
 
+import com.google.api.services.dfareporting.Dfareporting;
 import com.ignitionone.datastorm.datorama.BaseClass;
+import com.ignitionone.datastorm.datorama.DCMUtil.DfaReportingFactory;
 import com.ignitionone.datastorm.datorama.etl.DestinationTable;
 import com.ignitionone.datastorm.datorama.etl.RecordLevel;
 import com.ignitionone.datastorm.datorama.etl.TableLevel;
@@ -37,49 +39,11 @@ public class etlTest extends BaseClass {
     String destSqlFile = "sql/dmsReadCache.sql";
     //String destSqlFile = "sql/sqlNan.sql";
 
-    @BeforeClass(alwaysRun = true)
-    @Parameters(value = {"environment"})
-    public void setUp(String environment) throws Exception {
-        this.environment = environment;
-        init(this.environment, REPORT_HEADER, REPORT_TITLE);
-
-    }
 
     @Test
     public void etlValidation() throws Exception {
-        RecordLevel recordLevel = new RecordLevel();
-        TableLevel tableLevel = new TableLevel();
-        extentReportUtil.logInfo("Reading Mapping between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
+        Dfareporting reportingFactory = DfaReportingFactory.getInstance();
 
-        Map<String, DestinationTable> validate = new HashMap<>();
-
-        //sql nan                            Column_name, Unique Key, Type of field, validation
-        DestinationTable sqlnan1 = new DestinationTable("ClientID", false, VARCHAR, MATCH);
-        DestinationTable legacyId = new DestinationTable("AdCategoryID", true, VARCHAR, MATCH);
-        DestinationTable sourceID = new DestinationTable("AdCategoryStatusID", false, INT, MATCH);
-
-        // Postgress
-        validate.put("ClientID", sqlnan1);
-        validate.put("AdCategoryID", legacyId);
-        validate.put("AdCategoryStatusID", sourceID);
-
-        tableLevel.verifyTableCount(environment, srcSqlFile, SOURCE_TABLE, destSqlFile, DESTINATION_TABLE);
-        extentReportUtil.endTest();
-
-        extentReportUtil.startTest("File level tests <BR> Verify Data Types <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
-        tableLevel.verifyTableDataTypes(environment, validate, srcSqlFile, SOURCE_TABLE, destSqlFile, DESTINATION_TABLE);
-
-        extentReportUtil.endTest();
-
-        extentReportUtil.startTest("Record level tests <BR> Verify Data <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE);
-        recordLevel.verifyTableData(environment, validate, srcSqlFile,"", SOURCE_TABLE, destSqlFile, DESTINATION_TABLE, "");
-
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void generateReport() {
-        extentReportUtil.endTest();
-        extentReportUtil.writeReport();
     }
 
 
