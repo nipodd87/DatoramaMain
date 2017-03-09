@@ -24,7 +24,7 @@ import java.io.InputStreamReader;
 public class DfaReportingFactory {
     /** Directory to store user credentials. */
     private static final java.io.File DATA_STORE_DIR =
-            new java.io.File(System.getProperty("user.home"), ".store/dfareporting_sample");
+            new java.io.File(System.getProperty("user.dir"), ".store/dfareporting_sample");
 
     private static final HttpTransport HTTP_TRANSPORT = Utils.getDefaultTransport();
     private static final JsonFactory JSON_FACTORY = Utils.getDefaultJsonFactory();

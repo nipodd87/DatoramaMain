@@ -107,6 +107,10 @@ public class APIRequestBodyGenerator {
         return "[{\"brandId\": \""+brandId+"\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Domain Click Based Conversions\"},{\"name\": \"Domain View Based Conversions\"}],\"dimensions\": [\"Domain\"],\"groupDimensionFilters\": [{\"vals\": [\"Domain Conversion\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Domain\",\"sortOrder\": \"DESC\",\"topResults\": \"5000\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
     }
 
+    public static String getJobStreamInfo(String startDate, String endDate, String brandId, String streamName){
+        return "{\"brandId\":\"" + brandId + "\",\"dateRange\":\"CUSTOM\",\"startDate\":\"" + startDate + "\",\"endDate\":\"" + endDate + "\",\"measurements\":[{\"name\": \"Data Stream Job Source Rows\"}],\"dimensions\":[\"Data Stream Job Id\",\"Data Stream Job Data Start\",\"Data Stream Job Data End\"],\"groupDimensionFilters\":[{\"vals\":[\""+streamName+"],\"dimension\":\"Data View\",\"operator\":\"IN\"},{\"vals\":[\"SUCCESS\"],\"dimension\":\"Data Stream Job Status\",\"operator\":\"IN\"}],\"stringDimensionFilters\":[],\"stringDimensionFiltersOperator\":\"AND\",\"numberDimensionFiltersOperator\":\"AND\",\"numberMeasurementFilter\":[],\"sortBy\":\"Data Stream Job Id\",\"sortOrder\":\"DESC\",\"topResults\":\"1\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\":[]}";
+    }
+
 }
 
 
