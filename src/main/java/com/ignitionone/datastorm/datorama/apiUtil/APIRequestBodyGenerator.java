@@ -107,10 +107,154 @@ public class APIRequestBodyGenerator {
         return "[{\"brandId\": \""+brandId+"\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\": [{\"name\": \"Domain Click Based Conversions\"},{\"name\": \"Domain View Based Conversions\"}],\"dimensions\": [\"Domain\"],\"groupDimensionFilters\": [{\"vals\": [\"Domain Conversion\"],\"dimension\": \"Data View\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Domain\",\"sortOrder\": \"DESC\",\"topResults\": \"5000\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
     }
 
-    public static String getJobStreamInfo(String startDate, String endDate, String brandId, String streamName){
-        return "{\"brandId\":\"" + brandId + "\",\"dateRange\":\"CUSTOM\",\"startDate\":\"" + startDate + "\",\"endDate\":\"" + endDate + "\",\"measurements\":[{\"name\": \"Data Stream Job Source Rows\"}],\"dimensions\":[\"Data Stream Job Id\",\"Data Stream Job Data Start\",\"Data Stream Job Data End\"],\"groupDimensionFilters\":[{\"vals\":[\""+streamName+"],\"dimension\":\"Data View\",\"operator\":\"IN\"},{\"vals\":[\"SUCCESS\"],\"dimension\":\"Data Stream Job Status\",\"operator\":\"IN\"}],\"stringDimensionFilters\":[],\"stringDimensionFiltersOperator\":\"AND\",\"numberDimensionFiltersOperator\":\"AND\",\"numberMeasurementFilter\":[],\"sortBy\":\"Data Stream Job Id\",\"sortOrder\":\"DESC\",\"topResults\":\"1\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\":[]}";
+    public static String getJobStreamInfo(String brandId, String streamName){
+        return "[{\"brandId\":\"" + brandId + "\",\"dateRange\":\"THIS_MONTH\",\"measurements\":[{\"name\": \"Data Stream Job Source Rows\"}],\"dimensions\":[\"Data Stream Job Id\",\"Data Stream Job Data Start\",\"Data Stream Job Data End\"],\"groupDimensionFilters\":[{\"vals\":[\""+streamName+"\"],\"dimension\":\"Data View\",\"operator\":\"IN\"},{\"vals\":[\"SUCCESS\"],\"dimension\":\"Data Stream Job Status\",\"operator\":\"IN\"}],\"stringDimensionFilters\":[],\"stringDimensionFiltersOperator\":\"AND\",\"numberDimensionFiltersOperator\":\"AND\",\"numberMeasurementFilter\":[],\"sortBy\":\"Data Stream Job Id\",\"sortOrder\":\"DESC\",\"topResults\":\"1\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\":[]}]";
     }
 
+    public static String getDCMReport(String startDate, String endDate, String brandId, String advertiserId){
+        return "[{\"brandId\":\""+brandId+"\",\"dateRange\":\"CUSTOM\",\"startDate\":\""+startDate+",\"endDate\":\""+endDate+",\"measurements\":[{\"name\":\"Booked Cost\"},{\"name\":\"Rich Media Backup Images\"},{\"name\":\"Booked Impressions\"},{\"name\":\"Total_Clicks\"},{\"name\":\"Rich Media Expansion Time\"},{\"name\":\"Expansions\"},{\"name\":\"Rich Media Full Screen Impressions\"},{\"name\":\"Full Screen Video Completions\"},{\"name\":\"Full Screen Video Plays\"},{\"name\":\"Total_Impressions\"},{\"name\":\"Rich Media Interactive Impressions\"},{\"name\":\"Total_Cost\"},{\"name\":\"Rich Media Clicks\"},{\"name\":\"Rich Media Impressions\"},{\"name\":\"Rich Media Display Time\"},{\"name\":\"Total Interaction Time\"},{\"name\":\"Interactions\"},{\"name\":\"Video Companion Clicks\"},{\"name\":\"Video Fully Played\"},{\"name\":\"Video Completions 25%\"},{\"name\":\"Video Full Screens\"},{\"name\":\"Video Interactions\"},{\"name\":\"Video Completions 50%\"},{\"name\":\"Video Mutes\"},{\"name\":\"Video Pauses\"},{\"name\":\"Video Plays\"},{\"name\":\"Video Replays\"},{\"name\":\"Video Skips\"},{\"name\":\"Video Stops\"},{\"name\":\"Video Completions 75%\"},{\"name\":\"Video True Views\"},{\"name\":\"Video Unmutes\"},{\"name\":\"Video Views\"}],\"dimensions\":[\"Campaign Advertiser\",\"Campaign Advertiser ID\",\"Line Item\",\"Line Item ID\",\"Placement Content Category\",\"Creative Format\",\"Day\",\"Package Roadblock\",\"Package Roadblock ID\",\"Placement\",\"Placement ID\",\"Placement Pixel Size\",\"Site Name\",\"Domain\",\"Creative Click URL\",\"Creative\",\"Creative ID\",\"Placement Strategy\"],\"groupDimensionFilters\":[{\"vals\":[\""+advertiserId+"\"],\"dimension\":\"Campaign Advertiser ID\",\"operator\":\"IN\"}],\"stringDimensionFilters\":[],\"stringDimensionFiltersOperator\":\"AND\",\"numberDimensionFiltersOperator\":\"AND\",\"numberMeasurementFilter\":[],\"sortBy\":\"Campaign Advertiser\",\"sortOrder\":\"DESC\",\"topResults\":\"500\",\"groupOthers\":false,\"topPerDimension\":false,\"totalDimensions\": []}]";
+    }
+
+    public static String getDCMReport1(String startDate, String endDate, String brandId, String advertiserId){
+        return "[{\n" +
+                "\t\"brandId\": \""+brandId+"\",\n" +
+                "\t\"dateRange\": \"CUSTOM\",\n" +
+                "\t\"startDate\": \""+startDate+"\",\n" +
+                "\t\"endDate\": \""+endDate+"\",\n" +
+                "\t\"measurements\": [\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Booked Cost\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Rich Media Backup Images\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Booked Impressions\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Total_Clicks\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Rich Media Expansion Time\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Expansions\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Rich Media Full Screen Impressions\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Full Screen Video Completions\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Full Screen Video Plays\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Total_Impressions\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Rich Media Interactive Impressions\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Total_Cost\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Rich Media Clicks\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Rich Media Impressions\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Rich Media Display Time\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Total Interaction Time\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Interactions\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Companion Clicks\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Fully Played\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Completions 25%\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Full Screens\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Interactions\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Completions 50%\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Mutes\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Pauses\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Plays\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Replays\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Skips\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Stops\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Completions 75%\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video True Views\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Unmutes\"\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"name\": \"Video Views\"\n" +
+                "\t\t}\n" +
+                "\t],\n" +
+                "\t\"dimensions\": [\n" +
+                "\t\t\"Campaign Advertiser\",\n" +
+                "\t\t\"Campaign Advertiser ID\",\n" +
+                "\t\t\"Line Item\",\n" +
+                "\t\t\"Line Item ID\",\n" +
+                "\t\t\"Placement Content Category\",\n" +
+                "\t\t\"Creative Format\",\n" +
+                "\t\t\"Day\",\n" +
+                "\t\t\"Package Roadblock\",\n" +
+                "\t\t\"Package Roadblock ID\",\n" +
+                "\t\t\"AdServer Placement\",\n" +
+                "\t\t\"Adserver Placement ID\",\n" +
+                "\t\t\"Placement Pixel Size\",\n" +
+                "\t\t\"Site Name\",\n" +
+                "\t\t\"Domain\",\n" +
+                "\t\t\"Creative Click URL\",\n" +
+                "\t\t\"Creative\",\n" +
+                "\t\t\"Creative ID\",\n" +
+                "\t\t\"Placement Strategy\"\n" +
+                "\t],\n" +
+                "\t\"groupDimensionFilters\": [{\"vals\": [\t\"4279063\"],\"dimension\": \"Campaign Advertiser ID\",\"operator\": \"IN\"\t}],\n" +
+                "\t\"stringDimensionFilters\": [],\n" +
+                "\t\"stringDimensionFiltersOperator\": \"AND\",\n" +
+                "\t\"numberDimensionFiltersOperator\": \"AND\",\n" +
+                "\t\"numberMeasurementFilter\": [],\n" +
+                "\t\"sortBy\": \"Campaign Advertiser\",\n" +
+                "\t\"sortOrder\": \"DESC\",\n" +
+                "\t\"topResults\": \"5\",\n" +
+                "\t\"groupOthers\": false,\n" +
+                "\t\"topPerDimension\": false,\n" +
+                "\t\"totalDimensions\": []\n" +
+                "}]";
+    }
 }
 
 
