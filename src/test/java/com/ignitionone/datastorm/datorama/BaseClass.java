@@ -29,6 +29,7 @@ public class BaseClass {
     protected String baseUrl;
     public static String bucketName;
     public static String brandId;
+    public static long USER_PROFILE;
     public static RequestSpecBuilder requestBuilder;
     public static RequestSpecification requestSpec;
     public static ResponseSpecBuilder responseBuilder;
@@ -62,6 +63,7 @@ public class BaseClass {
         Properties dataStormProperties = propertiesFile.getProps();
         bucketName = (String) dataStormProperties.get(environment + "." + "bucketName");
         brandId = (String) dataStormProperties.get(environment + "." + "brandId");
+        USER_PROFILE = Long.parseLong((String) dataStormProperties.get(environment + "."+"dcm_profileId"));
     }
 
     public void buildResponseSpec() {

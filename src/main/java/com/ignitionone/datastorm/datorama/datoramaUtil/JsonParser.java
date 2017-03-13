@@ -31,7 +31,7 @@ public class JsonParser {
             StringBuffer columnItem = new StringBuffer();
             for (int j=0;j<rowItem.size();j++){
                 if (rowItem.get(j) instanceof String){
-                    String column = rowItem.get(j).trim().replace("\"","").replace("[","").replace("]","").replace("null","").replace(" 00:00:00.0", "");
+                    String column = rowItem.get(j).trim().replace("\"","").replace("[","").replace("]","").replace("null","").replace(" 00:00:00.0", "").replace("dcm_","");
                     columnItem.append(column);
                 } else if (rowItem.get(j) == null){
                     //do Nothing
