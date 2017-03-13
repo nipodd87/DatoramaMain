@@ -23,6 +23,7 @@ public class DomainDeliveryBean {
     private String creativeName;
     private String creativeMessageId;
     private String creativeMessageName;
+    private String creativeSize;
     private String adserverPlacementId;
     private String adserverPlacementName;
     private String integrationId;
@@ -183,6 +184,12 @@ public class DomainDeliveryBean {
 
     public void setCreativeMessageName(String creativeMessageName) {
         this.creativeMessageName = creativeMessageName;
+    }
+
+    public String getCreativeSize() { return creativeSize; }
+
+    public void setCreativeSize(String placementPixelSize) {
+        this.creativeSize = creativeSize;
     }
 
     public String getAdserverPlacementId() {

@@ -23,6 +23,8 @@ public class DomainConversionBean {
     private String creativeName;
     private String creativeMessageId;
     private String creativeMessageName;
+    private String creativeSize;
+    private String placementPixelSize;
     private String adserverPlacementId;
     private String adserverPlacementName;
     private String integrationId;
@@ -183,6 +185,14 @@ public class DomainConversionBean {
     public void setCreativeMessageName(String creativeMessageName) {
         this.creativeMessageName = creativeMessageName;
     }
+
+    public String getPlacementPixelSize() { return placementPixelSize;}
+
+    public void setPlacementPixelSize(String placementPixelSize) {this.placementPixelSize = placementPixelSize;}
+
+    public String getCreativeSize() { return creativeSize;}
+
+    public void setCreativeSize(String creativeSize) {this.creativeSize = creativeSize; }
 
     public String getAdserverPlacementId() {
         return adserverPlacementId;
