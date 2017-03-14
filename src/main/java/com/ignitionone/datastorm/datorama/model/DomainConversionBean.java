@@ -186,10 +186,6 @@ public class DomainConversionBean {
         this.creativeMessageName = creativeMessageName;
     }
 
-    public String getPlacementPixelSize() { return placementPixelSize;}
-
-    public void setPlacementPixelSize(String placementPixelSize) {this.placementPixelSize = placementPixelSize;}
-
     public String getCreativeSize() { return creativeSize;}
 
     public void setCreativeSize(String creativeSize) {this.creativeSize = creativeSize; }

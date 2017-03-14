@@ -79,7 +79,7 @@ public class DomainConversionS3ToDatorama extends BaseClass{
         List<String> domainConversionSrcList = parser.convertJsonToList(jsonObject);
 
         //Generate the source and destination Mapping using ETL util and excel reader
-        List <String> domainConversionDestList = DatoramaCSVUtil.getDomainDeliveryCSVData("DomainConversionSummarizedData.csv", ',', "|@|");
+        List <String> domainConversionDestList = DatoramaCSVUtil.getDomainConversionCSVData("DomainConversionSummarizedData.csv", ',', "|@|");
         Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"Datorama_Mapping.xlsx", "Domain_Conversion_Mapper");
 
         extentReportUtil.logInfo("File level tests <BR> Verify Data Types <BR> Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE, "Verify Data Types for each column between Source Table : " + SOURCE_TABLE + " and Destination Table : " + DESTINATION_TABLE+" Report Start Date: "+reportStartDate+" Report End Date: "+reportEndDate);

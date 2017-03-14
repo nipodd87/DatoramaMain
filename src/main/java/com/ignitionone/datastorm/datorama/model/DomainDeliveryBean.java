@@ -24,6 +24,7 @@ public class DomainDeliveryBean {
     private String creativeMessageId;
     private String creativeMessageName;
     private String creativeSize;
+    private String placementPixelSize;
     private String adserverPlacementId;
     private String adserverPlacementName;
     private String integrationId;
@@ -188,8 +189,14 @@ public class DomainDeliveryBean {
 
     public String getCreativeSize() { return creativeSize; }
 
-    public void setCreativeSize(String placementPixelSize) {
+    public void setCreativeSize(String creativeSize) {
         this.creativeSize = creativeSize;
+    }
+
+    public String getPlacementPixelSize() { return placementPixelSize; }
+
+    public void setPlacementPixelSize(String placementPixelSize) {
+        this.placementPixelSize = placementPixelSize;
     }
 
     public String getAdserverPlacementId() {
