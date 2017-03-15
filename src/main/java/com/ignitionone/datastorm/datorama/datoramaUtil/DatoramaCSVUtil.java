@@ -475,7 +475,7 @@ public class DatoramaCSVUtil {
         mapper.setType(DomainConversionBean.class);
         String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
                 "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
-                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName","CreativeSize",
                 "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","ClickBasedConversions","ImpressionBasedConversions"};
         mapper.setColumnMapping(columns);
 
@@ -523,6 +523,8 @@ public class DatoramaCSVUtil {
             lineItem.append(delimiter);
             lineItem.append(domainConversionList.get(i).getCreativeMessageName());
             lineItem.append(delimiter);
+            lineItem.append(domainConversionList.get(i).getCreativeSize());
+            lineItem.append(delimiter);
             lineItem.append(domainConversionList.get(i).getAdserverPlacementId());
             lineItem.append(delimiter);
             lineItem.append(domainConversionList.get(i).getAdserverPlacementName());
@@ -554,7 +556,7 @@ public class DatoramaCSVUtil {
         mapper.setType(DomainConversionBean.class);
         String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
                 "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
-                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName","CreativeSize",
                 "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","ClickBasedConversions","ImpressionBasedConversions"};
         mapper.setColumnMapping(columns);
 
@@ -577,7 +579,7 @@ public class DatoramaCSVUtil {
         mapper.setType(DomainDeliveryBean.class);
         String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
                 "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
-                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName","PlacementPixelSize",
                 "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","Impressions","Clicks","Cost"};
         mapper.setColumnMapping(columns);
 
@@ -626,6 +628,8 @@ public class DatoramaCSVUtil {
             lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getCreativeMessageName());
             lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getPlacementPixelSize());
+            lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getAdserverPlacementId());
             lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getAdserverPlacementName());
@@ -659,7 +663,7 @@ public class DatoramaCSVUtil {
         mapper.setType(DomainDeliveryBean.class);
         String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
                 "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
-                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName",
+                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName","CreativeSize",
                 "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","Impressions","Clicks","Cost"};
         mapper.setColumnMapping(columns);
 

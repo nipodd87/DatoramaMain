@@ -17,7 +17,12 @@
             <class name="com.ignitionone.datastorm.datorama.TraitConversionTraitHierarchy"/>
             <class name="com.ignitionone.datastorm.datorama.DomainDeliveryDomainHierarchy"/>
             <class name="com.ignitionone.datastorm.datorama.DomainConversionDomainHierarchy"/>
-
+            <class name="com.ignitionone.datastorm.datorama.TraitDeliveryS3ToDatorama"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryS3ToDatorama"/>
+            <class name="com.ignitionone.datastorm.datorama.DomainDeliveryS3ToDatorama"/>
+            <class name="com.ignitionone.datastorm.datorama.DomainDeliverySqlToS3"/>
+            <class name="com.ignitionone.datastorm.datorama.DomainConversionS3ToDatorama"/>
+            <class name="com.ignitionone.datastorm.datorama.DomainConversionSqlToS3"/>-->
         </classes>
     </test>
 </suite>
