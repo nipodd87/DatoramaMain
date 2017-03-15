@@ -2,25 +2,27 @@
     <test name = "Datorama Hierarchical Tests">
         <parameter name="environment" value="dev" />
         <classes>
-            <!--<class name="com.ignitionone.datastorm.datorama.CreativeConversionAdvertiserHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.CreativeConversionCampaignHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.CreativeConversionCreativeHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.CreativeConversionCampaignTargetHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.CreativeDeliveryAdvertiserHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.CreativeDeliveryCampaignHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.CreativeDeliveryCreativeHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.CreativeDeliveryCampaignTargetHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.TraitDeliveryAdvertiserHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.TraitDeliveryCampaignHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.TraitDeliveryCampaignTargetHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.TraitDeliveryTraitHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.TraitConversionTraitHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.DomainDeliveryDomainHierarchy"/>-->
-            <!--<class name="com.ignitionone.datastorm.datorama.DomainConversionDomainHierarchy"/>-->
+            <class name="com.ignitionone.datastorm.datorama.CreativeConversionAdvertiserHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeConversionCampaignHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeConversionCreativeHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeConversionCampaignTargetHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryAdvertiserHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryCampaignHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryCreativeHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryCampaignTargetHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.TraitDeliveryAdvertiserHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.TraitDeliveryCampaignHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.TraitDeliveryCampaignTargetHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.TraitDeliveryTraitHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.TraitConversionTraitHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.DomainDeliveryDomainHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.DomainConversionDomainHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.TraitDeliveryS3ToDatorama"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryS3ToDatorama"/>
             <class name="com.ignitionone.datastorm.datorama.DomainDeliveryS3ToDatorama"/>
             <class name="com.ignitionone.datastorm.datorama.DomainDeliverySqlToS3"/>
             <class name="com.ignitionone.datastorm.datorama.DomainConversionS3ToDatorama"/>
-            <class name="com.ignitionone.datastorm.datorama.DomainConversionSqlToS3"/>
+            <class name="com.ignitionone.datastorm.datorama.DomainConversionSqlToS3"/>-->
         </classes>
     </test>
 </suite>
