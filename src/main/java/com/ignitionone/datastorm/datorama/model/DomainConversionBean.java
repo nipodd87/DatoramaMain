@@ -24,7 +24,6 @@ public class DomainConversionBean {
     private String creativeMessageId;
     private String creativeMessageName;
     private String creativeSize;
-    private String placementPixelSize;
     private String adserverPlacementId;
     private String adserverPlacementName;
     private String integrationId;
