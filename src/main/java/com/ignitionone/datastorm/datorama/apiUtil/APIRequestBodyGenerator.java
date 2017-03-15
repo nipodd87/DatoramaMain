@@ -226,30 +226,19 @@ public class APIRequestBodyGenerator {
                 "\t\t\"Campaign Advertiser\",\n" +
                 "\t\t\"Campaign Advertiser ID\",\n" +
                 "\t\t\"Line Item\",\n" +
-                "\t\t\"Line Item ID\",\n" +
-                "\t\t\"Placement Content Category\",\n" +
-                "\t\t\"Creative Format\",\n" +
                 "\t\t\"Day\",\n" +
-                "\t\t\"Package Roadblock\",\n" +
-                "\t\t\"Package Roadblock ID\",\n" +
-                "\t\t\"AdServer Placement\",\n" +
-                "\t\t\"Adserver Placement ID\",\n" +
-                "\t\t\"Placement Pixel Size\",\n" +
-                "\t\t\"Site Name\",\n" +
-                "\t\t\"Domain\",\n" +
-                "\t\t\"Creative Click URL\",\n" +
-                "\t\t\"Creative\",\n" +
-                "\t\t\"Creative ID\",\n" +
-                "\t\t\"Placement Strategy\"\n" +
+                "\t\t\"Placement\",\n" +
+                "\t\t\"Placement ID\",\n" +
+                "\t\t\"Creative ID\"\n" +
                 "\t],\n" +
-                "\t\"groupDimensionFilters\": [{\"vals\": [\t\"4279063\"],\"dimension\": \"Campaign Advertiser ID\",\"operator\": \"IN\"\t}],\n" +
+                "\t\"groupDimensionFilters\": [{\"vals\":[\"" +"DCM Creative Delivery - Motel 6"+ "\"],\"dimension\":\"Data View\",\"operator\":\"IN\"}],\n" +
                 "\t\"stringDimensionFilters\": [],\n" +
                 "\t\"stringDimensionFiltersOperator\": \"AND\",\n" +
                 "\t\"numberDimensionFiltersOperator\": \"AND\",\n" +
                 "\t\"numberMeasurementFilter\": [],\n" +
-                "\t\"sortBy\": \"Campaign Advertiser\",\n" +
+                "\t\"sortBy\": \"Placement ID\",\n" +
                 "\t\"sortOrder\": \"DESC\",\n" +
-                "\t\"topResults\": \"5\",\n" +
+                "\t\"topResults\": \"100\",\n" +
                 "\t\"groupOthers\": false,\n" +
                 "\t\"topPerDimension\": false,\n" +
                 "\t\"totalDimensions\": []\n" +

@@ -16,10 +16,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import java.util.List;
 import java.util.Map;
-
 import static io.restassured.path.json.JsonPath.from;
 
 /**
@@ -68,14 +66,15 @@ public class DCMCreative extends BaseClass{
 
         //Initialize the Dfareporting object from the DfaReportingFactory
         Dfareporting reporting = DfaReportingFactory.getInstance();
+
         //Build the report
         DfaReportBuilder reportBuilder = new DfaReportBuilder();
         Report report = reportBuilder.getDfaReport(reportEndDate, reportEndDate, "DCM Creative Delivery - Motel 6", "dfa:advertiserId",
-                "4279063", System.getProperty("user.dir")+"/DCM_CreativeDelivery_Motel6_DimensionList.xlsx");
+                "4279063", System.getProperty("user.dir")+"/DCM_Motel6_Reporter.xlsx");
         Report result = reporting.reports().insert(USER_PROFILE, report).execute();
-        //Thread.sleep(300000);
         reportId = result.getId();
 
+        //Build the mapper between DCM and Datorama columns
         RecordLevel recordLevel = new RecordLevel();
         ETLUtil etlUtil = new ETLUtil();
         Map<String, DestinationTable> mapper = etlUtil.getMapSet(System.getProperty("user.dir")+"/"+"DCM_Motel6_Mapper.xlsx", "DCM_Motel6_Mapper");
@@ -87,7 +86,7 @@ public class DCMCreative extends BaseClass{
 
         //Run the report to get the file Id
         File reportFile=DfaReportRunner.runReport(reporting, USER_PROFILE,reportId);
-        //Thread.sleep(300000);
+        Thread.sleep(180000);
         //Download the Report
         List<String> dcmReportList=DfaReportDownloader.downloadFileAsList(reporting, USER_PROFILE, reportId, reportFile.getId());
 
@@ -98,7 +97,11 @@ public class DCMCreative extends BaseClass{
         recordLevel.verifySrcWithDestData(mapper,dcmReportAsAPI,dcmReportList);
 
         //Delete the Report
-        DfaReportDelete.deleteReport(reporting, USER_PROFILE, reportId);
+        Long reportToBeDeleted = reportId;
+        if (reportToBeDeleted != null){
+            DfaReportDelete.deleteReport(reporting, USER_PROFILE, reportId);
+        }
+
     }
     @AfterClass(alwaysRun = true)
     public void generateReport() {
