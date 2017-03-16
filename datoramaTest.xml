@@ -1,6 +1,6 @@
 <suite name="Datorama Test" verbose="1" parallel="tests" thread-count="5">
     <test name = "Datorama Hierarchical Tests">
-        <parameter name="environment" value="qa" />
+        <parameter name="environment" value="dev" />
         <classes>
             <class name="com.ignitionone.datastorm.datorama.CreativeConversionAdvertiserHierarchy"/>
             <class name="com.ignitionone.datastorm.datorama.CreativeConversionCampaignHierarchy"/>
@@ -22,7 +22,9 @@
             <class name="com.ignitionone.datastorm.datorama.DomainDeliveryS3ToDatorama"/>
             <class name="com.ignitionone.datastorm.datorama.DomainDeliverySqlToS3"/>
             <class name="com.ignitionone.datastorm.datorama.DomainConversionS3ToDatorama"/>
-            <class name="com.ignitionone.datastorm.datorama.DomainConversionSqlToS3"/>-->
+            <class name="com.ignitionone.datastorm.datorama.DomainConversionSqlToS3"/>
+            <class name="com.ignitionone.datastorm.datorama.RateCardFeeETLTest"/>
+            <class name="com.ignitionone.datastorm.datorama.RateCardFeeTypeETLTest"/>
         </classes>
     </test>
 </suite>
