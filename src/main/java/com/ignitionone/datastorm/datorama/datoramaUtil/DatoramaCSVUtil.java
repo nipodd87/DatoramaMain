@@ -577,10 +577,12 @@ public class DatoramaCSVUtil {
     public static List<String> getDomainDeliveryCSVData(String fileName, char separator, String delimiter) throws FileNotFoundException {
         ColumnPositionMappingStrategy<DomainDeliveryBean> mapper = new ColumnPositionMappingStrategy<DomainDeliveryBean>();
         mapper.setType(DomainDeliveryBean.class);
-        String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
-                "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
-                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName","PlacementPixelSize",
-                "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","Impressions","Clicks","Cost"};
+        String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd",
+                "AccountManagerID","CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID",
+                "CampaignTargetName","CampaignTargetFlightdateStart","CampaignTargetFlightdateEnd","CampaignTargetStatus",
+                "CreativeID","CreativeName","CreativeMessageID","CreativeMessageName","CreativeSizeID","AdserverPlacementID",
+                "AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","Impressions","Clicks","Cost","MediaCosteCPM",
+                "3rdPartyCPMRate","3rdPartyCost","TotalCost","TotalCosteCPM","ClientdCPMRate","ClientSpend","ClientdCPM"};
         mapper.setColumnMapping(columns);
 
         CsvToBean<DomainDeliveryBean> csv = new CsvToBean<DomainDeliveryBean>();
@@ -642,11 +644,27 @@ public class DatoramaCSVUtil {
             lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getSiteUrl());
             lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getThirdPartyCPMRate());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getClientdCPMRate());
+            lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getImpressions());
             lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getClicks());
             lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getCost());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getMediaCosteCPM());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getThirdPartyCost());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getTotalCost());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getTotalCosteCPM());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getClientSpend());
+            lineItem.append(delimiter);
+            lineItem.append(domainDeliveryList.get(i).getClientdCPM());
 
             domainDeliveryModifiedList.add(lineItem.toString());
         }
@@ -661,10 +679,12 @@ public class DatoramaCSVUtil {
         int recordCount = 0;
         ColumnPositionMappingStrategy<DomainDeliveryBean> mapper = new ColumnPositionMappingStrategy<DomainDeliveryBean>();
         mapper.setType(DomainDeliveryBean.class);
-        String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd","AccountManagerID",
-                "CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID","CampaignTargetName","CampaignTargetFlightdateStart",
-                "CampaignTargetFlightdateEnd","CampaignTargetStatus","CreativeID","CreativeName","CreativeMessageID","CreativeMessageName","CreativeSize",
-                "AdserverPlacementID","AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","Impressions","Clicks","Cost"};
+        String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd",
+                "AccountManagerID","CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID",
+                "CampaignTargetName","CampaignTargetFlightdateStart","CampaignTargetFlightdateEnd","CampaignTargetStatus",
+                "CreativeID","CreativeName","CreativeMessageID","CreativeMessageName","CreativeSizeID","AdserverPlacementID",
+                "AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","Impressions","Clicks","Cost","MediaCosteCPM",
+                "3rdPartyCPMRate","3rdPartyCost","TotalCost","TotalCosteCPM","ClientdCPMRate","ClientSpend","ClientdCPM"};
         mapper.setColumnMapping(columns);
 
         CsvToBean<DomainDeliveryBean> csv = new CsvToBean<DomainDeliveryBean>();

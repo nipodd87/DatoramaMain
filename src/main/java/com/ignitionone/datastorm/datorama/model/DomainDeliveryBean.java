@@ -33,6 +33,14 @@ public class DomainDeliveryBean {
     private String impressions;
     private String clicks;
     private String cost;
+    private String mediaCosteCPM;
+    private String thirdPartyCPMRate;
+    private String thirdPartyCost;
+    private String totalCost;
+    private String totalCosteCPM;
+    private String clientdCPMRate;
+    private String clientSpend;
+    private String clientdCPM;
 
     public String getDate() {
         return date;
@@ -263,4 +271,70 @@ public class DomainDeliveryBean {
     public void setCost(String cost) {
         this.cost = cost;
     }
+
+
+    public String getMediaCosteCPM() {
+        return mediaCosteCPM;
+    }
+
+    public void setMediaCosteCPM(String mediaCosteCPM) {
+        this.mediaCosteCPM = mediaCosteCPM;
+    }
+
+    public String getThirdPartyCPMRate() {
+        return thirdPartyCPMRate;
+    }
+
+    public void setThirdPartyCPMRate(String thirdPartyCPMRate) {
+        this.thirdPartyCPMRate = thirdPartyCPMRate;
+    }
+
+    public String getThirdPartyCost() {
+        return thirdPartyCost;
+    }
+
+    public void setThirdPartyCost(String thirdPartyCost) {
+        this.thirdPartyCost = thirdPartyCost;
+    }
+
+    public String getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(String totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public String getTotalCosteCPM() {
+        return totalCosteCPM;
+    }
+
+    public void setTotalCosteCPM(String totalCosteCPM) {
+        this.totalCosteCPM = totalCosteCPM;
+    }
+
+    public String getClientdCPMRate() {
+        return clientdCPMRate;
+    }
+
+    public void setClientdCPMRate(String clientdCPMRate) {
+        this.clientdCPMRate = clientdCPMRate;
+    }
+
+    public String getClientSpend() {
+        return clientSpend;
+    }
+
+    public void setClientSpend(String clientSpend) {
+        this.clientSpend = clientSpend;
+    }
+
+    public String getClientdCPM() {
+        return clientdCPM;
+    }
+
+    public void setClientdCPM(String clientdCPM) {
+        this.clientdCPM = clientdCPM;
+    }
+
 }
