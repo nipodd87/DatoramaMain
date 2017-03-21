@@ -580,9 +580,9 @@ public class DatoramaCSVUtil {
         String[] columns = new String[]{"Date","BUID","CampaignID","CampaignName","CampaignFlightdateStart","CampaignFlightdateEnd",
                 "AccountManagerID","CampaignStatus","AdvertiserSourceID","AdvertiserSourceName","CampaignTargetID",
                 "CampaignTargetName","CampaignTargetFlightdateStart","CampaignTargetFlightdateEnd","CampaignTargetStatus",
-                "CreativeID","CreativeName","CreativeMessageID","CreativeMessageName","CreativeSizeID","AdserverPlacementID",
-                "AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","Impressions","Clicks","Cost","MediaCosteCPM",
-                "3rdPartyCPMRate","3rdPartyCost","TotalCost","TotalCosteCPM","ClientdCPMRate","ClientSpend","ClientdCPM"};
+                "CreativeID","CreativeName","CreativeMessageID","CreativeMessageName","CreativeSize","AdserverPlacementID",
+                "AdserverPlacementName","IntegrationID","IntegrationName","CurrencyCode","SiteURL","Impressions","Clicks","Cost","ThirdPartyCPMRate",
+                "ThirdPartyCost","TotalCost","ClientdCPMRate","ClientSpend"};
         mapper.setColumnMapping(columns);
 
         CsvToBean<DomainDeliveryBean> csv = new CsvToBean<DomainDeliveryBean>();
@@ -630,7 +630,7 @@ public class DatoramaCSVUtil {
             lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getCreativeMessageName());
             lineItem.append(delimiter);
-            lineItem.append(domainDeliveryList.get(i).getPlacementPixelSize());
+            lineItem.append(domainDeliveryList.get(i).getCreativeSize());
             lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getAdserverPlacementId());
             lineItem.append(delimiter);
@@ -654,21 +654,50 @@ public class DatoramaCSVUtil {
             lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getCost());
             lineItem.append(delimiter);
-            lineItem.append(domainDeliveryList.get(i).getMediaCosteCPM());
-            lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getThirdPartyCost());
             lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getTotalCost());
             lineItem.append(delimiter);
-            lineItem.append(domainDeliveryList.get(i).getTotalCosteCPM());
-            lineItem.append(delimiter);
             lineItem.append(domainDeliveryList.get(i).getClientSpend());
             lineItem.append(delimiter);
-            lineItem.append(domainDeliveryList.get(i).getClientdCPM());
+            if (i == 0) {
+                lineItem.append("Third_Party_Rate");
+                lineItem.append(delimiter);
+                lineItem.append("Client_Rate");
+
+            } else{
+                String thirdPartyRate = getCalculatedThirdPartyRate(domainDeliveryList.get(i).getThirdPartyCost(), domainDeliveryList.get(i).getImpressions());
+                lineItem.append(thirdPartyRate);
+                lineItem.append(delimiter);
+                lineItem.append(getCalculatedClientRate(domainDeliveryList.get(i).getClientSpend(), domainDeliveryList.get(i).getTotalCost()));
+            }
 
             domainDeliveryModifiedList.add(lineItem.toString());
         }
         return domainDeliveryModifiedList;
+    }
+
+    public static String getCalculatedClientRate(String clientSpend, String totalCost) {
+        Double clientSpendDouble = Double.parseDouble(clientSpend);
+        Double totalCostDouble = Double.parseDouble(totalCost);
+        if (clientSpendDouble > 0){
+                Double clientRate = (clientSpendDouble - totalCostDouble)/clientSpendDouble;
+                return Double.toString(clientRate);
+        } else{
+            return "0";
+        }
+    }
+
+    public static String getCalculatedThirdPartyRate(String thirdPartyCost, String impressions) {
+        Double thirdPartyCostDouble = thirdPartyCost!=null?Double.parseDouble(thirdPartyCost):null;
+        Double impressionsDouble = impressions!=null?Double.parseDouble(impressions):null;
+        Double calculatedThirdPartyRate = (impressions!=null)&&(thirdPartyCost!=null)?(thirdPartyCostDouble * 1000) / impressionsDouble:null;
+        if (calculatedThirdPartyRate!=null){
+            return Double.toString(calculatedThirdPartyRate);
+        } else{
+            return "0";
+        }
+
     }
 
     public static DeliveryMetrics getDomainDeliveryMeasurementTotal(String fileName, char separator) throws FileNotFoundException {
