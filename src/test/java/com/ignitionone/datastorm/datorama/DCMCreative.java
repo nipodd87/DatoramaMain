@@ -59,10 +59,12 @@ public class DCMCreative extends BaseClass{
         List<String> jobStreamStatusList = parser.convertJsonToList(jsonObject2);
 
         //Get the Status Value into class variables
-        String statusResult[] = jobStreamStatusList.get(1).split(DELIMITER);
+/*        String statusResult[] = jobStreamStatusList.get(1).split(DELIMITER);
         reportStartDate=statusResult[1];
         reportEndDate=statusResult[2];
-        recordCount = Integer.parseInt(statusResult[3].replace(".0", ""));
+        recordCount = Integer.parseInt(statusResult[3].replace(".0", ""));*/
+        reportStartDate="2017-03-20";
+        reportEndDate="2017-03-20";
 
         //Initialize the Dfareporting object from the DfaReportingFactory
         Dfareporting reporting = DfaReportingFactory.getInstance();
