@@ -23,7 +23,7 @@ public class DomainDeliveryBean {
     private String creativeName;
     private String creativeMessageId;
     private String creativeMessageName;
-    private String placementPixelSize;
+    private String creativeSize;
     private String adserverPlacementId;
     private String adserverPlacementName;
     private String integrationId;
@@ -33,6 +33,59 @@ public class DomainDeliveryBean {
     private String impressions;
     private String clicks;
     private String cost;
+    private String thirdPartyCPMRate;
+    private String thirdPartyCost;
+    private String totalCost;
+    private String clientdCPMRate;
+    private String clientSpend;
+
+    public String getCreativeSize() {
+        return creativeSize;
+    }
+
+    public void setCreativeSize(String creativeSize) {
+        this.creativeSize = creativeSize;
+    }
+
+    public String getThirdPartyCPMRate() {
+        return thirdPartyCPMRate;
+    }
+
+    public void setThirdPartyCPMRate(String thirdPartyCPMRate) {
+        this.thirdPartyCPMRate = thirdPartyCPMRate;
+    }
+
+    public String getThirdPartyCost() {
+        return thirdPartyCost;
+    }
+
+    public void setThirdPartyCost(String thirdPartyCost) {
+        this.thirdPartyCost = thirdPartyCost;
+    }
+
+    public String getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(String totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public String getClientdCPMRate() {
+        return clientdCPMRate;
+    }
+
+    public void setClientdCPMRate(String clientdCPMRate) {
+        this.clientdCPMRate = clientdCPMRate;
+    }
+
+    public String getClientSpend() {
+        return clientSpend;
+    }
+
+    public void setClientSpend(String clientSpend) {
+        this.clientSpend = clientSpend;
+    }
 
     public String getDate() {
         return date;
@@ -186,12 +239,6 @@ public class DomainDeliveryBean {
         this.creativeMessageName = creativeMessageName;
     }
 
-    public String getPlacementPixelSize() { return placementPixelSize; }
-
-    public void setPlacementPixelSize(String placementPixelSize) {
-        this.placementPixelSize = placementPixelSize;
-    }
-
     public String getAdserverPlacementId() {
         return adserverPlacementId;
     }
@@ -263,4 +310,5 @@ public class DomainDeliveryBean {
     public void setCost(String cost) {
         this.cost = cost;
     }
+
 }
