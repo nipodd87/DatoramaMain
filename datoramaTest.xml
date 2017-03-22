@@ -2,7 +2,7 @@
     <test name = "Datorama Hierarchical Tests">
         <parameter name="environment" value="dev" />
         <classes>
-            <class name="com.ignitionone.datastorm.datorama.DCMCreative"/>
+            <class name="com.ignitionone.datastorm.datorama.DomainDeliveryS3ToDatorama"/>
 
         </classes>
     </test>
