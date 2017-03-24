@@ -2,8 +2,12 @@
     <test name = "Datorama Hierarchical Tests">
         <parameter name="environment" value="dev" />
         <classes>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryHierarchyPlacementId"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryAdvertiserHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeDeliveryCreativeHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeConversionAdvertiserHierarchy"/>
+            <class name="com.ignitionone.datastorm.datorama.CreativeConversionCreativeHierarchy"/>
             <class name="com.ignitionone.datastorm.datorama.DomainDeliveryS3ToDatorama"/>
-
         </classes>
     </test>
 </suite>

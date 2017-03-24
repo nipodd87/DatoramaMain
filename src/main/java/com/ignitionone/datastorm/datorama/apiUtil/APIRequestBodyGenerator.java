@@ -51,7 +51,7 @@ public class APIRequestBodyGenerator {
     }
 
     public static String getCreativeDeliveryLevelCreative(String startDate, String endDate, String brandId) {
-        return "[{\"brandId\": \""+brandId+"\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\":[{\"name\": \"Impressions (IOne)\"},{\"name\": \"Media Cost (IOne)\"},{\"name\": \"Clicks (IOne)\"}],\"dimensions\": [\"Creative ID\"],\"groupDimensionFilters\": [{\"vals\":[\"Creative Delivery\"],\"dimension\":\"Data Set\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Creative ID\",\"sortOrder\": \"ASC\",\"topResults\": \"500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
+        return "[{\"brandId\": \""+brandId+"\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\":[{\"name\": \"Impressions (IOne)\"},{\"name\": \"Media Cost (IOne)\"},{\"name\": \"Clicks (IOne)\"}],\"dimensions\": [\"Creative ID\"],\"groupDimensionFilters\": [{\"vals\":[\"Creative Delivery\"],\"dimension\":\"Data Set\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Creative ID\",\"sortOrder\": \"ASC\",\"topResults\": \"2500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
     }
 
     public static String getCreativeConversionLevelCampaignTarget(String startDate, String endDate, String brandId) {
@@ -71,7 +71,11 @@ public class APIRequestBodyGenerator {
     }
 
     public static String getCreativeDeliveryLevelAdvertiser(String startDate, String endDate, String brandId) {
-        return "[{\"brandId\": \""+brandId+"\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\":[{\"name\": \"Impressions (IOne)\"},{\"name\": \"Media Cost (IOne)\"},{\"name\": \"Clicks (IOne)\"}],\"dimensions\": [\"Advertiser ID\"],\"groupDimensionFilters\": [{\"vals\":[\"Creative Delivery\"],\"dimension\":\"Data Set\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Advertiser ID\",\"sortOrder\": \"ASC\",\"topResults\": \"500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
+        return "[{\"brandId\": \""+brandId+"\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\":[{\"name\": \"Impressions (IOne)\"},{\"name\": \"Media Cost (IOne)\"},{\"name\": \"Clicks (IOne)\"}],\"dimensions\": [\"Advertiser ID\"],\"groupDimensionFilters\": [{\"vals\":[\"Creative Delivery\"],\"dimension\":\"Data Set\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Advertiser ID\",\"sortOrder\": \"ASC\",\"topResults\": \"2500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
+    }
+
+    public static String getCreativeDeliveryLevelPublisher(String startDate, String endDate, String brandId) {
+        return "[{\"brandId\": \""+brandId+"\",\"dateRange\": \"CUSTOM\",\"startDate\": \"" + startDate + "\",\"endDate\": \"" + endDate + "\",\"measurements\":[{\"name\": \"Impressions (IOne)\"},{\"name\": \"Media Cost (IOne)\"},{\"name\": \"Clicks (IOne)\"}],\"dimensions\": [\"Adserver Placement ID\"],\"groupDimensionFilters\": [{\"vals\":[\"Creative Delivery\"],\"dimension\":\"Data Set\",\"operator\": \"IN\"}],\"stringDimensionFilters\": [],\"stringDimensionFiltersOperator\": \"AND\",\"numberDimensionFiltersOperator\": \"AND\",\"numberMeasurementFilter\": [],\"sortBy\": \"Adserver Placement ID\",\"sortOrder\": \"ASC\",\"topResults\": \"2500\",\"groupOthers\": false,\"topPerDimension\": false,\"totalDimensions\": []}]";
     }
 
     public static String getCreativeDeliveryLevelCampaign(String startDate, String endDate, String brandId) {
